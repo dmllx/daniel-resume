@@ -5,9 +5,7 @@
   <title>Daniel P. Mailloux - Resume</title>
   <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    /************************************************
-     *       Base Colors & Light Mode Overrides       *
-     ************************************************/
+    /* Base Color Variables (Dark Mode) */
     :root {
       --primary: #007bff;
       --secondary: #00c6ff;
@@ -21,21 +19,8 @@
       --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
       --body-grad: linear-gradient(180deg, #000 0%, #111 60%, var(--secondary) 100%);
     }
-    :root.light-mode {
-      /* Use softer backgrounds for light mode */
-      --dark-bg: #f7f7f7;
-      --darker-bg: #eaeaea;
-      --text-main: #333333;
-      --text-sub: #666666;
-      --text-light: #888888;
-      
-      --header-grad: linear-gradient(135deg, #a8eaff, #e0f7ff);
-      --body-grad: linear-gradient(180deg, #fff 0%, #f7f7f7 60%, #e0f7ff 100%);
-    }
 
-    /************************************************
-     *                Base & Global Styles          *
-     ************************************************/
+    /* Global Resets & Base Styles */
     html, body {
       margin: 0;
       padding: 0;
@@ -46,55 +31,10 @@
       line-height: 1.6;
       background: var(--body-grad);
       color: var(--text-main);
-      transition: background 0.3s ease, color 0.3s ease;
       min-height: 100vh;
     }
 
-    /************************************************
-     *                Navbar (Sticky)               *
-     ************************************************/
-    .navbar {
-      position: sticky;
-      top: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: var(--darker-bg);
-      padding: 10px 20px;
-      z-index: 999;
-    }
-    .navbar a {
-      color: var(--text-main);
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-    .navbar a:hover {
-      color: var(--secondary);
-    }
-
-    /************************************************
-     *       Dark/Light Mode Toggle (Modern)        *
-     ************************************************/
-    .toggle-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: transparent;
-      color: var(--text-main);
-      font-size: 1.8em;
-      cursor: pointer;
-      z-index: 1000;
-      transition: color 0.3s ease;
-    }
-    .toggle-container:hover {
-      color: var(--secondary);
-    }
-
-    /************************************************
-     *         Resume Container & Header            *
-     ************************************************/
+    /* Resume Container & Header */
     .resume {
       width: 100vw;
       max-width: 100%;
@@ -109,7 +49,6 @@
       padding: 30px 20px;
       background: var(--header-grad);
       color: #fff;
-      transition: background 0.3s ease;
     }
     .header h1 {
       margin: 0;
@@ -130,9 +69,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
-    /************************************************
-     *                Sections                      *
-     ************************************************/
+    /* Sections */
     .sections {
       padding: 20px;
     }
@@ -145,12 +82,9 @@
       margin-bottom: 10px;
       border-bottom: 2px solid #333;
       padding-bottom: 5px;
-      transition: color 0.3s ease;
     }
 
-    /************************************************
-     *              Contact Section                 *
-     ************************************************/
+    /* Contact Section */
     .section.contact {
       display: flex;
       flex-direction: column;
@@ -177,9 +111,7 @@
       transition: transform 0.3s ease;
     }
 
-    /************************************************
-     *           Professional Attributes            *
-     ************************************************/
+    /* Professional Attributes Section */
     .attributes {
       background: var(--darker-bg);
       border: 1px solid var(--secondary);
@@ -207,9 +139,7 @@
       color: var(--secondary);
     }
 
-    /************************************************
-     *                Skills Section                *
-     ************************************************/
+    /* Skills Section with Progress Bars */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -254,7 +184,6 @@
         margin-top: 10px;
       }
     }
-    /* Progress Bar */
     .progress-bar {
       width: 100%;
       background: #333;
@@ -272,9 +201,7 @@
       transition: width 1s ease;
     }
 
-    /************************************************
-     *          Certifications Section              *
-     ************************************************/
+    /* Certifications Section */
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -323,9 +250,7 @@
       }
     }
 
-    /************************************************
-     *            Experience / Timeline             *
-     ************************************************/
+    /* Experience / Timeline Section */
     .timeline-container {
       position: relative;
       overflow-x: auto;
@@ -409,9 +334,7 @@
       cursor: -webkit-grabbing;
     }
 
-    /************************************************
-     *              Education Section               *
-     ************************************************/
+    /* Education Section */
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -429,7 +352,6 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: center;
     }
     .education-item:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
@@ -448,26 +370,21 @@
       font-size: 1em;
       margin: 5px 0 0;
     }
+    /* Remove extra box styling from details; they now just appear inline */
     .education-details {
-      background: var(--darker-bg);
-      padding: 10px 15px;
-      margin-top: 10px;
-      border-left: 3px solid var(--secondary);
-      border-radius: 4px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      padding-top: 10px;
+      border-top: 1px solid var(--secondary);
+      transition: max-height 0.4s ease, opacity 0.4s ease;
       max-height: 0;
       opacity: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease, opacity 0.4s ease;
     }
     .education-item.active .education-details {
-      max-height: 150px;
+      max-height: 200px;
       opacity: 1;
     }
 
-    /************************************************
-     *         Mobile Responsiveness                *
-     ************************************************/
+    /* Mobile Responsiveness */
     @media screen and (max-width: 768px) {
       .sections {
         padding: 15px;
@@ -487,22 +404,11 @@
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <div class="navbar">
-    <a href="#contact">Contact</a>
-    <a href="#skills">Skills</a>
-    <a href="#attributes">Attributes</a>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#certifications">Certifications</a>
-  </div>
-
-  <!-- Dark/Light Mode Toggle Button -->
-  <div class="toggle-container" id="theme-toggle">☀</div>
+  <!-- Removed Navbar and Dark/Light Mode Toggle -->
 
   <div class="resume">
     <div class="header">
-      <!-- Replace 'daniel.jpeg' with the correct image file in your repository -->
+      <!-- Replace 'daniel.jpeg' with the correct path to your image -->
       <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
       <h1>Daniel P. Mailloux</h1>
       <h2>Financial Economist &amp; Strategist</h2>
@@ -647,7 +553,8 @@
       <div class="section education" id="education">
         <h2>Education</h2>
         <div class="timeline-container" id="educationTimeline">
-          <div class="timeline">
+          <div class="timeline education-grid">
+            <!-- Wichita State University Preview -->
             <div class="education-item">
               <div class="education-header">
                 <p class="education-title">Wichita State University</p>
@@ -661,6 +568,7 @@
                 </ul>
               </div>
             </div>
+            <!-- Hutchinson Community College Preview -->
             <div class="education-item">
               <div class="education-header">
                 <p class="education-title">Hutchinson Community College</p>
@@ -718,19 +626,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Dark/Light Mode Toggle Script -->
-  <script>
-    const toggleButton = document.getElementById("theme-toggle");
-    toggleButton.addEventListener("click", () => {
-      document.documentElement.classList.toggle("light-mode");
-      if (document.documentElement.classList.contains("light-mode")) {
-        toggleButton.textContent = "🌙";
-      } else {
-        toggleButton.textContent = "☀";
-      }
-    });
-  </script>
 
   <!-- Interaction Scripts for Dynamic Gradients and Expanding Items -->
   <script>
