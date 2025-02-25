@@ -199,7 +199,7 @@
       transition: width 1s ease;
     }
 
-    /* Certifications Section - Organized Grid */
+    /* Certifications Section */
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -220,7 +220,7 @@
     .certification-item:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--primary));
       transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
     .certification-acronym {
       font-size: 1.1em;
@@ -248,7 +248,7 @@
       }
     }
 
-    /* Experience / Timeline Section */
+    /* Experience / Timeline Section with Timeline Axis & Markers */
     .timeline-container {
       position: relative;
       overflow-x: auto;
@@ -260,9 +260,20 @@
       display: none;
     }
     .timeline {
+      position: relative;
       display: inline-flex;
       gap: 20px;
-      position: relative;
+    }
+    /* Timeline axis line */
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--secondary);
+      z-index: 0;
     }
     .job {
       background: var(--darker-bg);
@@ -280,13 +291,26 @@
       flex-direction: column;
       justify-content: center;
       z-index: 1;
-      opacity: 0; /* start hidden for fade-in */
+      opacity: 0;
       transform: translateY(20px);
     }
     .job.visible {
       opacity: 1;
       transform: translateY(0);
       transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .job::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: var(--secondary);
+      border: 2px solid var(--dark-bg);
+      border-radius: 50%;
+      z-index: 2;
     }
     .job:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
@@ -336,22 +360,7 @@
       margin: 10px 0 0 20px;
     }
 
-    /* Scroll Indicator for Timeline */
-    .scroll-indicator {
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      font-size: 2em;
-      color: var(--text-light);
-      animation: pulse 2s infinite;
-      pointer-events: none;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.7; transform: translateX(0); }
-      50% { opacity: 1; transform: translateX(5px); }
-    }
-
-    /* Education Section (Unified Preview) */
+    /* Education Section (Unified Preview, Less Elongated) */
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -387,7 +396,7 @@
       font-size: 1em;
       margin: 5px 0 0;
     }
-    /* Education details appear inline below the preview */
+    /* Details appear inline, expanding the box */
     .education-details {
       padding-top: 10px;
       border-top: 1px solid var(--secondary);
@@ -423,7 +432,7 @@
 <body>
   <div class="resume">
     <div class="header">
-      <!-- Replace 'daniel.jpeg' with the correct image path -->
+      <!-- Replace 'daniel.jpeg' with your correct image path -->
       <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
       <h1>Daniel P. Mailloux</h1>
       <h2>Financial Economist &amp; Strategist</h2>
@@ -506,7 +515,7 @@
       <div class="section experience" id="experience">
         <h2>Experience</h2>
         <div class="timeline-container">
-          <!-- Scroll Indicator for Timeline -->
+          <!-- Scroll indicator to hint at horizontal movement -->
           <div class="scroll-indicator">→</div>
           <div class="timeline">
             <div class="job">
@@ -798,7 +807,6 @@
         }
       });
     }, { threshold: 0.3 });
-
     jobs.forEach(job => {
       jobObserver.observe(job);
     });
