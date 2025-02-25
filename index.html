@@ -33,13 +33,14 @@
      *         Resume Container & Header            *
      ************************************************/
     .resume {
-      max-width: 900px;
-      margin: 30px auto 60px;
-      background: var(--dark-bg);
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      overflow: visible;
-    }
+    width: 100vw; /* Full viewport width */
+    max-width: 100%; /* Remove restriction */
+    margin: 0;
+    background: var(--dark-bg);
+    border-radius: 0; /* Remove rounded edges */
+    box-shadow: none; /* Remove box-shadow to blend with background */
+    overflow: visible;
+}
     .header {
       text-align: center;
       padding: 30px 20px;
