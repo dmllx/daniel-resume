@@ -481,8 +481,66 @@
     <a href="#certifications">Certifications</a>
   </div>
 
-  <!-- Dark/Light Mode Toggle Button -->
-  <div class="toggle-container" id="theme-toggle">☀️ Light Mode</div>
+<!-- Dark/Light Mode Toggle Button (placed near the top) -->
+<div class="toggle-container" id="theme-toggle">☀</div>
+
+<style>
+  /* Dark/Light Mode Toggle Styles */
+  .toggle-container {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    color: var(--text-main);
+    font-size: 1.8em;
+    cursor: pointer;
+    z-index: 1000;
+    transition: color 0.3s ease;
+  }
+  .toggle-container:hover {
+    color: var(--secondary);
+  }
+  
+  /* Dark mode variables are defined in :root; light mode variables are in :root.light-mode */
+  :root {
+    --primary: #007bff;
+    --secondary: #00c6ff;
+
+    --dark-bg: #1a1a1a;
+    --darker-bg: #111;
+    --text-main: #fff;
+    --text-sub: #bbb;
+    --text-light: #ccc;
+
+    --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
+    --body-grad: linear-gradient(180deg, #000 0%, #111 60%, var(--secondary) 100%);
+  }
+  :root.light-mode {
+    --dark-bg: #ffffff;
+    --darker-bg: #f8f9fa;
+    --text-main: #000;
+    --text-sub: #555;
+    --text-light: #333;
+
+    --header-grad: linear-gradient(135deg, #62b0ff, #a8eeff);
+    --body-grad: linear-gradient(180deg, #fff 0%, #f8f9fa 60%, #a8eeff 100%);
+  }
+</style>
+
+<script>
+  // Dark/Light Mode Toggle Script
+  const toggleButton = document.getElementById("theme-toggle");
+  toggleButton.addEventListener("click", () => {
+    // Toggle the "light-mode" class on the <html> element
+    document.documentElement.classList.toggle("light-mode");
+    // Update the button icon: show sun for dark mode, moon for light mode
+    if (document.documentElement.classList.contains("light-mode")) {
+      toggleButton.textContent = "🌙";  // now in light mode so offer moon for switching back to dark
+    } else {
+      toggleButton.textContent = "☀";  // in dark mode so show sun icon
+    }
+  });
+</script>
 
   <div class="resume">
     <div class="header">
