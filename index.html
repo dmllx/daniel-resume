@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daniel P. Mailloux - Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      /* Accent Colors */
+      --primary: #007bff;
+      --secondary: #00c6ff;
+      
+      /* Dark Mode Colors */
+      --dark-bg: #1a1a1a;
+      --darker-bg: #111;
+      --text-main: #fff;
+      --text-sub: #bbb;
+      --text-light: #ccc;
+    }
+    /* Base Reset */
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(180deg, #000 0%, #111 60%, var(--secondary) 100%);
+      color: var(--text-main);
+    }
+
+    /************************************************
+     *         Resume Container & Header            *
+     ************************************************/
+    .resume {
+      max-width: 900px;
+      margin: 30px auto 60px;
+      background: var(--dark-bg);
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      overflow: visible;
+    }
+    .header {
+      text-align: center;
+      padding: 30px 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 8px 8px 0 0;
+      color: #fff;
+    }
+    .header h1 {
+      margin: 0;
+      font-family: 'SF Pro Display', sans-serif;
+      font-size: 2.5em;
+    }
+    .header h2 {
+      margin: 5px 0 0;
+      font-size: 1.2em;
+    }
+    .logo {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  /* New property to position the image */
+  object-position: 50% 30%; /* Adjust these values as needed */
+}
+    .sections {
+      padding: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section h2 {
+      color: var(--secondary);
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 5px;
+    }
+
+    /************************************************
+     *              Contact Section                 *
+     ************************************************/
+    .section.contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .contact {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .contact a {
+      color: var(--text-light);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.3s ease;
+    }
+    .contact a:hover .icon {
+      transform: scale(1.2);
+    }
+    .icon {
+      transition: transform 0.3s ease;
+    }
+
+    /************************************************
+     *           Professional Attributes            *
+     ************************************************/
+    .attributes {
+      background: var(--darker-bg);
+      border: 1px solid var(--secondary);
+      border-radius: 6px;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      margin-bottom: 30px;
+    }
+    .attributes h3 {
+      margin-top: 0;
+      color: var(--secondary);
+      font-size: 1.2em;
+    }
+    .attributes ul {
+      list-style: disc;
+      margin-left: 20px;
+      color: var(--text-main);
+    }
+    .attributes li {
+      margin-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+    .attributes li:hover {
+      color: var(--secondary);
+    }
+
+    /************************************************
+     *                Skills Section                *
+     ************************************************/
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .skill-category {
+      background: var(--primary);
+      color: #fff;
+      padding: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      position: relative;
+    }
+    .skill-category:hover {
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--primary));
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
+    .skill-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .skill-details {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      margin-top: 0;
+    }
+    .skill-category.active .skill-details {
+      max-height: 150px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+    @media (hover: hover) {
+      .skill-category:hover .skill-details {
+        max-height: 150px;
+        opacity: 1;
+        margin-top: 10px;
+      }
+    }
+
+    /************************************************
+     *          Certifications Section              *
+     ************************************************/
+    .certifications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      text-align: center;
+    }
+    .certification-item {
+      background: var(--primary);
+      color: #fff;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 1px solid var(--secondary);
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .certification-item:hover {
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--primary));
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+    .certification-acronym {
+      font-size: 1.1em;
+    }
+    .certification-details {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      margin-top: 0;
+      font-size: 0.95em;
+      font-weight: normal;
+      color: #fff; /* match skills text style */
+    }
+    .certification-item.active .certification-details {
+      max-height: 100px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+    @media (hover: hover) {
+      .certification-item:hover .certification-details {
+        max-height: 100px;
+        opacity: 1;
+        margin-top: 10px;
+      }
+    }
+
+    /************************************************
+     *            Experience / Timeline             *
+     ************************************************/
+    .timeline-container {
+      position: relative;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 20px 10px;
+      margin: 0 -20px;
+    }
+    .timeline-container::-webkit-scrollbar {
+      display: none;
+    }
+    .timeline {
+      display: inline-flex;
+      gap: 20px;
+    }
+    .job {
+      background: var(--darker-bg);
+      color: #fff;
+      min-width: 280px;
+      flex: 0 0 auto;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 1;
+    }
+    .job:hover {
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
+      transform: translateY(-5px);
+      justify-content: flex-start;
+    }
+    .job.active {
+      justify-content: flex-start;
+    }
+    .job .job-header {
+      margin-bottom: 10px;
+      transition: margin-top 0.3s ease;
+    }
+    .job-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 0;
+    }
+    .company {
+      font-style: italic;
+      font-size: 0.95em;
+      margin: 0;
+      color: var(--text-sub);
+    }
+    .dates {
+      font-size: 0.9em;
+      color: var(--text-sub);
+    }
+    .job-details {
+      background: var(--darker-bg);
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-left: 3px solid var(--secondary);
+      border-radius: 4px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+    }
+    .job.active .job-details {
+      max-height: 300px;
+      opacity: 1;
+    }
+    .job-details ul {
+      list-style: disc;
+      margin: 10px 0 0 20px;
+    }
+    .timeline-container.active {
+      cursor: grabbing;
+      cursor: -webkit-grabbing;
+    }
+
+    /************************************************
+     *              Education Section               *
+     ************************************************/
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .education-item {
+      background: var(--darker-bg);
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .education-item:hover {
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
+      transform: translateY(-5px);
+    }
+    .education-header {
+      margin-bottom: 10px;
+      transition: margin-top 0.3s ease;
+    }
+    .education-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 0;
+    }
+    .education-details {
+      background: var(--darker-bg);
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-left: 3px solid var(--secondary);
+      border-radius: 4px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+    }
+    .education-item.active .education-details {
+      max-height: 150px;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="resume">
+    <div class="header">
+      <!-- Replace headshot.jpg with the actual path/URL to your image -->
+      <img class="logo" src="/Users/dannymailloux/Desktop/dpm resume/daniel.jpeg" alt="Daniel P. Mailloux Photo" />
+      <h1>Daniel P. Mailloux</h1>
+      <h2>Financial Economist &amp; Strategist</h2>
+    </div>
+
+    <div class="sections">
+      <!-- Contact Section -->
+      <div class="section contact">
+        <h2>Contact</h2>
+        <div class="contact">
+          <!-- Replace with your actual contact links as needed -->
+          <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+            </svg>
+            Wichita, KS
+          </a>
+          <a href="mailto:mailloux.daniel@gmail.com">
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            mailloux.daniel@gmail.com
+          </a>
+          <a href="tel:6204740124">
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/>
+            </svg>
+            (620) 474-0124
+          </a>
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="section skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <div class="skill-title">Professional</div>
+            <div class="skill-details">
+              Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.
+            </div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-title">Technical</div>
+            <div class="skill-details">
+              Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.
+            </div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-title">Financial</div>
+            <div class="skill-details">
+              Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professional Attributes Section -->
+      <div class="section attributes">
+        <h2>Professional Attributes</h2>
+        <h3>What I Bring</h3>
+        <ul>
+          <li>Creative problem-solver with an innovative mindset</li>
+          <li>Strategic thinker with strong analytical skills</li>
+          <li>Adaptable and collaborative team player</li>
+          <li>Results-driven with excellent interpersonal abilities</li>
+          <li>Passionate about continuous learning and improvement</li>
+        </ul>
+      </div>
+
+      <!-- Experience Section (Timeline) -->
+      <div class="section experience">
+        <h2>Experience</h2>
+        <div class="timeline-container" id="timelineContainer">
+          <div class="timeline">
+            <div class="job">
+              <div class="job-header">
+                <p class="job-title">Personal Financial Manager</p>
+                <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
+              </div>
+              <div class="job-details">
+                <ul>
+                  <li>Manage personal investment portfolio with 40% annual growth.</li>
+                  <li>Develop comprehensive financial planning strategies using economic forecasts.</li>
+                  <li>Manage financial records, maintaining accuracy in payables and receivables.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="job">
+              <div class="job-header">
+                <p class="job-title">Universal Banker</p>
+                <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
+              </div>
+              <div class="job-details">
+                <ul>
+                  <li>Processed 100+ daily transactions with 100% accuracy.</li>
+                  <li>Resolved discrepancies to improve account accuracy by 40%.</li>
+                  <li>Streamlined accounts payable/receivable procedures for consistent, accurate processing.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="job">
+              <div class="job-header">
+                <p class="job-title">Account Administrator</p>
+                <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
+              </div>
+              <div class="job-details">
+                <ul>
+                  <li>Managed 10+ retirement accounts totaling over $3B.</li>
+                  <li>Verified 5,000+ participant accounts for ERISA/IRS compliance.</li>
+                  <li>Oversaw accounts receivable operations, reconciling invoices and ensuring regulatory compliance.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="job">
+              <div class="job-header">
+                <p class="job-title">Universal Banker I</p>
+                <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
+              </div>
+              <div class="job-details">
+                <ul>
+                  <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
+                  <li>Enhanced customer relations with strategic support initiatives.</li>
+                  <li>Handled accounts payable/receivable transactions for efficient daily operations.</li>
+                  <li>Quickly promoted by turning challenges into wins.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Section (Interactive Timeline) -->
+      <div class="section education">
+        <h2>Education</h2>
+        <div class="timeline-container" id="educationTimeline">
+          <div class="timeline">
+            <div class="education-item">
+              <div class="education-header">
+                <p class="education-title">Wichita State University</p>
+              </div>
+              <div class="education-details">
+                <p class="education-institution">Bachelor of Business Administration in Economics</p>
+                <p class="education-dates">Wichita, KS – Graduation Date: 2023</p>
+                <ul>
+                  <li>Business Senator - Student Government Association</li>
+                  <li>Dean’s List</li>
+                </ul>
+              </div>
+            </div>
+            <div class="education-item">
+              <div class="education-header">
+                <p class="education-title">Hutchinson Community College</p>
+              </div>
+              <div class="education-details">
+                <p class="education-institution">Associate of Science in Economics</p>
+                <p class="education-dates">Hutchinson, KS – Graduation Date: 2020</p>
+                <ul>
+                  <li>Dean’s List</li>
+                  <li>Dean’s Honor Roll</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications Section -->
+      <div class="section certifications">
+        <h2>Certifications &amp; Compliance Expertise</h2>
+        <div class="certifications-grid">
+          <div class="certification-item">
+            <div class="certification-acronym">HMDA</div>
+            <div class="certification-details">Home Mortgage Disclosure Act</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">ERISA</div>
+            <div class="certification-details">Employee Retirement Income Security Act</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">IRS</div>
+            <div class="certification-details">Internal Revenue Service</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">BSA</div>
+            <div class="certification-details">Bank Secrecy Act</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">CIP</div>
+            <div class="certification-details">Customer Identification Program</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">UDAAP</div>
+            <div class="certification-details">Unfair, Deceptive, or Abusive Acts &amp; Practices</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">Reg Z</div>
+            <div class="certification-details">Truth in Lending</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">Reg DD</div>
+            <div class="certification-details">Truth in Savings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**************************************************
+     * Dynamic Gradient for Skills Boxes
+     **************************************************/
+    const skillCategories = document.querySelectorAll('.skill-category');
+    skillCategories.forEach(category => {
+      category.addEventListener('pointermove', (e) => {
+        const rect = category.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        category.style.setProperty('--mouse-x', `${x}px`);
+        category.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+    skillCategories.forEach(category => {
+      category.addEventListener('click', (e) => {
+        e.stopPropagation();
+        category.classList.toggle('active');
+        skillCategories.forEach(other => {
+          if(other !== category && other.classList.contains('active')){
+            other.classList.remove('active');
+          }
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!category.contains(e.target)) {
+          category.classList.remove('active');
+        }
+      });
+    });
+
+    /**************************************************
+     * Dynamic Gradient for Timeline Job Boxes
+     **************************************************/
+    const jobBoxes = document.querySelectorAll('.job');
+    jobBoxes.forEach(job => {
+      job.addEventListener('pointermove', (e) => {
+        const rect = job.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        job.style.setProperty('--mouse-x', `${x}px`);
+        job.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+    const jobs = document.querySelectorAll('.job');
+    jobs.forEach(job => {
+      job.addEventListener('click', (e) => {
+        e.stopPropagation();
+        job.classList.toggle('active');
+        jobs.forEach(other => {
+          if(other !== job && other.classList.contains('active')){
+            other.classList.remove('active');
+          }
+        });
+      });
+    });
+
+    /**************************************************
+     * Dynamic Gradient for Certification Items
+     **************************************************/
+    const certItems = document.querySelectorAll('.certification-item');
+    certItems.forEach(cert => {
+      cert.addEventListener('pointermove', (e) => {
+        const rect = cert.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        cert.style.setProperty('--mouse-x', `${x}px`);
+        cert.style.setProperty('--mouse-y', `${y}px`);
+      });
+      cert.addEventListener('click', (e) => {
+        e.stopPropagation();
+        cert.classList.toggle('active');
+        certItems.forEach(other => {
+          if(other !== cert && other.classList.contains('active')){
+            other.classList.remove('active');
+          }
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!cert.contains(e.target)) {
+          cert.classList.remove('active');
+        }
+      });
+    });
+
+    /**************************************************
+     * Education Items Expand on Click/Hover
+     **************************************************/
+    const educationItems = document.querySelectorAll('.education-item');
+    educationItems.forEach(item => {
+      item.addEventListener('pointermove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        item.style.setProperty('--mouse-x', `${x}px`);
+        item.style.setProperty('--mouse-y', `${y}px`);
+      });
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        item.classList.toggle('active');
+        educationItems.forEach(other => {
+          if(other !== item && other.classList.contains('active')){
+            other.classList.remove('active');
+          }
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!item.contains(e.target)) {
+          item.classList.remove('active');
+        }
+      });
+    });
+
+    /**************************************************
+     * Horizontal Drag-to-Scroll for Timelines
+     **************************************************/
+    const timelineContainer = document.getElementById('timelineContainer');
+    if (timelineContainer) {
+      let isDown = false, startX, scrollLeft;
+      timelineContainer.addEventListener('mousedown', (e) => {
+        isDown = true;
+        timelineContainer.classList.add('active');
+        startX = e.pageX - timelineContainer.offsetLeft;
+        scrollLeft = timelineContainer.scrollLeft;
+      });
+      timelineContainer.addEventListener('mouseleave', () => {
+        isDown = false;
+        timelineContainer.classList.remove('active');
+      });
+      timelineContainer.addEventListener('mouseup', () => {
+        isDown = false;
+        timelineContainer.classList.remove('active');
+      });
+      timelineContainer.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - timelineContainer.offsetLeft;
+        const walk = (x - startX) * 2;
+        timelineContainer.scrollLeft = scrollLeft - walk;
+      });
+    }
+
+    const educationTimeline = document.getElementById('educationTimeline');
+    if (educationTimeline) {
+      let eduIsDown = false, eduStartX, eduScrollLeft;
+      educationTimeline.addEventListener('mousedown', (e) => {
+        eduIsDown = true;
+        educationTimeline.classList.add('active');
+        eduStartX = e.pageX - educationTimeline.offsetLeft;
+        eduScrollLeft = educationTimeline.scrollLeft;
+      });
+      educationTimeline.addEventListener('mouseleave', () => {
+        eduIsDown = false;
+        educationTimeline.classList.remove('active');
+      });
+      educationTimeline.addEventListener('mouseup', () => {
+        eduIsDown = false;
+        educationTimeline.classList.remove('active');
+      });
+      educationTimeline.addEventListener('mousemove', (e) => {
+        if (!eduIsDown) return;
+        e.preventDefault();
+        const x = e.pageX - educationTimeline.offsetLeft;
+        const walk = (x - eduStartX) * 2;
+        educationTimeline.scrollLeft = eduScrollLeft - walk;
+      });
+    }
+  </script>
+</body>
+</html>
