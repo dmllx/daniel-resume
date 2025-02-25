@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <title>Daniel P. Mailloux - Resume</title>
   <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-
   <style>
-    /* Base color variables for dark mode */
+    /************************************************
+     *          Color Variables & Light Mode         *
+     ************************************************/
     :root {
       --primary: #007bff;
       --secondary: #00c6ff;
@@ -20,8 +21,6 @@
       --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
       --body-grad: linear-gradient(180deg, #000 0%, #111 60%, var(--secondary) 100%);
     }
-
-    /* Light mode overrides */
     :root.light-mode {
       --dark-bg: #ffffff;
       --darker-bg: #f8f9fa;
@@ -33,11 +32,13 @@
       --body-grad: linear-gradient(180deg, #fff 0%, #f8f9fa 60%, #a8eeff 100%);
     }
 
-    /* Global resets and base styles */
+    /************************************************
+     *               Base & Global Styles           *
+     ************************************************/
     html, body {
       margin: 0;
       padding: 0;
-      scroll-behavior: smooth; /* For smooth scrolling between sections */
+      scroll-behavior: smooth; /* Smooth scrolling to sections */
     }
     body {
       font-family: 'Roboto', sans-serif;
@@ -48,7 +49,9 @@
       min-height: 100vh;
     }
 
-    /* Navigation bar at the top */
+    /************************************************
+     *                Navbar (Sticky)               *
+     ************************************************/
     .navbar {
       position: sticky;
       top: 0;
@@ -70,7 +73,9 @@
       color: var(--secondary);
     }
 
-    /* Toggle Button for Light/Dark Mode */
+    /************************************************
+     *     Dark/Light Mode Toggle (Fixed Button)    *
+     ************************************************/
     .toggle-container {
       position: fixed;
       top: 10px;
@@ -88,10 +93,12 @@
       background: var(--secondary);
     }
 
-    /* Resume Container & Header */
+    /************************************************
+     *         Resume Container & Header            *
+     ************************************************/
     .resume {
       width: 100vw; 
-      max-width: 100%; 
+      max-width: 100%;
       margin: 0;
       background: var(--dark-bg);
       border-radius: 0;
@@ -124,7 +131,6 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
-    /* Sections */
     .sections {
       padding: 20px;
     }
@@ -140,7 +146,9 @@
       transition: color 0.3s ease;
     }
 
-    /* Contact Section */
+    /************************************************
+     *              Contact Section                 *
+     ************************************************/
     .section.contact {
       display: flex;
       flex-direction: column;
@@ -167,7 +175,9 @@
       transition: transform 0.3s ease;
     }
 
-    /* Professional Attributes */
+    /************************************************
+     *           Professional Attributes            *
+     ************************************************/
     .attributes {
       background: var(--darker-bg);
       border: 1px solid var(--secondary);
@@ -195,7 +205,9 @@
       color: var(--secondary);
     }
 
-    /* Skills Section */
+    /************************************************
+     *                Skills Section                *
+     ************************************************/
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -240,8 +252,27 @@
         margin-top: 10px;
       }
     }
+    /* Animated progress bar styling */
+    .progress-bar {
+      width: 100%;
+      background: #333;
+      height: 8px;
+      border-radius: 4px;
+      margin: 10px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--secondary);
+      width: 0; /* Start at 0, animate in JS if desired */
+      border-radius: 4px;
+      transition: width 1s ease;
+    }
 
-    /* Certifications Section */
+    /************************************************
+     *          Certifications Section              *
+     ************************************************/
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -282,15 +313,10 @@
       opacity: 1;
       margin-top: 10px;
     }
-    @media (hover: hover) {
-      .certification-item:hover .certification-details {
-        max-height: 100px;
-        opacity: 1;
-        margin-top: 10px;
-      }
-    }
 
-    /* Experience / Timeline */
+    /************************************************
+     *            Experience / Timeline             *
+     ************************************************/
     .timeline-container {
       position: relative;
       overflow-x: auto;
@@ -370,7 +396,9 @@
       margin: 10px 0 0 20px;
     }
 
-    /* Education Section */
+    /************************************************
+     *              Education Section               *
+     ************************************************/
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -420,7 +448,9 @@
       opacity: 1;
     }
 
-    /* Media Query for Better Mobile Support */
+    /************************************************
+     *        Mobile Responsiveness (<=768px)       *
+     ************************************************/
     @media screen and (max-width: 768px) {
       .sections {
         padding: 15px;
@@ -456,7 +486,7 @@
 
   <div class="resume">
     <div class="header">
-      <!-- Replace daniel.jpeg with your actual image path -->
+      <!-- Replace 'daniel.jpeg' with your actual image path -->
       <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
       <h1>Daniel P. Mailloux</h1>
       <h2>Financial Economist &amp; Strategist</h2>
@@ -492,20 +522,33 @@
       <div class="section skills" id="skills">
         <h2>Skills</h2>
         <div class="skills-grid">
+          <!-- Example skill with a progress bar at 90% -->
           <div class="skill-category">
-            <div class="skill-title">Professional</div>
+            <div class="skill-title">Professional (90%)</div>
+            <!-- Progress bar container -->
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 90%;"></div>
+            </div>
             <div class="skill-details">
               Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.
             </div>
           </div>
+
           <div class="skill-category">
-            <div class="skill-title">Technical</div>
+            <div class="skill-title">Technical (85%)</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 85%;"></div>
+            </div>
             <div class="skill-details">
               Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.
             </div>
           </div>
+
           <div class="skill-category">
-            <div class="skill-title">Financial</div>
+            <div class="skill-title">Financial (90%)</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 90%;"></div>
+            </div>
             <div class="skill-details">
               Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.
             </div>
@@ -596,9 +639,10 @@
             <div class="education-item">
               <div class="education-header">
                 <p class="education-title">Wichita State University</p>
+                <!-- Show only these lines in preview -->
+                <p class="education-institution">Bachelor of Business Administration in Economics</p>
               </div>
               <div class="education-details">
-                <p class="education-institution">Bachelor of Business Administration in Economics</p>
                 <p class="education-dates">Wichita, KS – Graduation Date: 2023</p>
                 <ul>
                   <li>Business Senator - Student Government Association</li>
@@ -609,9 +653,9 @@
             <div class="education-item">
               <div class="education-header">
                 <p class="education-title">Hutchinson Community College</p>
+                <p class="education-institution">Associate of Science in Economics</p>
               </div>
               <div class="education-details">
-                <p class="education-institution">Associate of Science in Economics</p>
                 <p class="education-dates">Hutchinson, KS – Graduation Date: 2020</p>
                 <ul>
                   <li>Dean’s List</li>
@@ -664,12 +708,12 @@
     </div>
   </div>
 
-  <!-- Dark/Light Mode Toggle Logic -->
+  <!-- Dark/Light Mode Toggle Script -->
   <script>
     const toggleButton = document.getElementById("theme-toggle");
     toggleButton.addEventListener("click", () => {
-      document.body.classList.toggle("light-mode");
-      if (document.body.classList.contains("light-mode")) {
+      document.documentElement.classList.toggle("light-mode");
+      if (document.documentElement.classList.contains("light-mode")) {
         toggleButton.textContent = "🌙 Dark Mode";
       } else {
         toggleButton.textContent = "☀️ Light Mode";
@@ -677,7 +721,7 @@
     });
   </script>
 
-  <!-- Smooth Scroll & Dynamic Gradients for Interactions (already included) -->
+  <!-- Interaction Scripts: Skills, Experience, Certs, Education, Drag-Scroll -->
   <script>
     /**************************************************
      * Dynamic Gradient for Skills Boxes
