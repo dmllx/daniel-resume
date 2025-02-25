@@ -39,7 +39,7 @@
       Header / Splash Screen
     -----------------------------------------------*/
     .header {
-      position: absolute; /* Changed from relative to absolute */
+      position: absolute;
       top: 0;
       left: 0;
       right: 0;
@@ -51,15 +51,12 @@
       background: var(--header-grad);
       color: #fff;
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 999;
     }
     .header.minimized {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
       height: 80px;
       padding: 15px 20px;
       background: rgba(0, 0, 0, 0.9);
@@ -78,7 +75,7 @@
     .header h1 {
       margin: 0;
       font-weight: 800;
-      font-size: 4em;
+      font-size: 3em;
       letter-spacing: -1px;
       animation: fadeInUp 1s ease-out;
     }
@@ -87,7 +84,7 @@
       margin: 0;
     }
     .header h2 {
-      margin: 15px 0 0;
+      margin: 10px 0 0;
       font-weight: 400;
       font-size: 1.6em;
       color: var(--text-sub);
@@ -97,12 +94,20 @@
       font-size: 0.9em;
       margin: 0;
     }
+    .header .tagline {
+      font-size: 1.2em;
+      color: var(--text-sub);
+      margin-top: 10px;
+    }
+    .header.minimized .tagline {
+      display: none;
+    }
     .logo {
       width: 120px;
       height: 120px;
       object-fit: cover;
       border-radius: 50%;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       animation: fadeIn 1s ease-out;
       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -154,7 +159,7 @@
       position: relative;
       padding: 60px 20px;
       background: var(--dark-bg);
-      transition: background 0.6s ease; /* Smooth gradient transition */
+      transition: background 0.6s ease;
     }
     .sections.gradient {
       background: var(--header-grad);
@@ -171,7 +176,7 @@
     }
     .section h2 {
       color: var(--secondary);
-      font-size: 2.2em;
+      font-size: 2em;
       font-weight: 600;
       margin-bottom: 20px;
       letter-spacing: -0.5px;
@@ -180,7 +185,7 @@
     /* Contact Section */
     .contact {
       display: flex;
-      gap: 50px;
+      gap: 40px;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -197,7 +202,8 @@
       color: var(--secondary);
       transform: translateX(5px);
     }
-    .icon { fill: var(--text-sub); width: 22px; height: 22px; }
+    .icon { fill: var(--text-sub); width: 22px; height: 22px; transition: fill 0.3s ease; }
+    .contact a:hover .icon { fill: var(--secondary); }
 
     /* Skills Section */
     .skills-grid {
@@ -264,7 +270,7 @@
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      gap: 30px;
     }
     .education-item {
       background: var(--darker-bg);
@@ -285,7 +291,7 @@
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
+      gap: 30px;
       max-width: 800px;
       margin: 0 auto;
       text-align: center;
@@ -307,6 +313,7 @@
       Mobile Responsiveness
     -----------------------------------------------*/
     @media (max-width: 768px) {
+      .header { padding: 40px 15px; }
       .header h1 { font-size: 2.5em; }
       .header h2 { font-size: 1.2em; }
       .header.minimized h1 { font-size: 1.4em; }
@@ -314,7 +321,9 @@
       .header.minimized .logo { width: 40px; height: 40px; }
       .sections { padding: 40px 15px; }
       .contact { flex-direction: column; gap: 20px; }
-      .skills-grid, .certifications-grid, .education-grid { grid-template-columns: 1fr; }
+      .skills-grid, .education-grid, .certifications-grid { grid-template-columns: 1fr; }
+      .timeline { flex-direction: column; }
+      .job { min-width: 100%; }
     }
 
     /* Animations */
@@ -336,6 +345,7 @@
       <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
       <h1>Daniel P. Mailloux</h1>
       <h2>Financial Economist & Strategist</h2>
+      <p class="tagline">Turning Data into Dollars</p>
     </div>
     <button class="download-btn" onclick="window.open('resume.pdf')">
       <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/></svg>
@@ -570,7 +580,7 @@
     let currentScroll = window.scrollY;
 
     function smoothScroll() {
-      currentScroll += (scrollTarget - currentScroll) * 0.1; // Easing factor
+      currentScroll += (scrollTarget - currentScroll) * 0.1;
       window.scrollTo(0, currentScroll);
       if (Math.abs(scrollTarget - currentScroll) > 0.5) {
         requestAnimationFrame(smoothScroll);
@@ -586,7 +596,7 @@
 
     window.addEventListener('touchmove', (e) => {
       e.preventDefault();
-      scrollTarget = window.scrollY - e.touches[0].clientY * 2; // Adjust touch sensitivity
+      scrollTarget = window.scrollY - e.touches[0].clientY * 2;
       scrollTarget = Math.max(0, Math.min(scrollTarget, document.body.scrollHeight - window.innerHeight));
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
