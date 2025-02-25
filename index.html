@@ -199,7 +199,7 @@
       transition: width 1s ease;
     }
 
-    /* Certifications Section */
+    /* Certifications Section - Neat Grid */
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -248,7 +248,7 @@
       }
     }
 
-    /* Experience / Timeline Section with Timeline Axis & Markers */
+    /* Experience / Timeline Section with Interactive Markers & Animations */
     .timeline-container {
       position: relative;
       overflow-x: auto;
@@ -264,17 +264,8 @@
       display: inline-flex;
       gap: 20px;
     }
-    /* Timeline axis line */
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--secondary);
-      z-index: 0;
-    }
+    /* Remove the blue line (axis) */
+    /* Each job now shows its own marker */
     .job {
       background: var(--darker-bg);
       color: #fff;
@@ -299,18 +290,20 @@
       transform: translateY(0);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
+    /* Timeline marker on each job */
     .job::after {
       content: "";
       position: absolute;
-      bottom: -6px;
+      bottom: -8px;
       left: 50%;
       transform: translateX(-50%);
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       background: var(--secondary);
       border: 2px solid var(--dark-bg);
       border-radius: 50%;
       z-index: 2;
+      opacity: 0.8;
     }
     .job:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
@@ -359,8 +352,12 @@
       list-style: disc;
       margin: 10px 0 0 20px;
     }
+    .timeline-container.active {
+      cursor: grabbing;
+      cursor: -webkit-grabbing;
+    }
 
-    /* Education Section (Unified Preview, Less Elongated) */
+    /* Education Section (Unified Preview, Compact) */
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -396,7 +393,7 @@
       font-size: 1em;
       margin: 5px 0 0;
     }
-    /* Details appear inline, expanding the box */
+    /* Details expand inline below preview */
     .education-details {
       padding-top: 10px;
       border-top: 1px solid var(--secondary);
@@ -515,7 +512,7 @@
       <div class="section experience" id="experience">
         <h2>Experience</h2>
         <div class="timeline-container">
-          <!-- Scroll indicator to hint at horizontal movement -->
+          <!-- Scroll indicator arrow -->
           <div class="scroll-indicator">→</div>
           <div class="timeline">
             <div class="job">
@@ -798,12 +795,14 @@
 
     /**************************************************
      * Intersection Observer for Job Fade-In Effect
+     * (Adds .visible when jobs scroll into view and removes it when not)
      **************************************************/
     const jobObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          jobObserver.unobserve(entry.target);
+        } else {
+          entry.target.classList.remove('visible');
         }
       });
     }, { threshold: 0.3 });
