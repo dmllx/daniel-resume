@@ -116,7 +116,7 @@
       padding-bottom: 5px;
     }
 
-    /* Contact Section */
+    /* Contact Section with Micro-interactions */
     .section.contact {
       display: flex;
       flex-direction: column;
@@ -138,6 +138,7 @@
     }
     .contact a:hover {
       color: var(--secondary);
+      transform: scale(1.1);
     }
     .icon {
       transition: transform 0.3s ease;
@@ -226,7 +227,7 @@
       transition: width 1s ease;
     }
 
-    /* Certifications Section - 4 Columns, Centered */
+    /* Certifications Section - 2 Rows of 4 Boxes, Centered */
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -363,6 +364,7 @@
       animation: pulse 2s infinite;
       z-index: 5;
       pointer-events: none;
+      transition: opacity 0.3s ease;
     }
     @keyframes pulse {
       0% { opacity: 0.8; transform: translateX(0); }
@@ -535,7 +537,7 @@
       <div class="section experience" id="experience">
         <h2>Experience</h2>
         <div class="timeline-container" id="experienceTimeline">
-          <!-- Animated arrow indicator -->
+          <!-- Animated arrow indicator that fades out when scrolling -->
           <div class="scroll-indicator" id="scrollIndicator">→</div>
           <div class="timeline">
             <div class="job">
@@ -673,17 +675,9 @@
 
   <!-- Interaction Scripts -->
   <script>
-    // Dynamic Gradient for Skills Boxes
-    const skillCategories = document.querySelectorAll('.skill-category');
-    skillCategories.forEach(category => {
-      category.addEventListener('pointermove', (e) => {
-        const rect = category.getBoundingClientRect();
-        category.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-        category.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-      });
-    });
+    // Skills Boxes: Set hover dynamic gradient (handled via CSS)
 
-    // Jobs: Hover expansion handled by CSS (:hover) - IntersectionObserver for fade in/out
+    // Jobs: Set dynamic gradient on pointer move
     const jobs = document.querySelectorAll('.job');
     jobs.forEach(job => {
       job.addEventListener('pointermove', (e) => {
@@ -693,7 +687,7 @@
       });
     });
 
-    // Certifications: Hover effect handled by CSS
+    // Certifications: Pointer move dynamic gradient
     const certItems = document.querySelectorAll('.certification-item');
     certItems.forEach(cert => {
       cert.addEventListener('pointermove', (e) => {
@@ -703,7 +697,7 @@
       });
     });
 
-    // Education: Hover expansion handled by CSS
+    // Education: Pointer move dynamic gradient
     const educationItems = document.querySelectorAll('.education-item');
     educationItems.forEach(item => {
       item.addEventListener('pointermove', (e) => {
@@ -735,7 +729,7 @@
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
       });
-      // Hide the arrow indicator when scrolling
+      // Arrow indicator fade in/out based on scroll
       container.addEventListener('scroll', () => {
         const indicator = container.querySelector('.scroll-indicator');
         if (container.scrollLeft > 10 && indicator) {
