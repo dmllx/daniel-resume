@@ -15,21 +15,21 @@
       --text-sub: #bbb;
       --text-light: #ccc;
       --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
-      --body-grad: linear-gradient(180deg, #000 0%, #111 60%, var(--secondary) 100%);
+      /* The gradient overlay */
+      --body-grad: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(17,17,17,0.8) 60%, var(--secondary) 100%);
     }
 
-    /* Global Resets & Base Styles */
-    html, body {
+    /* Parallax Background - replace 'bg.jpg' with your background image */
+    body {
       margin: 0;
       padding: 0;
-      scroll-behavior: smooth;
-    }
-    body {
       font-family: 'Roboto', sans-serif;
       line-height: 1.6;
-      background: var(--body-grad);
+      background: url('bg.jpg') no-repeat center center fixed, var(--body-grad);
+      background-size: cover;
       color: var(--text-main);
       min-height: 100vh;
+      scroll-behavior: smooth;
     }
 
     /* Resume Container & Header */
@@ -43,6 +43,7 @@
       overflow: visible;
     }
     .header {
+      position: relative;
       text-align: center;
       padding: 30px 20px;
       background: var(--header-grad);
@@ -65,6 +66,33 @@
       border-radius: 50%;
       margin-bottom: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    /* Download PDF Button */
+    .download-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: 2px solid var(--text-main);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .download-btn:hover {
+      background: var(--secondary);
+      transform: scale(1.05);
+    }
+    .download-btn svg {
+      fill: var(--text-main);
+      width: 16px;
+      height: 16px;
     }
 
     /* Sections */
@@ -264,7 +292,6 @@
       display: inline-flex;
       gap: 20px;
     }
-    /* Remove axis line and markers */
     .job {
       background: var(--darker-bg);
       color: #fff;
@@ -336,7 +363,7 @@
       list-style: disc;
       margin: 10px 0 0 20px;
     }
-    /* Animated Arrow Overlay */
+    /* Animated arrow overlay on timeline */
     .scroll-indicator {
       position: absolute;
       top: 50%;
@@ -427,6 +454,14 @@
       <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
       <h1>Daniel P. Mailloux</h1>
       <h2>Financial Economist &amp; Strategist</h2>
+      <!-- Download PDF Button -->
+      <button class="download-btn" onclick="window.open('resume.pdf')">
+        <!-- Modern Download Icon (SVG) -->
+        <svg viewBox="0 0 24 24">
+          <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/>
+        </svg>
+        PDF
+      </button>
     </div>
 
     <div class="sections">
@@ -506,7 +541,7 @@
       <div class="section experience" id="experience">
         <h2>Experience</h2>
         <div class="timeline-container" id="experienceTimeline">
-          <!-- Animated arrow indicator -->
+          <!-- Animated arrow indicator (disappears on scroll) -->
           <div class="scroll-indicator" id="scrollIndicator">→</div>
           <div class="timeline">
             <div class="job">
@@ -729,7 +764,6 @@
         isDown = true;
         startX = e.pageX - container.offsetLeft;
         scrollLeft = container.scrollLeft;
-        // Show indicator if at beginning
       });
       container.addEventListener('mouseleave', () => {
         isDown = false;
@@ -756,7 +790,7 @@
       });
     });
 
-    // Intersection Observer for Job Fade-In/Out
+    // Intersection Observer for Job Fade-In/Out Effect
     const jobObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
