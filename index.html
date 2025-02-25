@@ -15,11 +15,11 @@
       --text-sub: #bbb;
       --text-light: #ccc;
       --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
-      /* The gradient overlay */
+      /* Gradient overlay plus parallax background */
       --body-grad: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(17,17,17,0.8) 60%, var(--secondary) 100%);
     }
 
-    /* Parallax Background - replace 'bg.jpg' with your background image */
+    /* Parallax background with overlay */
     body {
       margin: 0;
       padding: 0;
@@ -30,6 +30,13 @@
       color: var(--text-main);
       min-height: 100vh;
       scroll-behavior: smooth;
+    }
+
+    /* Ensure page loads at top (optional) */
+    body::before {
+      content: "";
+      display: block;
+      height: 0;
     }
 
     /* Resume Container & Header */
@@ -67,8 +74,7 @@
       margin-bottom: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
-
-    /* Download PDF Button */
+    /* Download PDF Button (modern & subtle) */
     .download-btn {
       position: absolute;
       top: 20px;
@@ -198,17 +204,11 @@
       transition: max-height 0.4s ease, opacity 0.4s ease;
       margin-top: 0;
     }
-    .skill-category.active .skill-details {
+    /* Expand on hover */
+    .skill-category:hover .skill-details {
       max-height: 150px;
       opacity: 1;
       margin-top: 10px;
-    }
-    @media (hover: hover) {
-      .skill-category:hover .skill-details {
-        max-height: 150px;
-        opacity: 1;
-        margin-top: 10px;
-      }
     }
     .progress-bar {
       width: 100%;
@@ -227,11 +227,13 @@
       transition: width 1s ease;
     }
 
-    /* Certifications Section - Neat Grid */
+    /* Certifications Section - 4 columns, centered */
     .certifications-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
       text-align: center;
     }
     .certification-item {
@@ -263,17 +265,10 @@
       font-weight: normal;
       color: #fff;
     }
-    .certification-item.active .certification-details {
+    .certification-item:hover .certification-details {
       max-height: 100px;
       opacity: 1;
       margin-top: 10px;
-    }
-    @media (hover: hover) {
-      .certification-item:hover .certification-details {
-        max-height: 100px;
-        opacity: 1;
-        margin-top: 10px;
-      }
     }
 
     /* Experience / Timeline Section with Animated Arrow */
@@ -311,6 +306,10 @@
       opacity: 0;
       transform: translateY(20px);
     }
+    .job:hover .job-details {
+      max-height: 300px;
+      opacity: 1;
+    }
     .job.visible {
       opacity: 1;
       transform: translateY(0);
@@ -319,10 +318,6 @@
     .job:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
       transform: translateY(-5px);
-      justify-content: flex-start;
-    }
-    .job.active {
-      justify-content: flex-start;
     }
     .job .job-header {
       margin-bottom: 10px;
@@ -355,7 +350,7 @@
       overflow: hidden;
       transition: max-height 0.4s ease, opacity 0.4s ease;
     }
-    .job.active .job-details {
+    .job:hover .job-details {
       max-height: 300px;
       opacity: 1;
     }
@@ -372,6 +367,7 @@
       color: var(--text-light);
       animation: pulse 2s infinite;
       z-index: 5;
+      pointer-events: none;
     }
     @keyframes pulse {
       0% { opacity: 0.8; transform: translateX(0); }
@@ -398,6 +394,10 @@
       display: flex;
       flex-direction: column;
     }
+    .education-item:hover .education-details {
+      max-height: 200px;
+      opacity: 1;
+    }
     .education-item:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
       transform: translateY(-5px);
@@ -423,7 +423,7 @@
       opacity: 0;
       overflow: hidden;
     }
-    .education-item.active .education-details {
+    .education-item:hover .education-details {
       max-height: 200px;
       opacity: 1;
     }
@@ -456,7 +456,6 @@
       <h2>Financial Economist &amp; Strategist</h2>
       <!-- Download PDF Button -->
       <button class="download-btn" onclick="window.open('resume.pdf')">
-        <!-- Modern Download Icon (SVG) -->
         <svg viewBox="0 0 24 24">
           <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/>
         </svg>
@@ -541,7 +540,7 @@
       <div class="section experience" id="experience">
         <h2>Experience</h2>
         <div class="timeline-container" id="experienceTimeline">
-          <!-- Animated arrow indicator (disappears on scroll) -->
+          <!-- Animated arrow indicator -->
           <div class="scroll-indicator" id="scrollIndicator">→</div>
           <div class="timeline">
             <div class="job">
@@ -679,7 +678,7 @@
 
   <!-- Interaction Scripts -->
   <script>
-    // Dynamic Gradient for Skills Boxes
+    // Skills Boxes Hover Interaction (using CSS hover rules; click events removed for a hover-only effect)
     const skillCategories = document.querySelectorAll('.skill-category');
     skillCategories.forEach(category => {
       category.addEventListener('pointermove', (e) => {
@@ -687,19 +686,9 @@
         category.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
         category.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
-      category.addEventListener('click', (e) => {
-        e.stopPropagation();
-        category.classList.toggle('active');
-        skillCategories.forEach(other => {
-          if (other !== category) other.classList.remove('active');
-        });
-      });
-      document.addEventListener('click', (e) => {
-        if (!category.contains(e.target)) category.classList.remove('active');
-      });
     });
 
-    // Dynamic Gradient for Job Boxes
+    // Jobs: Expand job details on hover (the CSS :hover rule handles expansion)
     const jobs = document.querySelectorAll('.job');
     jobs.forEach(job => {
       job.addEventListener('pointermove', (e) => {
@@ -707,16 +696,10 @@
         job.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
         job.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
-      job.addEventListener('click', (e) => {
-        e.stopPropagation();
-        job.classList.toggle('active');
-        jobs.forEach(other => {
-          if (other !== job) other.classList.remove('active');
-        });
-      });
+      // (Hover expansion is managed by CSS)
     });
 
-    // Dynamic Gradient for Certification Items
+    // Certifications: Hover effect (using CSS :hover)
     const certItems = document.querySelectorAll('.certification-item');
     certItems.forEach(cert => {
       cert.addEventListener('pointermove', (e) => {
@@ -724,35 +707,15 @@
         cert.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
         cert.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
-      cert.addEventListener('click', (e) => {
-        e.stopPropagation();
-        cert.classList.toggle('active');
-        certItems.forEach(other => {
-          if (other !== cert) other.classList.remove('active');
-        });
-      });
-      document.addEventListener('click', (e) => {
-        if (!cert.contains(e.target)) cert.classList.remove('active');
-      });
     });
 
-    // Education Items Expand on Click/Hover
+    // Education: Expand details on hover (CSS :hover handles this)
     const educationItems = document.querySelectorAll('.education-item');
     educationItems.forEach(item => {
       item.addEventListener('pointermove', (e) => {
         const rect = item.getBoundingClientRect();
         item.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
         item.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-      });
-      item.addEventListener('click', (e) => {
-        e.stopPropagation();
-        item.classList.toggle('active');
-        educationItems.forEach(other => {
-          if (other !== item) other.classList.remove('active');
-        });
-      });
-      document.addEventListener('click', (e) => {
-        if (!item.contains(e.target)) item.classList.remove('active');
       });
     });
 
@@ -778,7 +741,6 @@
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
       });
-
       // Hide the arrow indicator when scrolling
       container.addEventListener('scroll', () => {
         const indicator = container.querySelector('.scroll-indicator');
@@ -801,6 +763,11 @@
       });
     }, { threshold: 0.3 });
     jobs.forEach(job => jobObserver.observe(job));
+
+    // Optional: Ensure the page starts at top on load
+    window.onload = () => {
+      window.scrollTo(0,0);
+    };
   </script>
 </body>
 </html>
