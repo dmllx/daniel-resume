@@ -332,4 +332,44 @@ body {
     .skill-tooltip {
         bottom: -50px; /* Adjust tooltip position on mobile */
     }
+    :root {
+    --primary: #007bff;
+    --secondary: #00c6ff;
+    --dark-bg: #1a1a1a;
+    --darker-bg: #111;
+    --text-main: #fff;
+    --text-sub: #bbb;
+    --text-light: #ccc;
+}
+
+/* Light mode */
+.light-mode {
+    --dark-bg: #ffffff;
+    --darker-bg: #f8f9fa;
+    --text-main: #000;
+    --text-sub: #444;
+    --text-light: #222;
+}
+
+body {
+    background: var(--dark-bg);
+    color: var(--text-main);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Toggle Button */
+.toggle-container {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: var(--primary);
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+.toggle-container:hover {
+    background: var(--secondary);
 }
