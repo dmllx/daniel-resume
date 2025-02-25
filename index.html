@@ -35,11 +35,10 @@
       min-height: 100vh;
       scroll-behavior: smooth;
     }
-    /* Ensure page loads at top */
     body::before { content: ""; display: block; height: 0; }
 
     /*----------------------------------------------
-      Nav Bar (Modern, Transparent at Start)
+      Nav Bar (Modern, Transparent)
     -----------------------------------------------*/
     .navbar {
       position: fixed;
@@ -50,7 +49,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.3); /* subtle transparency */
+      background: rgba(0, 0, 0, 0.3);
       z-index: 1000;
       transition: background 0.3s ease;
     }
@@ -73,39 +72,57 @@
     }
 
     /*----------------------------------------------
-      Header / Splash Screen
+      Splash Header
     -----------------------------------------------*/
     .header {
       position: relative;
-      height: 100vh; /* full-screen splash */
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: var(--header-grad);
+      /* Remove solid gradient background so the parallax background shows */
+      background: rgba(0, 0, 0, 0.5);
       color: #fff;
       text-align: center;
       padding: 20px;
+      overflow: hidden;
     }
-    .header h1 {
-      margin: 0;
-      font-family: 'SF Pro Display', sans-serif;
-      font-size: 3em;
+    .header::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--header-grad);
+      opacity: 0.6;
+      z-index: -1;
     }
-    .header h2 {
-      margin: 10px 0 0;
-      font-size: 1.5em;
-    }
-    .logo {
+    .header .logo {
       width: 100px;
       height: 100px;
-      object-fit: cover;
-      object-position: 50% 30%;
-      border-radius: 50%;
       margin-bottom: 20px;
       box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      animation: fadeInUp 1s ease-out forwards;
     }
-    /* Download PDF Button (Sleek & Minimal) */
+    .header h1, 
+    .header h2 {
+      opacity: 0;
+      animation: fadeInUp 1s ease-out forwards;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    }
+    .header h1 { animation-delay: 0.3s; }
+    .header h2 { animation-delay: 0.6s; }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /*----------------------------------------------
+      Download PDF Button
+    -----------------------------------------------*/
     .download-btn {
       position: absolute;
       top: 20px;
@@ -133,15 +150,13 @@
     }
 
     /*----------------------------------------------
-      Content Sections
+      Main Content Sections
     -----------------------------------------------*/
     .sections {
       padding: 20px;
       background: var(--dark-bg);
     }
-    .section {
-      margin-bottom: 40px;
-    }
+    .section { margin-bottom: 40px; }
     .section h2 {
       color: var(--secondary);
       font-size: 1.8em;
@@ -176,9 +191,7 @@
       transform: scale(1.1);
       color: var(--secondary);
     }
-    .icon {
-      transition: transform 0.3s ease;
-    }
+    .icon { transition: transform 0.3s ease; }
 
     /*----------------------------------------------
       Professional Attributes Section
@@ -201,13 +214,8 @@
       margin-left: 20px;
       color: var(--text-main);
     }
-    .attributes li {
-      margin-bottom: 5px;
-      transition: color 0.3s ease;
-    }
-    .attributes li:hover {
-      color: var(--secondary);
-    }
+    .attributes li { margin-bottom: 5px; transition: color 0.3s ease; }
+    .attributes li:hover { color: var(--secondary); }
 
     /*----------------------------------------------
       Skills Section with Animated Progress Bars
@@ -290,9 +298,7 @@
       transform: translateY(-3px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
-    .certification-acronym {
-      font-size: 1.1em;
-    }
+    .certification-acronym { font-size: 1.1em; }
     .certification-details {
       max-height: 0;
       opacity: 0;
@@ -317,9 +323,7 @@
       padding: 20px 10px;
       margin: 0 -20px;
     }
-    .timeline-container::-webkit-scrollbar {
-      display: none;
-    }
+    .timeline-container::-webkit-scrollbar { display: none; }
     .timeline {
       position: relative;
       display: inline-flex;
@@ -356,21 +360,9 @@
       margin-bottom: 10px;
       transition: margin-top 0.3s ease;
     }
-    .job-title {
-      font-weight: bold;
-      font-size: 1.2em;
-      margin: 0;
-    }
-    .company {
-      font-style: italic;
-      font-size: 0.95em;
-      margin: 0;
-      color: var(--text-sub);
-    }
-    .dates {
-      font-size: 0.9em;
-      color: var(--text-sub);
-    }
+    .job-title { font-weight: bold; font-size: 1.2em; margin: 0; }
+    .company { font-style: italic; font-size: 0.95em; margin: 0; color: var(--text-sub); }
+    .dates { font-size: 0.9em; color: var(--text-sub); }
     .job-details {
       background: var(--darker-bg);
       padding: 10px 15px;
@@ -383,15 +375,10 @@
       overflow: hidden;
       transition: max-height 0.4s ease, opacity 0.4s ease;
     }
-    .job:hover .job-details {
-      max-height: 300px;
-      opacity: 1;
-    }
-    .job-details ul {
-      list-style: disc;
-      margin: 10px 0 0 20px;
-    }
-    /* Animated Arrow Indicator */
+    .job:hover .job-details { max-height: 300px; opacity: 1; }
+    .job-details ul { list-style: disc; margin: 10px 0 0 20px; }
+
+    /* Animated Arrow Indicator for Timeline */
     .scroll-indicator {
       position: absolute;
       top: 50%;
@@ -505,21 +492,18 @@
       <h2>Contact</h2>
       <div class="contact">
         <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
-          <!-- Modern map icon -->
           <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
           </svg>
           Wichita, KS
         </a>
         <a href="mailto:mailloux.daniel@gmail.com">
-          <!-- Modern email icon -->
           <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
           </svg>
           mailloux.daniel@gmail.com
         </a>
         <a href="tel:6204740124">
-          <!-- Modern phone icon -->
           <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
             <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/>
           </svg>
@@ -579,7 +563,7 @@
     <div class="section experience" id="experience">
       <h2>Experience</h2>
       <div class="timeline-container" id="experienceTimeline">
-        <!-- Animated arrow indicator (fades out on scroll) -->
+        <!-- Animated arrow indicator that fades on scroll -->
         <div class="scroll-indicator" id="scrollIndicator">→</div>
         <div class="timeline">
           <div class="job">
@@ -714,45 +698,41 @@
     </div>
   </div>
 
-  <!------------------------------------------------
-    Interaction Scripts
-  ------------------------------------------------->
+  <!-- Interaction Scripts -->
   <script>
-    // Update pointer dynamic gradient for skills, certifications, education
+    // Dynamic pointer position for elements
     const updatePointer = (element, e) => {
       const rect = element.getBoundingClientRect();
       element.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
       element.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
     };
-
     document.querySelectorAll('.skill-category').forEach(el => {
-      el.addEventListener('pointermove', (e) => updatePointer(el, e));
+      el.addEventListener('pointermove', e => updatePointer(el, e));
     });
     document.querySelectorAll('.certification-item').forEach(el => {
-      el.addEventListener('pointermove', (e) => updatePointer(el, e));
+      el.addEventListener('pointermove', e => updatePointer(el, e));
     });
     document.querySelectorAll('.education-item').forEach(el => {
-      el.addEventListener('pointermove', (e) => updatePointer(el, e));
+      el.addEventListener('pointermove', e => updatePointer(el, e));
     });
 
     // Horizontal Drag-to-Scroll for Timelines
     document.querySelectorAll('.timeline-container').forEach(container => {
       let isDown = false, startX, scrollLeft;
-      container.addEventListener('mousedown', (e) => {
+      container.addEventListener('mousedown', e => {
         isDown = true;
         startX = e.pageX - container.offsetLeft;
         scrollLeft = container.scrollLeft;
       });
       container.addEventListener('mouseleave', () => { isDown = false; });
       container.addEventListener('mouseup', () => { isDown = false; });
-      container.addEventListener('mousemove', (e) => {
+      container.addEventListener('mousemove', e => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - container.offsetLeft;
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
       });
-      // Fade arrow indicator on scroll
       container.addEventListener('scroll', () => {
         const indicator = container.querySelector('.scroll-indicator');
         if (container.scrollLeft > 10 && indicator) {
@@ -763,7 +743,7 @@
       });
     });
 
-    // Intersection Observer for Job Fade-In/Out Effect
+    // Intersection Observer for Job Fade-In/Out
     const jobs = document.querySelectorAll('.job');
     const jobObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
