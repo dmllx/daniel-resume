@@ -5,17 +5,15 @@
   <title>Daniel P. Mailloux - Resume</title>
   <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    /* Base Color Variables (Dark Mode) */
+    /* Base Color Variables for a Professional Dark Theme */
     :root {
       --primary: #007bff;
       --secondary: #00c6ff;
-      
       --dark-bg: #1a1a1a;
       --darker-bg: #111;
       --text-main: #fff;
       --text-sub: #bbb;
       --text-light: #ccc;
-      
       --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
       --body-grad: linear-gradient(180deg, #000 0%, #111 60%, var(--secondary) 100%);
     }
@@ -139,7 +137,7 @@
       color: var(--secondary);
     }
 
-    /* Skills Section with Progress Bars */
+    /* Skills Section with Animated Progress Bars */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -201,7 +199,7 @@
       transition: width 1s ease;
     }
 
-    /* Certifications Section */
+    /* Certifications Section (Organized) */
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -334,7 +332,7 @@
       cursor: -webkit-grabbing;
     }
 
-    /* Education Section */
+    /* Education Section (Unified Box Preview) */
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -370,7 +368,7 @@
       font-size: 1em;
       margin: 5px 0 0;
     }
-    /* Remove extra box styling from details; they now just appear inline */
+    /* Now details appear inline below the header */
     .education-details {
       padding-top: 10px;
       border-top: 1px solid var(--secondary);
@@ -404,11 +402,9 @@
   </style>
 </head>
 <body>
-  <!-- Removed Navbar and Dark/Light Mode Toggle -->
-
   <div class="resume">
     <div class="header">
-      <!-- Replace 'daniel.jpeg' with the correct path to your image -->
+      <!-- Replace 'daniel.jpeg' with your correct image path -->
       <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
       <h1>Daniel P. Mailloux</h1>
       <h2>Financial Economist &amp; Strategist</h2>
@@ -549,12 +545,11 @@
         </div>
       </div>
 
-      <!-- Education Section (Interactive Timeline) -->
+      <!-- Education Section (Interactive Preview) -->
       <div class="section education" id="education">
         <h2>Education</h2>
         <div class="timeline-container" id="educationTimeline">
           <div class="timeline education-grid">
-            <!-- Wichita State University Preview -->
             <div class="education-item">
               <div class="education-header">
                 <p class="education-title">Wichita State University</p>
@@ -568,7 +563,6 @@
                 </ul>
               </div>
             </div>
-            <!-- Hutchinson Community College Preview -->
             <div class="education-item">
               <div class="education-header">
                 <p class="education-title">Hutchinson Community College</p>
@@ -627,7 +621,7 @@
     </div>
   </div>
 
-  <!-- Interaction Scripts for Dynamic Gradients and Expanding Items -->
+  <!-- Interaction Scripts -->
   <script>
     /**************************************************
      * Dynamic Gradient for Skills Boxes
