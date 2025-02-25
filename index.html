@@ -202,14 +202,14 @@
     /* Certifications Section - Neat Grid */
     .certifications-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
       text-align: center;
     }
     .certification-item {
       background: var(--primary);
       color: #fff;
-      padding: 12px;
+      padding: 15px;
       border-radius: 6px;
       font-weight: bold;
       border: 1px solid var(--secondary);
@@ -248,7 +248,7 @@
       }
     }
 
-    /* Experience / Timeline Section with Interactive Markers & Animations */
+    /* Experience / Timeline Section with Animated Arrow */
     .timeline-container {
       position: relative;
       overflow-x: auto;
@@ -264,8 +264,7 @@
       display: inline-flex;
       gap: 20px;
     }
-    /* Remove the blue line (axis) */
-    /* Each job now shows its own marker */
+    /* Remove axis line and markers */
     .job {
       background: var(--darker-bg);
       color: #fff;
@@ -289,21 +288,6 @@
       opacity: 1;
       transform: translateY(0);
       transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    /* Timeline marker on each job */
-    .job::after {
-      content: "";
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 10px;
-      height: 10px;
-      background: var(--secondary);
-      border: 2px solid var(--dark-bg);
-      border-radius: 50%;
-      z-index: 2;
-      opacity: 0.8;
     }
     .job:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
@@ -352,9 +336,20 @@
       list-style: disc;
       margin: 10px 0 0 20px;
     }
-    .timeline-container.active {
-      cursor: grabbing;
-      cursor: -webkit-grabbing;
+    /* Animated Arrow Overlay */
+    .scroll-indicator {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      font-size: 2em;
+      color: var(--text-light);
+      animation: pulse 2s infinite;
+      z-index: 5;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.8; transform: translateX(0); }
+      50% { opacity: 1; transform: translateX(5px); }
+      100% { opacity: 0.8; transform: translateX(0); }
     }
 
     /* Education Section (Unified Preview, Compact) */
@@ -393,7 +388,6 @@
       font-size: 1em;
       margin: 5px 0 0;
     }
-    /* Details expand inline below preview */
     .education-details {
       padding-top: 10px;
       border-top: 1px solid var(--secondary);
@@ -511,9 +505,9 @@
       <!-- Experience Section (Timeline) -->
       <div class="section experience" id="experience">
         <h2>Experience</h2>
-        <div class="timeline-container">
-          <!-- Scroll indicator arrow -->
-          <div class="scroll-indicator">→</div>
+        <div class="timeline-container" id="experienceTimeline">
+          <!-- Animated arrow indicator -->
+          <div class="scroll-indicator" id="scrollIndicator">→</div>
           <div class="timeline">
             <div class="job">
               <div class="job-header">
@@ -650,139 +644,98 @@
 
   <!-- Interaction Scripts -->
   <script>
-    /**************************************************
-     * Dynamic Gradient for Skills Boxes
-     **************************************************/
+    // Dynamic Gradient for Skills Boxes
     const skillCategories = document.querySelectorAll('.skill-category');
     skillCategories.forEach(category => {
       category.addEventListener('pointermove', (e) => {
         const rect = category.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        category.style.setProperty('--mouse-x', `${x}px`);
-        category.style.setProperty('--mouse-y', `${y}px`);
+        category.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        category.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
-    });
-    skillCategories.forEach(category => {
       category.addEventListener('click', (e) => {
         e.stopPropagation();
         category.classList.toggle('active');
         skillCategories.forEach(other => {
-          if(other !== category && other.classList.contains('active')){
-            other.classList.remove('active');
-          }
+          if (other !== category) other.classList.remove('active');
         });
       });
       document.addEventListener('click', (e) => {
-        if (!category.contains(e.target)) {
-          category.classList.remove('active');
-        }
+        if (!category.contains(e.target)) category.classList.remove('active');
       });
     });
 
-    /**************************************************
-     * Dynamic Gradient for Timeline Job Boxes
-     **************************************************/
-    const jobBoxes = document.querySelectorAll('.job');
-    jobBoxes.forEach(job => {
-      job.addEventListener('pointermove', (e) => {
-        const rect = job.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        job.style.setProperty('--mouse-x', `${x}px`);
-        job.style.setProperty('--mouse-y', `${y}px`);
-      });
-    });
+    // Dynamic Gradient for Job Boxes
     const jobs = document.querySelectorAll('.job');
     jobs.forEach(job => {
+      job.addEventListener('pointermove', (e) => {
+        const rect = job.getBoundingClientRect();
+        job.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        job.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
       job.addEventListener('click', (e) => {
         e.stopPropagation();
         job.classList.toggle('active');
         jobs.forEach(other => {
-          if(other !== job && other.classList.contains('active')){
-            other.classList.remove('active');
-          }
+          if (other !== job) other.classList.remove('active');
         });
       });
     });
 
-    /**************************************************
-     * Dynamic Gradient for Certification Items
-     **************************************************/
+    // Dynamic Gradient for Certification Items
     const certItems = document.querySelectorAll('.certification-item');
     certItems.forEach(cert => {
       cert.addEventListener('pointermove', (e) => {
         const rect = cert.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        cert.style.setProperty('--mouse-x', `${x}px`);
-        cert.style.setProperty('--mouse-y', `${y}px`);
+        cert.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        cert.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
       cert.addEventListener('click', (e) => {
         e.stopPropagation();
         cert.classList.toggle('active');
         certItems.forEach(other => {
-          if(other !== cert && other.classList.contains('active')){
-            other.classList.remove('active');
-          }
+          if (other !== cert) other.classList.remove('active');
         });
       });
       document.addEventListener('click', (e) => {
-        if (!cert.contains(e.target)) {
-          cert.classList.remove('active');
-        }
+        if (!cert.contains(e.target)) cert.classList.remove('active');
       });
     });
 
-    /**************************************************
-     * Education Items Expand on Click/Hover
-     **************************************************/
+    // Education Items Expand on Click/Hover
     const educationItems = document.querySelectorAll('.education-item');
     educationItems.forEach(item => {
       item.addEventListener('pointermove', (e) => {
         const rect = item.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        item.style.setProperty('--mouse-x', `${x}px`);
-        item.style.setProperty('--mouse-y', `${y}px`);
+        item.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        item.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
       item.addEventListener('click', (e) => {
         e.stopPropagation();
         item.classList.toggle('active');
         educationItems.forEach(other => {
-          if(other !== item && other.classList.contains('active')){
-            other.classList.remove('active');
-          }
+          if (other !== item) other.classList.remove('active');
         });
       });
       document.addEventListener('click', (e) => {
-        if (!item.contains(e.target)) {
-          item.classList.remove('active');
-        }
+        if (!item.contains(e.target)) item.classList.remove('active');
       });
     });
 
-    /**************************************************
-     * Horizontal Drag-to-Scroll for Timelines
-     **************************************************/
+    // Horizontal Drag-to-Scroll for Timelines
     const timelineContainers = document.querySelectorAll('.timeline-container');
     timelineContainers.forEach(container => {
-      let isDown = false;
-      let startX;
-      let scrollLeft;
+      let isDown = false, startX, scrollLeft;
       container.addEventListener('mousedown', (e) => {
         isDown = true;
-        container.classList.add('active');
         startX = e.pageX - container.offsetLeft;
         scrollLeft = container.scrollLeft;
+        // Show indicator if at beginning
       });
       container.addEventListener('mouseleave', () => {
         isDown = false;
-        container.classList.remove('active');
       });
       container.addEventListener('mouseup', () => {
         isDown = false;
-        container.classList.remove('active');
       });
       container.addEventListener('mousemove', (e) => {
         if (!isDown) return;
@@ -791,12 +744,19 @@
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
       });
+
+      // Hide the arrow indicator when scrolling
+      container.addEventListener('scroll', () => {
+        const indicator = container.querySelector('.scroll-indicator');
+        if (container.scrollLeft > 10 && indicator) {
+          indicator.style.opacity = 0;
+        } else if (indicator) {
+          indicator.style.opacity = 1;
+        }
+      });
     });
 
-    /**************************************************
-     * Intersection Observer for Job Fade-In Effect
-     * (Adds .visible when jobs scroll into view and removes it when not)
-     **************************************************/
+    // Intersection Observer for Job Fade-In/Out
     const jobObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -806,9 +766,7 @@
         }
       });
     }, { threshold: 0.3 });
-    jobs.forEach(job => {
-      jobObserver.observe(job);
-    });
+    jobs.forEach(job => jobObserver.observe(job));
   </script>
 </body>
 </html>
