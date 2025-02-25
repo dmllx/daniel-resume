@@ -4,49 +4,106 @@
   <meta charset="UTF-8" />
   <title>Daniel P. Mailloux - Resume</title>
   <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+
   <style>
+    /* Base color variables for dark mode */
     :root {
-      /* Accent Colors */
       --primary: #007bff;
       --secondary: #00c6ff;
-      
-      /* Dark Mode Colors */
+
       --dark-bg: #1a1a1a;
       --darker-bg: #111;
       --text-main: #fff;
       --text-sub: #bbb;
       --text-light: #ccc;
+
+      --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
+      --body-grad: linear-gradient(180deg, #000 0%, #111 60%, var(--secondary) 100%);
     }
-    /* Base Reset */
+
+    /* Light mode overrides */
+    :root.light-mode {
+      --dark-bg: #ffffff;
+      --darker-bg: #f8f9fa;
+      --text-main: #000;
+      --text-sub: #555;
+      --text-light: #333;
+
+      --header-grad: linear-gradient(135deg, #62b0ff, #a8eeff);
+      --body-grad: linear-gradient(180deg, #fff 0%, #f8f9fa 60%, #a8eeff 100%);
+    }
+
+    /* Global resets and base styles */
     html, body {
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth; /* For smooth scrolling between sections */
     }
     body {
       font-family: 'Roboto', sans-serif;
       line-height: 1.6;
-      background: linear-gradient(180deg, #000 0%, #111 60%, var(--secondary) 100%);
+      background: var(--body-grad);
       color: var(--text-main);
+      transition: background 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
     }
 
-    /************************************************
-     *         Resume Container & Header            *
-     ************************************************/
+    /* Navigation bar at the top */
+    .navbar {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--darker-bg);
+      padding: 10px 20px;
+      z-index: 999;
+    }
+    .navbar a {
+      color: var(--text-main);
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    .navbar a:hover {
+      color: var(--secondary);
+    }
+
+    /* Toggle Button for Light/Dark Mode */
+    .toggle-container {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      z-index: 1000;
+    }
+    .toggle-container:hover {
+      background: var(--secondary);
+    }
+
+    /* Resume Container & Header */
     .resume {
-    width: 100vw; /* Full viewport width */
-    max-width: 100%; /* Remove restriction */
-    margin: 0;
-    background: var(--dark-bg);
-    border-radius: 0; /* Remove rounded edges */
-    box-shadow: none; /* Remove box-shadow to blend with background */
-    overflow: visible;
-}
+      width: 100vw; 
+      max-width: 100%; 
+      margin: 0;
+      background: var(--dark-bg);
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
+    }
     .header {
       text-align: center;
       padding: 30px 20px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 8px 8px 0 0;
+      background: var(--header-grad);
       color: #fff;
+      transition: background 0.3s ease;
     }
     .header h1 {
       margin: 0;
@@ -58,15 +115,16 @@
       font-size: 1.2em;
     }
     .logo {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  /* New property to position the image */
-  object-position: 50% 30%; /* Adjust these values as needed */
-}
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      object-position: 50% 30%;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    /* Sections */
     .sections {
       padding: 20px;
     }
@@ -79,11 +137,10 @@
       margin-bottom: 10px;
       border-bottom: 2px solid #333;
       padding-bottom: 5px;
+      transition: color 0.3s ease;
     }
 
-    /************************************************
-     *              Contact Section                 *
-     ************************************************/
+    /* Contact Section */
     .section.contact {
       display: flex;
       flex-direction: column;
@@ -101,18 +158,16 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, color 0.3s ease;
     }
-    .contact a:hover .icon {
-      transform: scale(1.2);
+    .contact a:hover {
+      color: var(--secondary);
     }
     .icon {
       transition: transform 0.3s ease;
     }
 
-    /************************************************
-     *           Professional Attributes            *
-     ************************************************/
+    /* Professional Attributes */
     .attributes {
       background: var(--darker-bg);
       border: 1px solid var(--secondary);
@@ -120,6 +175,7 @@
       padding: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.4);
       margin-bottom: 30px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
     .attributes h3 {
       margin-top: 0;
@@ -139,9 +195,7 @@
       color: var(--secondary);
     }
 
-    /************************************************
-     *                Skills Section                *
-     ************************************************/
+    /* Skills Section */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -187,9 +241,7 @@
       }
     }
 
-    /************************************************
-     *          Certifications Section              *
-     ************************************************/
+    /* Certifications Section */
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -223,7 +275,7 @@
       margin-top: 0;
       font-size: 0.95em;
       font-weight: normal;
-      color: #fff; /* match skills text style */
+      color: #fff;
     }
     .certification-item.active .certification-details {
       max-height: 100px;
@@ -238,9 +290,7 @@
       }
     }
 
-    /************************************************
-     *            Experience / Timeline             *
-     ************************************************/
+    /* Experience / Timeline */
     .timeline-container {
       position: relative;
       overflow-x: auto;
@@ -319,14 +369,8 @@
       list-style: disc;
       margin: 10px 0 0 20px;
     }
-    .timeline-container.active {
-      cursor: grabbing;
-      cursor: -webkit-grabbing;
-    }
 
-    /************************************************
-     *              Education Section               *
-     ************************************************/
+    /* Education Section */
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -375,12 +419,44 @@
       max-height: 150px;
       opacity: 1;
     }
+
+    /* Media Query for Better Mobile Support */
+    @media screen and (max-width: 768px) {
+      .sections {
+        padding: 15px;
+      }
+      .contact {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .skills-grid, .certifications-grid {
+        grid-template-columns: 1fr;
+      }
+      .timeline-container {
+        margin: 0;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <a href="#contact">Contact</a>
+    <a href="#skills">Skills</a>
+    <a href="#attributes">Attributes</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#certifications">Certifications</a>
+  </div>
+
+  <!-- Dark/Light Mode Toggle Button -->
+  <div class="toggle-container" id="theme-toggle">☀️ Light Mode</div>
+
   <div class="resume">
     <div class="header">
-      <!-- Replace headshot.jpg with the actual path/URL to your image -->
+      <!-- Replace daniel.jpeg with your actual image path -->
       <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
       <h1>Daniel P. Mailloux</h1>
       <h2>Financial Economist &amp; Strategist</h2>
@@ -388,10 +464,9 @@
 
     <div class="sections">
       <!-- Contact Section -->
-      <div class="section contact">
+      <div class="section contact" id="contact">
         <h2>Contact</h2>
         <div class="contact">
-          <!-- Replace with your actual contact links as needed -->
           <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
             <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
@@ -414,7 +489,7 @@
       </div>
 
       <!-- Skills Section -->
-      <div class="section skills">
+      <div class="section skills" id="skills">
         <h2>Skills</h2>
         <div class="skills-grid">
           <div class="skill-category">
@@ -439,7 +514,7 @@
       </div>
 
       <!-- Professional Attributes Section -->
-      <div class="section attributes">
+      <div class="section attributes" id="attributes">
         <h2>Professional Attributes</h2>
         <h3>What I Bring</h3>
         <ul>
@@ -452,9 +527,9 @@
       </div>
 
       <!-- Experience Section (Timeline) -->
-      <div class="section experience">
+      <div class="section experience" id="experience">
         <h2>Experience</h2>
-        <div class="timeline-container" id="timelineContainer">
+        <div class="timeline-container">
           <div class="timeline">
             <div class="job">
               <div class="job-header">
@@ -514,7 +589,7 @@
       </div>
 
       <!-- Education Section (Interactive Timeline) -->
-      <div class="section education">
+      <div class="section education" id="education">
         <h2>Education</h2>
         <div class="timeline-container" id="educationTimeline">
           <div class="timeline">
@@ -549,7 +624,7 @@
       </div>
 
       <!-- Certifications Section -->
-      <div class="section certifications">
+      <div class="section certifications" id="certifications">
         <h2>Certifications &amp; Compliance Expertise</h2>
         <div class="certifications-grid">
           <div class="certification-item">
@@ -589,6 +664,20 @@
     </div>
   </div>
 
+  <!-- Dark/Light Mode Toggle Logic -->
+  <script>
+    const toggleButton = document.getElementById("theme-toggle");
+    toggleButton.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+      if (document.body.classList.contains("light-mode")) {
+        toggleButton.textContent = "🌙 Dark Mode";
+      } else {
+        toggleButton.textContent = "☀️ Light Mode";
+      }
+    });
+  </script>
+
+  <!-- Smooth Scroll & Dynamic Gradients for Interactions (already included) -->
   <script>
     /**************************************************
      * Dynamic Gradient for Skills Boxes
@@ -705,70 +794,34 @@
     /**************************************************
      * Horizontal Drag-to-Scroll for Timelines
      **************************************************/
-    const timelineContainer = document.getElementById('timelineContainer');
-    if (timelineContainer) {
-      let isDown = false, startX, scrollLeft;
-      timelineContainer.addEventListener('mousedown', (e) => {
+    const timelineContainers = document.querySelectorAll('.timeline-container');
+    timelineContainers.forEach(container => {
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      container.addEventListener('mousedown', (e) => {
         isDown = true;
-        timelineContainer.classList.add('active');
-        startX = e.pageX - timelineContainer.offsetLeft;
-        scrollLeft = timelineContainer.scrollLeft;
+        container.classList.add('active');
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
       });
-      timelineContainer.addEventListener('mouseleave', () => {
+      container.addEventListener('mouseleave', () => {
         isDown = false;
-        timelineContainer.classList.remove('active');
+        container.classList.remove('active');
       });
-      timelineContainer.addEventListener('mouseup', () => {
+      container.addEventListener('mouseup', () => {
         isDown = false;
-        timelineContainer.classList.remove('active');
+        container.classList.remove('active');
       });
-      timelineContainer.addEventListener('mousemove', (e) => {
+      container.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
-        const x = e.pageX - timelineContainer.offsetLeft;
+        const x = e.pageX - container.offsetLeft;
         const walk = (x - startX) * 2;
-        timelineContainer.scrollLeft = scrollLeft - walk;
+        container.scrollLeft = scrollLeft - walk;
       });
-    }
-
-    const educationTimeline = document.getElementById('educationTimeline');
-    if (educationTimeline) {
-      let eduIsDown = false, eduStartX, eduScrollLeft;
-      educationTimeline.addEventListener('mousedown', (e) => {
-        eduIsDown = true;
-        educationTimeline.classList.add('active');
-        eduStartX = e.pageX - educationTimeline.offsetLeft;
-        eduScrollLeft = educationTimeline.scrollLeft;
-      });
-      educationTimeline.addEventListener('mouseleave', () => {
-        eduIsDown = false;
-        educationTimeline.classList.remove('active');
-      });
-      educationTimeline.addEventListener('mouseup', () => {
-        eduIsDown = false;
-        educationTimeline.classList.remove('active');
-      });
-      educationTimeline.addEventListener('mousemove', (e) => {
-        if (!eduIsDown) return;
-        e.preventDefault();
-        const x = e.pageX - educationTimeline.offsetLeft;
-        const walk = (x - eduStartX) * 2;
-        educationTimeline.scrollLeft = eduScrollLeft - walk;
-      });
-    }
-  </script>
-  <div class="toggle-container" id="theme-toggle">☀️ Light Mode</div>
-
-<script>
-    const toggle = document.getElementById("theme-toggle");
-    toggle.addEventListener("click", () => {
-        document.body.classList.toggle("light-mode");
-        if (document.body.classList.contains("light-mode")) {
-            toggle.innerHTML = "🌙 Dark Mode";
-        } else {
-            toggle.innerHTML = "☀️ Light Mode";
-        }
     });
-</script>
+  </script>
 </body>
 </html>
