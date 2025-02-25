@@ -5,7 +5,9 @@
   <title>Daniel P. Mailloux - Resume</title>
   <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    /* Base Color Variables for a Professional Dark Theme */
+    /*----------------------------------------------
+      Base Colors & Variables (Professional Dark Theme)
+    -----------------------------------------------*/
     :root {
       --primary: #007bff;
       --secondary: #00c6ff;
@@ -15,11 +17,13 @@
       --text-sub: #bbb;
       --text-light: #ccc;
       --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
-      /* Gradient overlay plus parallax background */
+      /* Background: parallax image overlaid with a gradient */
       --body-grad: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(17,17,17,0.8) 60%, var(--secondary) 100%);
     }
 
-    /* Parallax background with overlay (replace 'bg.jpg' with your image) */
+    /*----------------------------------------------
+      Global & Parallax Background
+    -----------------------------------------------*/
     body {
       margin: 0;
       padding: 0;
@@ -31,50 +35,77 @@
       min-height: 100vh;
       scroll-behavior: smooth;
     }
+    /* Ensure page loads at top */
+    body::before { content: ""; display: block; height: 0; }
 
-    /* Ensure page loads at the top */
-    body::before {
-      content: "";
-      display: block;
-      height: 0;
+    /*----------------------------------------------
+      Nav Bar (Modern, Transparent at Start)
+    -----------------------------------------------*/
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.3); /* subtle transparency */
+      z-index: 1000;
+      transition: background 0.3s ease;
     }
-
-    /* Resume Container & Header */
-    .resume {
-      width: 100vw;
-      max-width: 100%;
+    .navbar ul {
+      list-style: none;
       margin: 0;
-      background: var(--dark-bg);
-      border-radius: 0;
-      box-shadow: none;
-      overflow: visible;
+      padding: 0;
+      display: flex;
+      gap: 30px;
     }
+    .navbar li a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .navbar li a:hover {
+      color: var(--secondary);
+      transform: scale(1.05);
+    }
+
+    /*----------------------------------------------
+      Header / Splash Screen
+    -----------------------------------------------*/
     .header {
       position: relative;
-      text-align: center;
-      padding: 30px 20px;
+      height: 100vh; /* full-screen splash */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       background: var(--header-grad);
       color: #fff;
+      text-align: center;
+      padding: 20px;
     }
     .header h1 {
       margin: 0;
       font-family: 'SF Pro Display', sans-serif;
-      font-size: 2.5em;
+      font-size: 3em;
     }
     .header h2 {
-      margin: 5px 0 0;
-      font-size: 1.2em;
+      margin: 10px 0 0;
+      font-size: 1.5em;
     }
     .logo {
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
       object-fit: cover;
       object-position: 50% 30%;
       border-radius: 50%;
-      margin-bottom: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
-    /* Download PDF Button */
+    /* Download PDF Button (Sleek & Minimal) */
     .download-btn {
       position: absolute;
       top: 20px;
@@ -86,10 +117,10 @@
       border-radius: 4px;
       font-size: 0.9em;
       cursor: pointer;
-      transition: transform 0.3s ease, background 0.3s ease;
       display: flex;
       align-items: center;
       gap: 5px;
+      transition: transform 0.3s ease, background 0.3s ease;
     }
     .download-btn:hover {
       background: var(--secondary);
@@ -101,22 +132,27 @@
       height: 16px;
     }
 
-    /* Sections */
+    /*----------------------------------------------
+      Content Sections
+    -----------------------------------------------*/
     .sections {
       padding: 20px;
+      background: var(--dark-bg);
     }
     .section {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
     .section h2 {
       color: var(--secondary);
-      font-size: 1.5em;
+      font-size: 1.8em;
       margin-bottom: 10px;
       border-bottom: 2px solid #333;
       padding-bottom: 5px;
     }
 
-    /* Contact Section with Micro-interactions */
+    /*----------------------------------------------
+      Contact Section with Micro-Interactions
+    -----------------------------------------------*/
     .section.contact {
       display: flex;
       flex-direction: column;
@@ -137,27 +173,28 @@
       transition: transform 0.3s ease, color 0.3s ease;
     }
     .contact a:hover {
-      color: var(--secondary);
       transform: scale(1.1);
+      color: var(--secondary);
     }
     .icon {
       transition: transform 0.3s ease;
     }
 
-    /* Professional Attributes Section */
+    /*----------------------------------------------
+      Professional Attributes Section
+    -----------------------------------------------*/
     .attributes {
       background: var(--darker-bg);
       border: 1px solid var(--secondary);
       border-radius: 6px;
-      padding: 15px;
+      padding: 20px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-      margin-bottom: 30px;
-      transition: background 0.3s ease, color 0.3s ease;
+      margin-bottom: 40px;
     }
     .attributes h3 {
       margin-top: 0;
       color: var(--secondary);
-      font-size: 1.2em;
+      font-size: 1.3em;
     }
     .attributes ul {
       list-style: disc;
@@ -172,20 +209,21 @@
       color: var(--secondary);
     }
 
-    /* Skills Section with Animated Progress Bars */
+    /*----------------------------------------------
+      Skills Section with Animated Progress Bars
+    -----------------------------------------------*/
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
     }
     .skill-category {
       background: var(--primary);
       color: #fff;
-      padding: 15px;
+      padding: 20px;
       border-radius: 6px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      overflow: hidden;
       position: relative;
     }
     .skill-category:hover {
@@ -196,14 +234,13 @@
     .skill-title {
       font-size: 1.2em;
       font-weight: bold;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
     .skill-details {
       max-height: 0;
       overflow: hidden;
       opacity: 0;
       transition: max-height 0.4s ease, opacity 0.4s ease;
-      margin-top: 0;
     }
     .skill-category:hover .skill-details {
       max-height: 150px;
@@ -217,7 +254,6 @@
       border-radius: 4px;
       margin: 10px 0;
       overflow: hidden;
-      position: relative;
     }
     .progress-fill {
       height: 100%;
@@ -227,7 +263,9 @@
       transition: width 1s ease;
     }
 
-    /* Certifications Section - 2 Rows of 4 Boxes, Centered */
+    /*----------------------------------------------
+      Certifications Section - 2 Rows of 4 Boxes, Centered
+    -----------------------------------------------*/
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -239,7 +277,7 @@
     .certification-item {
       background: var(--primary);
       color: #fff;
-      padding: 15px;
+      padding: 20px;
       border-radius: 6px;
       font-weight: bold;
       border: 1px solid var(--secondary);
@@ -260,18 +298,18 @@
       opacity: 0;
       overflow: hidden;
       transition: max-height 0.4s ease, opacity 0.4s ease;
-      margin-top: 0;
+      margin-top: 8px;
       font-size: 0.95em;
       font-weight: normal;
-      color: #fff;
     }
     .certification-item:hover .certification-details {
       max-height: 100px;
       opacity: 1;
-      margin-top: 10px;
     }
 
-    /* Experience / Timeline Section with Animated Arrow */
+    /*----------------------------------------------
+      Experience / Timeline Section with Animated Arrow
+    -----------------------------------------------*/
     .timeline-container {
       position: relative;
       overflow-x: auto;
@@ -291,8 +329,7 @@
       background: var(--darker-bg);
       color: #fff;
       min-width: 280px;
-      flex: 0 0 auto;
-      padding: 15px;
+      padding: 20px;
       border-radius: 8px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.5);
       cursor: pointer;
@@ -372,7 +409,9 @@
       100% { opacity: 0.8; transform: translateX(0); }
     }
 
-    /* Education Section (Unified Preview, Compact) */
+    /*----------------------------------------------
+      Education Section (Unified Preview, Compact)
+    -----------------------------------------------*/
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -381,19 +420,14 @@
     .education-item {
       background: var(--darker-bg);
       color: #fff;
-      padding: 15px;
+      padding: 20px;
       border-radius: 8px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.5);
       cursor: pointer;
       transition: transform 0.3s ease, background 0.3s ease;
       overflow: hidden;
-      position: relative;
       display: flex;
       flex-direction: column;
-    }
-    .education-item:hover .education-details {
-      max-height: 200px;
-      opacity: 1;
     }
     .education-item:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
@@ -425,303 +459,292 @@
       opacity: 1;
     }
 
-    /* Mobile Responsiveness */
+    /*----------------------------------------------
+      Mobile Responsiveness
+    -----------------------------------------------*/
     @media screen and (max-width: 768px) {
-      .sections {
-        padding: 15px;
-      }
-      .contact {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      .skills-grid, .certifications-grid {
-        grid-template-columns: 1fr;
-      }
-      .timeline-container {
-        margin: 0;
-      }
+      .sections { padding: 15px; }
+      .contact { flex-direction: column; align-items: center; text-align: center; }
+      .skills-grid, .certifications-grid { grid-template-columns: 1fr; }
+      .timeline-container { margin: 0; }
     }
   </style>
 </head>
 <body>
-  <div class="resume">
-    <div class="header">
-      <!-- Replace 'daniel.jpeg' with your correct image path -->
-      <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
-      <h1>Daniel P. Mailloux</h1>
-      <h2>Financial Economist &amp; Strategist</h2>
-      <!-- Download PDF Button -->
-      <button class="download-btn" onclick="window.open('resume.pdf')">
-        <svg viewBox="0 0 24 24">
-          <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/>
-        </svg>
-        PDF
-      </button>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Full-Screen Splash Header -->
+  <div class="header" id="about">
+    <!-- Replace 'daniel.jpeg' with your correct image path -->
+    <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
+    <h1>Daniel P. Mailloux</h1>
+    <h2>Financial Economist &amp; Strategist</h2>
+    <!-- Download PDF Button -->
+    <button class="download-btn" onclick="window.open('resume.pdf')">
+      <svg viewBox="0 0 24 24">
+        <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/>
+      </svg>
+      PDF
+    </button>
+  </div>
+
+  <!-- Main Content Sections -->
+  <div class="sections">
+    <!-- Contact Section -->
+    <div class="section contact" id="contact">
+      <h2>Contact</h2>
+      <div class="contact">
+        <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
+          <!-- Modern map icon -->
+          <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+          </svg>
+          Wichita, KS
+        </a>
+        <a href="mailto:mailloux.daniel@gmail.com">
+          <!-- Modern email icon -->
+          <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+          mailloux.daniel@gmail.com
+        </a>
+        <a href="tel:6204740124">
+          <!-- Modern phone icon -->
+          <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/>
+          </svg>
+          (620) 474-0124
+        </a>
+      </div>
     </div>
 
-    <div class="sections">
-      <!-- Contact Section -->
-      <div class="section contact" id="contact">
-        <h2>Contact</h2>
-        <div class="contact">
-          <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
-            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
-            </svg>
-            Wichita, KS
-          </a>
-          <a href="mailto:mailloux.daniel@gmail.com">
-            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
-            mailloux.daniel@gmail.com
-          </a>
-          <a href="tel:6204740124">
-            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/>
-            </svg>
-            (620) 474-0124
-          </a>
+    <!-- Skills Section -->
+    <div class="section skills" id="skills">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <div class="skill-title">Professional (90%)</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 90%;"></div>
+          </div>
+          <div class="skill-details">
+            Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.
+          </div>
         </div>
-      </div>
-
-      <!-- Skills Section -->
-      <div class="section skills" id="skills">
-        <h2>Skills</h2>
-        <div class="skills-grid">
-          <div class="skill-category">
-            <div class="skill-title">Professional (90%)</div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 90%;"></div>
-            </div>
-            <div class="skill-details">
-              Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.
-            </div>
+        <div class="skill-category">
+          <div class="skill-title">Technical (85%)</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 85%;"></div>
           </div>
-          <div class="skill-category">
-            <div class="skill-title">Technical (85%)</div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 85%;"></div>
-            </div>
-            <div class="skill-details">
-              Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.
-            </div>
+          <div class="skill-details">
+            Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.
           </div>
-          <div class="skill-category">
-            <div class="skill-title">Financial (90%)</div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 90%;"></div>
-            </div>
-            <div class="skill-details">
-              Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.
-            </div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-title">Financial (90%)</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 90%;"></div>
+          </div>
+          <div class="skill-details">
+            Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Professional Attributes Section -->
-      <div class="section attributes" id="attributes">
-        <h2>Professional Attributes</h2>
-        <h3>What I Bring</h3>
-        <ul>
-          <li>Creative problem-solver with an innovative mindset</li>
-          <li>Strategic thinker with strong analytical skills</li>
-          <li>Adaptable and collaborative team player</li>
-          <li>Results-driven with excellent interpersonal abilities</li>
-          <li>Passionate about continuous learning and improvement</li>
-        </ul>
-      </div>
+    <!-- Professional Attributes Section -->
+    <div class="section attributes" id="attributes">
+      <h2>Professional Attributes</h2>
+      <h3>What I Bring</h3>
+      <ul>
+        <li>Creative problem-solver with an innovative mindset</li>
+        <li>Strategic thinker with strong analytical skills</li>
+        <li>Adaptable and collaborative team player</li>
+        <li>Results-driven with excellent interpersonal abilities</li>
+        <li>Passionate about continuous learning and improvement</li>
+      </ul>
+    </div>
 
-      <!-- Experience Section (Timeline) -->
-      <div class="section experience" id="experience">
-        <h2>Experience</h2>
-        <div class="timeline-container" id="experienceTimeline">
-          <!-- Animated arrow indicator that fades out when scrolling -->
-          <div class="scroll-indicator" id="scrollIndicator">→</div>
-          <div class="timeline">
-            <div class="job">
-              <div class="job-header">
-                <p class="job-title">Personal Financial Manager</p>
-                <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
-              </div>
-              <div class="job-details">
-                <ul>
-                  <li>Manage personal investment portfolio with 40% annual growth.</li>
-                  <li>Develop comprehensive financial planning strategies using economic forecasts.</li>
-                  <li>Maintain accurate financial records for payables and receivables.</li>
-                </ul>
-              </div>
+    <!-- Experience Section (Timeline) -->
+    <div class="section experience" id="experience">
+      <h2>Experience</h2>
+      <div class="timeline-container" id="experienceTimeline">
+        <!-- Animated arrow indicator (fades out on scroll) -->
+        <div class="scroll-indicator" id="scrollIndicator">→</div>
+        <div class="timeline">
+          <div class="job">
+            <div class="job-header">
+              <p class="job-title">Personal Financial Manager</p>
+              <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
             </div>
-            <div class="job">
-              <div class="job-header">
-                <p class="job-title">Universal Banker</p>
-                <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
-              </div>
-              <div class="job-details">
-                <ul>
-                  <li>Processed 100+ daily transactions with 100% accuracy.</li>
-                  <li>Resolved discrepancies to improve account accuracy by 40%.</li>
-                  <li>Streamlined financial processes for consistent, accurate processing.</li>
-                </ul>
-              </div>
+            <div class="job-details">
+              <ul>
+                <li>Manage personal investment portfolio with 40% annual growth.</li>
+                <li>Develop comprehensive financial planning strategies using economic forecasts.</li>
+                <li>Maintain accurate financial records for payables and receivables.</li>
+              </ul>
             </div>
-            <div class="job">
-              <div class="job-header">
-                <p class="job-title">Account Administrator</p>
-                <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
-              </div>
-              <div class="job-details">
-                <ul>
-                  <li>Managed 10+ retirement accounts totaling over $3B.</li>
-                  <li>Verified 5,000+ participant accounts for compliance.</li>
-                  <li>Oversaw receivable operations and ensured regulatory compliance.</li>
-                </ul>
-              </div>
+          </div>
+          <div class="job">
+            <div class="job-header">
+              <p class="job-title">Universal Banker</p>
+              <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
             </div>
-            <div class="job">
-              <div class="job-header">
-                <p class="job-title">Universal Banker I</p>
-                <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
-              </div>
-              <div class="job-details">
-                <ul>
-                  <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
-                  <li>Enhanced customer relations with strategic support initiatives.</li>
-                  <li>Handled financial transactions efficiently.</li>
-                  <li>Promoted quickly by turning challenges into wins.</li>
-                </ul>
-              </div>
+            <div class="job-details">
+              <ul>
+                <li>Processed 100+ daily transactions with 100% accuracy.</li>
+                <li>Resolved discrepancies to improve account accuracy by 40%.</li>
+                <li>Streamlined financial processes for consistent, accurate processing.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="job">
+            <div class="job-header">
+              <p class="job-title">Account Administrator</p>
+              <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
+            </div>
+            <div class="job-details">
+              <ul>
+                <li>Managed 10+ retirement accounts totaling over $3B.</li>
+                <li>Verified 5,000+ participant accounts for compliance.</li>
+                <li>Oversaw receivable operations and ensured regulatory compliance.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="job">
+            <div class="job-header">
+              <p class="job-title">Universal Banker I</p>
+              <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
+            </div>
+            <div class="job-details">
+              <ul>
+                <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
+                <li>Enhanced customer relations with strategic support initiatives.</li>
+                <li>Handled financial transactions efficiently.</li>
+                <li>Promoted quickly by turning challenges into wins.</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Education Section (Interactive Preview) -->
-      <div class="section education" id="education">
-        <h2>Education</h2>
-        <div class="timeline-container" id="educationTimeline">
-          <div class="timeline education-grid">
-            <div class="education-item">
-              <div class="education-header">
-                <p class="education-title">Wichita State University</p>
-                <p class="education-institution">Bachelor of Business Administration in Economics</p>
-              </div>
-              <div class="education-details">
-                <p class="education-dates">Wichita, KS – Graduation Date: 2023</p>
-                <ul>
-                  <li>Business Senator – Student Government Association</li>
-                  <li>Dean’s List</li>
-                </ul>
-              </div>
+    <!-- Education Section (Interactive Preview) -->
+    <div class="section education" id="education">
+      <h2>Education</h2>
+      <div class="timeline-container" id="educationTimeline">
+        <div class="timeline education-grid">
+          <div class="education-item">
+            <div class="education-header">
+              <p class="education-title">Wichita State University</p>
+              <p class="education-institution">Bachelor of Business Administration in Economics</p>
             </div>
-            <div class="education-item">
-              <div class="education-header">
-                <p class="education-title">Hutchinson Community College</p>
-                <p class="education-institution">Associate of Science in Economics</p>
-              </div>
-              <div class="education-details">
-                <p class="education-dates">Hutchinson, KS – Graduation Date: 2020</p>
-                <ul>
-                  <li>Dean’s List</li>
-                  <li>Dean’s Honor Roll</li>
-                </ul>
-              </div>
+            <div class="education-details">
+              <p class="education-dates">Wichita, KS – Graduation Date: 2023</p>
+              <ul>
+                <li>Business Senator – Student Government Association</li>
+                <li>Dean’s List</li>
+              </ul>
+            </div>
+          </div>
+          <div class="education-item">
+            <div class="education-header">
+              <p class="education-title">Hutchinson Community College</p>
+              <p class="education-institution">Associate of Science in Economics</p>
+            </div>
+            <div class="education-details">
+              <p class="education-dates">Hutchinson, KS – Graduation Date: 2020</p>
+              <ul>
+                <li>Dean’s List</li>
+                <li>Dean’s Honor Roll</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Certifications Section -->
-      <div class="section certifications" id="certifications">
-        <h2>Certifications &amp; Compliance Expertise</h2>
-        <div class="certifications-grid">
-          <div class="certification-item">
-            <div class="certification-acronym">HMDA</div>
-            <div class="certification-details">Home Mortgage Disclosure Act</div>
-          </div>
-          <div class="certification-item">
-            <div class="certification-acronym">ERISA</div>
-            <div class="certification-details">Employee Retirement Income Security Act</div>
-          </div>
-          <div class="certification-item">
-            <div class="certification-acronym">IRS</div>
-            <div class="certification-details">Internal Revenue Service</div>
-          </div>
-          <div class="certification-item">
-            <div class="certification-acronym">BSA</div>
-            <div class="certification-details">Bank Secrecy Act</div>
-          </div>
-          <div class="certification-item">
-            <div class="certification-acronym">CIP</div>
-            <div class="certification-details">Customer Identification Program</div>
-          </div>
-          <div class="certification-item">
-            <div class="certification-acronym">UDAAP</div>
-            <div class="certification-details">Unfair, Deceptive, or Abusive Acts &amp; Practices</div>
-          </div>
-          <div class="certification-item">
-            <div class="certification-acronym">Reg Z</div>
-            <div class="certification-details">Truth in Lending</div>
-          </div>
-          <div class="certification-item">
-            <div class="certification-acronym">Reg DD</div>
-            <div class="certification-details">Truth in Savings</div>
-          </div>
+    <!-- Certifications Section -->
+    <div class="section certifications" id="certifications">
+      <h2>Certifications &amp; Compliance Expertise</h2>
+      <div class="certifications-grid">
+        <div class="certification-item">
+          <div class="certification-acronym">HMDA</div>
+          <div class="certification-details">Home Mortgage Disclosure Act</div>
+        </div>
+        <div class="certification-item">
+          <div class="certification-acronym">ERISA</div>
+          <div class="certification-details">Employee Retirement Income Security Act</div>
+        </div>
+        <div class="certification-item">
+          <div class="certification-acronym">IRS</div>
+          <div class="certification-details">Internal Revenue Service</div>
+        </div>
+        <div class="certification-item">
+          <div class="certification-acronym">BSA</div>
+          <div class="certification-details">Bank Secrecy Act</div>
+        </div>
+        <div class="certification-item">
+          <div class="certification-acronym">CIP</div>
+          <div class="certification-details">Customer Identification Program</div>
+        </div>
+        <div class="certification-item">
+          <div class="certification-acronym">UDAAP</div>
+          <div class="certification-details">Unfair, Deceptive, or Abusive Acts &amp; Practices</div>
+        </div>
+        <div class="certification-item">
+          <div class="certification-acronym">Reg Z</div>
+          <div class="certification-details">Truth in Lending</div>
+        </div>
+        <div class="certification-item">
+          <div class="certification-acronym">Reg DD</div>
+          <div class="certification-details">Truth in Savings</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Interaction Scripts -->
+  <!------------------------------------------------
+    Interaction Scripts
+  ------------------------------------------------->
   <script>
-    // Skills Boxes: Set hover dynamic gradient (handled via CSS)
+    // Update pointer dynamic gradient for skills, certifications, education
+    const updatePointer = (element, e) => {
+      const rect = element.getBoundingClientRect();
+      element.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+      element.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    };
 
-    // Jobs: Set dynamic gradient on pointer move
-    const jobs = document.querySelectorAll('.job');
-    jobs.forEach(job => {
-      job.addEventListener('pointermove', (e) => {
-        const rect = job.getBoundingClientRect();
-        job.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-        job.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-      });
+    document.querySelectorAll('.skill-category').forEach(el => {
+      el.addEventListener('pointermove', (e) => updatePointer(el, e));
     });
-
-    // Certifications: Pointer move dynamic gradient
-    const certItems = document.querySelectorAll('.certification-item');
-    certItems.forEach(cert => {
-      cert.addEventListener('pointermove', (e) => {
-        const rect = cert.getBoundingClientRect();
-        cert.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-        cert.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-      });
+    document.querySelectorAll('.certification-item').forEach(el => {
+      el.addEventListener('pointermove', (e) => updatePointer(el, e));
     });
-
-    // Education: Pointer move dynamic gradient
-    const educationItems = document.querySelectorAll('.education-item');
-    educationItems.forEach(item => {
-      item.addEventListener('pointermove', (e) => {
-        const rect = item.getBoundingClientRect();
-        item.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-        item.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-      });
+    document.querySelectorAll('.education-item').forEach(el => {
+      el.addEventListener('pointermove', (e) => updatePointer(el, e));
     });
 
     // Horizontal Drag-to-Scroll for Timelines
-    const timelineContainers = document.querySelectorAll('.timeline-container');
-    timelineContainers.forEach(container => {
+    document.querySelectorAll('.timeline-container').forEach(container => {
       let isDown = false, startX, scrollLeft;
       container.addEventListener('mousedown', (e) => {
         isDown = true;
         startX = e.pageX - container.offsetLeft;
         scrollLeft = container.scrollLeft;
       });
-      container.addEventListener('mouseleave', () => {
-        isDown = false;
-      });
-      container.addEventListener('mouseup', () => {
-        isDown = false;
-      });
+      container.addEventListener('mouseleave', () => { isDown = false; });
+      container.addEventListener('mouseup', () => { isDown = false; });
       container.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
@@ -729,7 +752,7 @@
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
       });
-      // Arrow indicator fade in/out based on scroll
+      // Fade arrow indicator on scroll
       container.addEventListener('scroll', () => {
         const indicator = container.querySelector('.scroll-indicator');
         if (container.scrollLeft > 10 && indicator) {
@@ -741,6 +764,7 @@
     });
 
     // Intersection Observer for Job Fade-In/Out Effect
+    const jobs = document.querySelectorAll('.job');
     const jobObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -752,7 +776,7 @@
     }, { threshold: 0.3 });
     jobs.forEach(job => jobObserver.observe(job));
 
-    // Optional: Ensure page starts at top on load
+    // Ensure page starts at top on load
     window.onload = () => window.scrollTo(0, 0);
   </script>
 </body>
