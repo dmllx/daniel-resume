@@ -3,255 +3,363 @@
 <head>
   <meta charset="UTF-8" />
   <title>Daniel P. Mailloux - Resume</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    /*----------------------------------------------
-      Base Colors & Variables
-    -----------------------------------------------*/
+    /* Base Colors & Variables */
     :root {
-      --primary: #007aff;
-      --secondary: #00d4ff;
-      --dark-bg: #0d0d0d;
-      --darker-bg: #080808;
-      --text-main: #ffffff;
-      --text-sub: #a0a0a0;
-      --header-grad: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(0,0,0,0.9));
-      --body-grad: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(13,13,13,0.85) 100%);
+      --primary: #007bff;
+      --secondary: #00c6ff;
+      --dark-bg: #1a1a1a;
+      --darker-bg: #111;
+      --text-main: #fff;
+      --text-sub: #bbb;
+      --text-light: #ccc;
+      --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
+      /* Parallax background overlay */
+      --body-grad: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(17,17,17,0.8) 60%, var(--secondary) 100%);
     }
 
-    /*----------------------------------------------
-      Global & Background
-    -----------------------------------------------*/
+    /* Body with parallax background */
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.8;
-      background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072') no-repeat center center fixed, var(--body-grad);
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      background: url('bg.jpg') no-repeat center center fixed, var(--body-grad);
       background-size: cover;
       color: var(--text-main);
-      min-height: 200vh; /* Extended for scrolling */
+      min-height: 100vh;
       scroll-behavior: smooth;
-      overflow-x: hidden;
     }
+    body::before { content: ""; display: block; height: 0; }
 
-    /*----------------------------------------------
-      Header / Splash Screen
-    -----------------------------------------------*/
+    /* Splash Header (Full-Screen Initially, Minimizes on Scroll) */
     .header {
-      position: relative;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: var(--header-grad);
+      background: rgba(0, 0, 0, 0.5);
       color: #fff;
       text-align: center;
-      padding: 40px 20px;
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth easing */
-      z-index: 999;
+      padding: 20px;
+      transition: all 0.5s ease;
+      z-index: 900;
     }
-    .header.minimized {
-      position: fixed;
+    .header::after {
+      content: "";
+      position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 80px;
-      padding: 15px 20px;
-      background: rgba(0, 0, 0, 0.9);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      bottom: 0;
+      background: var(--header-grad);
+      opacity: 0.6;
+      z-index: -1;
     }
-    .header-content {
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .header.minimized .header-content {
-      transform: scale(0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-    }
-    .header h1 {
-      margin: 0;
-      font-weight: 800;
-      font-size: 4em;
-      letter-spacing: -1px;
-      animation: fadeInUp 1s ease-out;
-    }
-    .header.minimized h1 {
-      font-size: 1.6em;
-      margin: 0;
-    }
-    .header h2 {
-      margin: 15px 0 0;
-      font-weight: 400;
-      font-size: 1.6em;
-      color: var(--text-sub);
-      animation: fadeInUp 1.2s ease-out;
-    }
-    .header.minimized h2 {
-      font-size: 0.9em;
-      margin: 0;
-    }
-    .logo {
-      width: 120px;
-      height: 120px;
+    .header .logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
       object-fit: cover;
+      object-position: 50% 30%;
       border-radius: 50%;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      animation: fadeIn 1s ease-out;
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      animation: fadeInUp 1s ease-out forwards;
     }
-    .header.minimized .logo {
+    .header h1, .header h2 {
+      opacity: 0;
+      animation: fadeInUp 1s ease-out forwards;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    }
+    .header h1 { animation-delay: 0.3s; }
+    .header h2 { animation-delay: 0.6s; }
+    /* When scrolled, header minimizes to a banner */
+    .header.small-header {
+      height: 80px;
+      padding: 10px 20px;
+    }
+    .header.small-header .logo {
       width: 50px;
       height: 50px;
+      margin-bottom: 0;
+    }
+    .header.small-header h1,
+    .header.small-header h2 {
+      transform: scale(0.6);
+      opacity: 0.8;
       margin: 0;
     }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Download PDF Button (Same as your example) */
     .download-btn {
       position: absolute;
-      top: 30px;
-      right: 30px;
-      background: rgba(255,255,255,0.1);
-      border: none;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: 2px solid var(--text-main);
       color: var(--text-main);
-      padding: 10px 20px;
-      border-radius: 50px;
-      font-size: 1em;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.9em;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
+      gap: 5px;
+      transition: transform 0.3s ease, background 0.3s ease;
+      z-index: 1001;
     }
     .download-btn:hover {
       background: var(--secondary);
       transform: scale(1.05);
     }
-    .download-btn svg { fill: var(--text-main); width: 18px; height: 18px; }
-
-    /* Particle Background */
-    #particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-    .header.minimized #particles {
-      display: none;
+    .download-btn svg {
+      fill: var(--text-main);
+      width: 16px;
+      height: 16px;
     }
 
-    /*----------------------------------------------
-      Content Sections
-    -----------------------------------------------*/
+    /* Main Content Sections (Pushed below splash) */
     .sections {
-      padding: 60px 20px;
+      padding: 20px;
       background: var(--dark-bg);
+      margin-top: 100vh;
     }
-    .section {
-      margin-bottom: 80px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .section { margin-bottom: 40px; }
     .section h2 {
       color: var(--secondary);
-      font-size: 2.2em;
-      font-weight: 600;
-      margin-bottom: 20px;
-      letter-spacing: -0.5px;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 5px;
     }
 
-    /* Contact Section */
+    /* Contact Section with Micro-Interactions */
+    .section.contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     .contact {
       display: flex;
-      gap: 50px;
-      justify-content: center;
+      gap: 40px;
       flex-wrap: wrap;
+      justify-content: center;
     }
     .contact a {
-      color: var(--text-sub);
+      color: var(--text-light);
       text-decoration: none;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      font-size: 1.1em;
-      transition: all 0.3s ease;
+      gap: 8px;
+      transition: transform 0.3s ease, color 0.3s ease;
     }
     .contact a:hover {
+      transform: scale(1.1);
       color: var(--secondary);
-      transform: translateX(5px);
     }
-    .icon { fill: var(--text-sub); width: 22px; height: 22px; }
+    .icon { transition: transform 0.3s ease; }
 
-    /* Skills Section */
+    /* Professional Attributes Section */
+    .attributes {
+      background: var(--darker-bg);
+      border: 1px solid var(--secondary);
+      border-radius: 6px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      margin-bottom: 40px;
+    }
+    .attributes h3 {
+      margin-top: 0;
+      color: var(--secondary);
+      font-size: 1.3em;
+    }
+    .attributes ul {
+      list-style: disc;
+      margin-left: 20px;
+      color: var(--text-main);
+    }
+    .attributes li { margin-bottom: 5px; transition: color 0.3s ease; }
+    .attributes li:hover { color: var(--secondary); }
+
+    /* Skills Section with Animated Progress Bars */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
     }
     .skill-category {
-      background: var(--darker-bg);
-      padding: 25px;
-      border-radius: 12px;
-      transition: all 0.4s ease;
+      background: var(--primary);
+      color: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
     }
     .skill-category:hover {
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--primary));
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
     }
-    .skill-title { font-size: 1.3em; font-weight: 600; }
+    .skill-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .skill-details {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+    }
+    .skill-category:hover .skill-details {
+      max-height: 150px;
+      opacity: 1;
+      margin-top: 10px;
+    }
     .progress-bar {
+      width: 100%;
       background: #333;
-      height: 6px;
-      border-radius: 3px;
-      margin: 15px 0;
+      height: 8px;
+      border-radius: 4px;
+      margin: 10px 0;
+      overflow: hidden;
     }
     .progress-fill {
       height: 100%;
       background: var(--secondary);
-      border-radius: 3px;
-      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0;
+      border-radius: 4px;
+      transition: width 1s ease;
     }
-    .skill-details { font-size: 0.95em; color: var(--text-sub); margin-top: 10px; }
 
-    /* Experience Section */
+    /* Certifications Section - 2 Rows of 4 Boxes, Centered */
+    .certifications-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .certification-item {
+      background: var(--primary);
+      color: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 1px solid var(--secondary);
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .certification-item:hover {
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--primary));
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .certification-acronym { font-size: 1.1em; }
+    .certification-details {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      margin-top: 8px;
+      font-size: 0.95em;
+      font-weight: normal;
+    }
+    .certification-item:hover .certification-details {
+      max-height: 100px;
+      opacity: 1;
+    }
+
+    /* Experience / Timeline Section */
     .timeline-container {
       position: relative;
       overflow-x: auto;
-      padding: 20px 0;
+      white-space: nowrap;
+      padding: 20px 10px;
+      margin: 0 -20px;
     }
+    .timeline-container::-webkit-scrollbar { display: none; }
     .timeline {
-      display: flex;
-      gap: 30px;
-      padding: 0 20px;
+      position: relative;
+      display: inline-flex;
+      gap: 20px;
     }
     .job {
       background: var(--darker-bg);
-      min-width: 300px;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      transition: all 0.4s ease;
+      color: #fff;
+      min-width: 280px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .job.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .job:hover {
-      transform: translateY(-5px);
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
+      transform: translateY(-5px);
     }
-    .job-title { font-size: 1.3em; font-weight: 600; }
-    .company { font-size: 1em; color: var(--text-sub); }
+    .job .job-header { margin-bottom: 10px; transition: margin-top 0.3s ease; }
+    .job-title { font-weight: bold; font-size: 1.2em; margin: 0; }
+    .company { font-style: italic; font-size: 0.95em; margin: 0; color: var(--text-sub); }
     .dates { font-size: 0.9em; color: var(--text-sub); }
-    .job-details { margin-top: 15px; color: var(--text-sub); }
-    .job-details ul { list-style: disc; margin: 10px 0 0 20px; padding: 0; }
+    .job-details {
+      background: var(--darker-bg);
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-left: 3px solid var(--secondary);
+      border-radius: 4px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+    }
+    .job:hover .job-details { max-height: 300px; opacity: 1; }
+    .job-details ul { list-style: disc; margin: 10px 0 0 20px; }
+
+    /* Animated Arrow Indicator */
+    .scroll-indicator {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      font-size: 2em;
+      color: var(--text-light);
+      animation: pulse 2s infinite;
+      z-index: 5;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.8; transform: translateX(0); }
+      50% { opacity: 1; transform: translateX(5px); }
+      100% { opacity: 0.8; transform: translateX(0); }
+    }
 
     /* Education Section */
     .education-grid {
@@ -261,132 +369,147 @@
     }
     .education-item {
       background: var(--darker-bg);
-      padding: 25px;
-      border-radius: 12px;
-      transition: all 0.4s ease;
+      color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .education-item:hover {
-      transform: translateY(-5px);
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
-    }
-    .education-title { font-size: 1.3em; font-weight: 600; }
-    .education-institution { font-size: 1em; color: var(--text-sub); }
-    .education-details { margin-top: 15px; color: var(--text-sub); }
-    .education-details ul { list-style: disc; margin: 10px 0 0 20px; padding: 0; }
-
-    /* Certifications Section */
-    .certifications-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .certification-item {
-      background: var(--darker-bg);
-      padding: 20px;
-      border-radius: 12px;
-      transition: all 0.4s ease;
-    }
-    .certification-item:hover {
       transform: translateY(-5px);
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
     }
-    .certification-acronym { font-size: 1.1em; font-weight: 600; }
-    .certification-details { font-size: 0.9em; color: var(--text-sub); margin-top: 8px; }
-
-    /*----------------------------------------------
-      Mobile Responsiveness
-    -----------------------------------------------*/
-    @media (max-width: 768px) {
-      .header h1 { font-size: 2.5em; }
-      .header h2 { font-size: 1.2em; }
-      .header.minimized h1 { font-size: 1.4em; }
-      .header.minimized h2 { font-size: 0.8em; }
-      .header.minimized .logo { width: 40px; height: 40px; }
-      .sections { padding: 40px 15px; }
-      .contact { flex-direction: column; gap: 20px; }
-      .skills-grid, .certifications-grid, .education-grid { grid-template-columns: 1fr; }
+    .education-header { margin-bottom: 10px; transition: margin-top 0.3s ease; }
+    .education-title { font-weight: bold; font-size: 1.2em; margin: 0; }
+    .education-institution { font-size: 1em; margin: 5px 0 0; }
+    .education-details {
+      padding-top: 10px;
+      border-top: 1px solid var(--secondary);
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    .education-item:hover .education-details {
+      max-height: 200px;
+      opacity: 1;
     }
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* Mobile Responsiveness */
+    @media screen and (max-width: 768px) {
+      .sections { padding: 15px; }
+      .contact { flex-direction: column; align-items: center; text-align: center; }
+      .skills-grid, .certifications-grid { grid-template-columns: 1fr; }
+      .timeline-container { margin: 0; }
     }
   </style>
 </head>
 <body>
-  <!-- Splash Screen -->
+  <!-- Full-Screen Splash Header (No Nav Bar) -->
   <div class="header" id="about">
-    <canvas id="particles"></canvas>
-    <div class="header-content">
-      <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
-      <h1>Daniel P. Mailloux</h1>
-      <h2>Financial Economist & Strategist</h2>
-    </div>
+    <!-- Replace 'daniel.jpeg' with your image path -->
+    <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
+    <h1>Daniel P. Mailloux</h1>
+    <h2>Financial Economist &amp; Strategist</h2>
+    <!-- Download PDF Button (from your example) -->
     <button class="download-btn" onclick="window.open('resume.pdf')">
-      <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/></svg>
-      Download PDF
+      <svg viewBox="0 0 24 24">
+        <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/>
+      </svg>
+      PDF
     </button>
   </div>
 
-  <!-- Sections -->
+  <!-- Main Content Sections -->
   <div class="sections">
-    <!-- Contact -->
+    <!-- Contact Section -->
     <div class="section contact" id="contact">
       <h2>Contact</h2>
       <div class="contact">
         <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+          <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+          </svg>
           Wichita, KS
         </a>
         <a href="mailto:mailloux.daniel@gmail.com">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
           mailloux.daniel@gmail.com
         </a>
         <a href="tel:6204740124">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/></svg>
+          <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="var(--text-light)">
+            <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/>
+          </svg>
           (620) 474-0124
         </a>
       </div>
     </div>
 
-    <!-- Skills -->
+    <!-- Skills Section -->
     <div class="section skills" id="skills">
       <h2>Skills</h2>
       <div class="skills-grid">
         <div class="skill-category">
           <div class="skill-title">Professional (90%)</div>
-          <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-          <div class="skill-details">Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 90%;"></div>
+          </div>
+          <div class="skill-details">
+            Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.
+          </div>
         </div>
         <div class="skill-category">
           <div class="skill-title">Technical (85%)</div>
-          <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
-          <div class="skill-details">Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 85%;"></div>
+          </div>
+          <div class="skill-details">
+            Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.
+          </div>
         </div>
         <div class="skill-category">
           <div class="skill-title">Financial (90%)</div>
-          <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-          <div class="skill-details">Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 90%;"></div>
+          </div>
+          <div class="skill-details">
+            Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Experience -->
+    <!-- Professional Attributes Section -->
+    <div class="section attributes" id="attributes">
+      <h2>Professional Attributes</h2>
+      <h3>What I Bring</h3>
+      <ul>
+        <li>Creative problem-solver with an innovative mindset</li>
+        <li>Strategic thinker with strong analytical skills</li>
+        <li>Adaptable and collaborative team player</li>
+        <li>Results-driven with excellent interpersonal abilities</li>
+        <li>Passionate about continuous learning and improvement</li>
+      </ul>
+    </div>
+
+    <!-- Experience Section (Timeline) -->
     <div class="section experience" id="experience">
       <h2>Experience</h2>
-      <div class="timeline-container">
+      <div class="timeline-container" id="experienceTimeline">
+        <!-- Animated Arrow Indicator (fades on scroll) -->
+        <div class="scroll-indicator" id="scrollIndicator">→</div>
         <div class="timeline">
           <div class="job">
-            <p class="job-title">Personal Financial Manager</p>
-            <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
+            <div class="job-header">
+              <p class="job-title">Personal Financial Manager</p>
+              <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
+            </div>
             <div class="job-details">
               <ul>
                 <li>Manage personal investment portfolio with 40% annual growth.</li>
@@ -396,8 +519,10 @@
             </div>
           </div>
           <div class="job">
-            <p class="job-title">Universal Banker</p>
-            <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
+            <div class="job-header">
+              <p class="job-title">Universal Banker</p>
+              <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
+            </div>
             <div class="job-details">
               <ul>
                 <li>Processed 100+ daily transactions with 100% accuracy.</li>
@@ -407,8 +532,10 @@
             </div>
           </div>
           <div class="job">
-            <p class="job-title">Account Administrator</p>
-            <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
+            <div class="job-header">
+              <p class="job-title">Account Administrator</p>
+              <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
+            </div>
             <div class="job-details">
               <ul>
                 <li>Managed 10+ retirement accounts totaling over $3B.</li>
@@ -418,8 +545,10 @@
             </div>
           </div>
           <div class="job">
-            <p class="job-title">Universal Banker I</p>
-            <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
+            <div class="job-header">
+              <p class="job-title">Universal Banker I</p>
+              <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
+            </div>
             <div class="job-details">
               <ul>
                 <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
@@ -433,38 +562,44 @@
       </div>
     </div>
 
-    <!-- Education -->
+    <!-- Education Section (Interactive Preview) -->
     <div class="section education" id="education">
       <h2>Education</h2>
-      <div class="education-grid">
-        <div class="education-item">
-          <p class="education-title">Wichita State University</p>
-          <p class="education-institution">Bachelor of Business Administration in Economics</p>
-          <div class="education-details">
-            <p>Wichita, KS – Graduation Date: 2023</p>
-            <ul>
-              <li>Business Senator – Student Government Association</li>
-              <li>Dean’s List</li>
-            </ul>
+      <div class="timeline-container" id="educationTimeline">
+        <div class="timeline education-grid">
+          <div class="education-item">
+            <div class="education-header">
+              <p class="education-title">Wichita State University</p>
+              <p class="education-institution">Bachelor of Business Administration in Economics</p>
+            </div>
+            <div class="education-details">
+              <p class="education-dates">Wichita, KS – Graduation Date: 2023</p>
+              <ul>
+                <li>Business Senator – Student Government Association</li>
+                <li>Dean’s List</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div class="education-item">
-          <p class="education-title">Hutchinson Community College</p>
-          <p class="education-institution">Associate of Science in Economics</p>
-          <div class="education-details">
-            <p>Hutchinson, KS – Graduation Date: 2020</p>
-            <ul>
-              <li>Dean’s List</li>
-              <li>Dean’s Honor Roll</li>
-            </ul>
+          <div class="education-item">
+            <div class="education-header">
+              <p class="education-title">Hutchinson Community College</p>
+              <p class="education-institution">Associate of Science in Economics</p>
+            </div>
+            <div class="education-details">
+              <p class="education-dates">Hutchinson, KS – Graduation Date: 2020</p>
+              <ul>
+                <li>Dean’s List</li>
+                <li>Dean’s Honor Roll</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Certifications -->
+    <!-- Certifications Section -->
     <div class="section certifications" id="certifications">
-      <h2>Certifications & Compliance Expertise</h2>
+      <h2>Certifications &amp; Compliance Expertise</h2>
       <div class="certifications-grid">
         <div class="certification-item">
           <div class="certification-acronym">HMDA</div>
@@ -488,7 +623,7 @@
         </div>
         <div class="certification-item">
           <div class="certification-acronym">UDAAP</div>
-          <div class="certification-details">Unfair, Deceptive, or Abusive Acts & Practices</div>
+          <div class="certification-details">Unfair, Deceptive, or Abusive Acts &amp; Practices</div>
         </div>
         <div class="certification-item">
           <div class="certification-acronym">Reg Z</div>
@@ -502,89 +637,76 @@
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- Interaction Scripts -->
   <script>
-    // Particle Background
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray = [];
-    const numberOfParticles = 100;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
-        if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
-      }
-      draw() {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-      }
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    // Dynamic pointer positioning for hover effects
+    const updatePointer = (element, e) => {
+      const rect = element.getBoundingClientRect();
+      element.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+      element.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    };
+    document.querySelectorAll('.skill-category').forEach(el => {
+      el.addEventListener('pointermove', e => updatePointer(el, e));
+    });
+    document.querySelectorAll('.certification-item').forEach(el => {
+      el.addEventListener('pointermove', e => updatePointer(el, e));
+    });
+    document.querySelectorAll('.education-item').forEach(el => {
+      el.addEventListener('pointermove', e => updatePointer(el, e));
     });
 
-    // Header Minimize on Scroll
-    const header = document.querySelector('.header');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > window.innerHeight * 0.5) {
-        header.classList.add('minimized');
-      } else {
-        header.classList.remove('minimized');
-      }
-    });
-
-    // Dynamic Gradient on Hover
-    document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
-      el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        el.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-        el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    // Horizontal Drag-to-Scroll for Timeline Containers
+    document.querySelectorAll('.timeline-container').forEach(container => {
+      let isDown = false, startX, scrollLeft;
+      container.addEventListener('mousedown', e => {
+        isDown = true;
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+      });
+      container.addEventListener('mouseleave', () => { isDown = false; });
+      container.addEventListener('mouseup', () => { isDown = false; });
+      container.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 2;
+        container.scrollLeft = scrollLeft - walk;
+      });
+      container.addEventListener('scroll', () => {
+        const indicator = container.querySelector('.scroll-indicator');
+        if (container.scrollLeft > 10 && indicator) {
+          indicator.style.opacity = 0;
+        } else if (indicator) {
+          indicator.style.opacity = 1;
+        }
       });
     });
 
-    // Scroll Animations for Sections
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver(entries => {
+    // Intersection Observer for Job Fade-In/Out
+    const jobs = document.querySelectorAll('.job');
+    const jobObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
       });
-    }, { threshold: 0.2 });
-    sections.forEach(section => observer.observe(section));
+    }, { threshold: 0.3 });
+    jobs.forEach(job => jobObserver.observe(job));
+
+    // Header minimizes to banner on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 100) {
+        header.classList.add('small-header');
+      } else {
+        header.classList.remove('small-header');
+      }
+    });
+
+    // Ensure page starts at top on load
+    window.onload = () => window.scrollTo(0, 0);
   </script>
 </body>
 </html>
