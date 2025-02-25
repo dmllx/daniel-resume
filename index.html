@@ -199,7 +199,7 @@
       transition: width 1s ease;
     }
 
-    /* Certifications Section (Organized) */
+    /* Certifications Section - Organized Grid */
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -262,6 +262,7 @@
     .timeline {
       display: inline-flex;
       gap: 20px;
+      position: relative;
     }
     .job {
       background: var(--darker-bg);
@@ -279,6 +280,13 @@
       flex-direction: column;
       justify-content: center;
       z-index: 1;
+      opacity: 0; /* start hidden for fade-in */
+      transform: translateY(20px);
+    }
+    .job.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .job:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
@@ -327,12 +335,23 @@
       list-style: disc;
       margin: 10px 0 0 20px;
     }
-    .timeline-container.active {
-      cursor: grabbing;
-      cursor: -webkit-grabbing;
+
+    /* Scroll Indicator for Timeline */
+    .scroll-indicator {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      font-size: 2em;
+      color: var(--text-light);
+      animation: pulse 2s infinite;
+      pointer-events: none;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; transform: translateX(0); }
+      50% { opacity: 1; transform: translateX(5px); }
     }
 
-    /* Education Section (Unified Box Preview) */
+    /* Education Section (Unified Preview) */
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -368,7 +387,7 @@
       font-size: 1em;
       margin: 5px 0 0;
     }
-    /* Now details appear inline below the header */
+    /* Education details appear inline below the preview */
     .education-details {
       padding-top: 10px;
       border-top: 1px solid var(--secondary);
@@ -404,7 +423,7 @@
 <body>
   <div class="resume">
     <div class="header">
-      <!-- Replace 'daniel.jpeg' with your correct image path -->
+      <!-- Replace 'daniel.jpeg' with the correct image path -->
       <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux Photo" />
       <h1>Daniel P. Mailloux</h1>
       <h2>Financial Economist &amp; Strategist</h2>
@@ -487,6 +506,8 @@
       <div class="section experience" id="experience">
         <h2>Experience</h2>
         <div class="timeline-container">
+          <!-- Scroll Indicator for Timeline -->
+          <div class="scroll-indicator">→</div>
           <div class="timeline">
             <div class="job">
               <div class="job-header">
@@ -497,7 +518,7 @@
                 <ul>
                   <li>Manage personal investment portfolio with 40% annual growth.</li>
                   <li>Develop comprehensive financial planning strategies using economic forecasts.</li>
-                  <li>Manage financial records, maintaining accuracy in payables and receivables.</li>
+                  <li>Maintain accurate financial records for payables and receivables.</li>
                 </ul>
               </div>
             </div>
@@ -510,7 +531,7 @@
                 <ul>
                   <li>Processed 100+ daily transactions with 100% accuracy.</li>
                   <li>Resolved discrepancies to improve account accuracy by 40%.</li>
-                  <li>Streamlined accounts payable/receivable procedures for consistent, accurate processing.</li>
+                  <li>Streamlined financial processes for consistent, accurate processing.</li>
                 </ul>
               </div>
             </div>
@@ -522,8 +543,8 @@
               <div class="job-details">
                 <ul>
                   <li>Managed 10+ retirement accounts totaling over $3B.</li>
-                  <li>Verified 5,000+ participant accounts for ERISA/IRS compliance.</li>
-                  <li>Oversaw accounts receivable operations, reconciling invoices and ensuring regulatory compliance.</li>
+                  <li>Verified 5,000+ participant accounts for compliance.</li>
+                  <li>Oversaw receivable operations and ensured regulatory compliance.</li>
                 </ul>
               </div>
             </div>
@@ -536,8 +557,8 @@
                 <ul>
                   <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
                   <li>Enhanced customer relations with strategic support initiatives.</li>
-                  <li>Handled accounts payable/receivable transactions for efficient daily operations.</li>
-                  <li>Quickly promoted by turning challenges into wins.</li>
+                  <li>Handled financial transactions efficiently.</li>
+                  <li>Promoted quickly by turning challenges into wins.</li>
                 </ul>
               </div>
             </div>
@@ -558,7 +579,7 @@
               <div class="education-details">
                 <p class="education-dates">Wichita, KS – Graduation Date: 2023</p>
                 <ul>
-                  <li>Business Senator - Student Government Association</li>
+                  <li>Business Senator – Student Government Association</li>
                   <li>Dean’s List</li>
                 </ul>
               </div>
@@ -764,6 +785,22 @@
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
       });
+    });
+
+    /**************************************************
+     * Intersection Observer for Job Fade-In Effect
+     **************************************************/
+    const jobObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          jobObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    jobs.forEach(job => {
+      jobObserver.observe(job);
     });
   </script>
 </body>
