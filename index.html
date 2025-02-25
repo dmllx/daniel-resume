@@ -19,7 +19,7 @@
       --body-grad: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(17,17,17,0.8) 60%, var(--secondary) 100%);
     }
 
-    /* Parallax background with overlay */
+    /* Parallax background with overlay (replace 'bg.jpg' with your image) */
     body {
       margin: 0;
       padding: 0;
@@ -32,7 +32,7 @@
       scroll-behavior: smooth;
     }
 
-    /* Ensure page loads at top (optional) */
+    /* Ensure page loads at the top */
     body::before {
       content: "";
       display: block;
@@ -74,7 +74,7 @@
       margin-bottom: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
-    /* Download PDF Button (modern & subtle) */
+    /* Download PDF Button */
     .download-btn {
       position: absolute;
       top: 20px;
@@ -204,7 +204,6 @@
       transition: max-height 0.4s ease, opacity 0.4s ease;
       margin-top: 0;
     }
-    /* Expand on hover */
     .skill-category:hover .skill-details {
       max-height: 150px;
       opacity: 1;
@@ -227,7 +226,7 @@
       transition: width 1s ease;
     }
 
-    /* Certifications Section - 4 columns, centered */
+    /* Certifications Section - 4 Columns, Centered */
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -306,10 +305,6 @@
       opacity: 0;
       transform: translateY(20px);
     }
-    .job:hover .job-details {
-      max-height: 300px;
-      opacity: 1;
-    }
     .job.visible {
       opacity: 1;
       transform: translateY(0);
@@ -358,7 +353,7 @@
       list-style: disc;
       margin: 10px 0 0 20px;
     }
-    /* Animated arrow overlay on timeline */
+    /* Animated Arrow Indicator */
     .scroll-indicator {
       position: absolute;
       top: 50%;
@@ -678,7 +673,7 @@
 
   <!-- Interaction Scripts -->
   <script>
-    // Skills Boxes Hover Interaction (using CSS hover rules; click events removed for a hover-only effect)
+    // Dynamic Gradient for Skills Boxes
     const skillCategories = document.querySelectorAll('.skill-category');
     skillCategories.forEach(category => {
       category.addEventListener('pointermove', (e) => {
@@ -688,7 +683,7 @@
       });
     });
 
-    // Jobs: Expand job details on hover (the CSS :hover rule handles expansion)
+    // Jobs: Hover expansion handled by CSS (:hover) - IntersectionObserver for fade in/out
     const jobs = document.querySelectorAll('.job');
     jobs.forEach(job => {
       job.addEventListener('pointermove', (e) => {
@@ -696,10 +691,9 @@
         job.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
         job.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
-      // (Hover expansion is managed by CSS)
     });
 
-    // Certifications: Hover effect (using CSS :hover)
+    // Certifications: Hover effect handled by CSS
     const certItems = document.querySelectorAll('.certification-item');
     certItems.forEach(cert => {
       cert.addEventListener('pointermove', (e) => {
@@ -709,7 +703,7 @@
       });
     });
 
-    // Education: Expand details on hover (CSS :hover handles this)
+    // Education: Hover expansion handled by CSS
     const educationItems = document.querySelectorAll('.education-item');
     educationItems.forEach(item => {
       item.addEventListener('pointermove', (e) => {
@@ -764,10 +758,8 @@
     }, { threshold: 0.3 });
     jobs.forEach(job => jobObserver.observe(job));
 
-    // Optional: Ensure the page starts at top on load
-    window.onload = () => {
-      window.scrollTo(0,0);
-    };
+    // Optional: Ensure page starts at top on load
+    window.onload = () => window.scrollTo(0, 0);
   </script>
 </body>
 </html>
