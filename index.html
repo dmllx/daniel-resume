@@ -21,16 +21,17 @@
       --header-grad: linear-gradient(135deg, var(--primary), var(--secondary));
       --body-grad: linear-gradient(180deg, #000 0%, #111 60%, var(--secondary) 100%);
     }
-    :root.light-mode {
-      --dark-bg: #ffffff;
-      --darker-bg: #f8f9fa;
-      --text-main: #000;
-      --text-sub: #555;
-      --text-light: #333;
-
-      --header-grad: linear-gradient(135deg, #62b0ff, #a8eeff);
-      --body-grad: linear-gradient(180deg, #fff 0%, #f8f9fa 60%, #a8eeff 100%);
-    }
+:root.light-mode {
+  --dark-bg: #ffffff;        /* Base background (white) */
+  --darker-bg: #f2f2f2;       /* Lighter gray for inner boxes */
+  --text-main: #111111;      /* Very dark gray (almost black) */
+  --text-sub: #444444;       /* Mid-tone gray for subtitles */
+  --text-light: #666666;     /* Light gray for links/icons */
+  
+  /* Keep futuristic gradients similar in style */
+  --header-grad: linear-gradient(135deg, #62b0ff, #a8eeff);
+  --body-grad: linear-gradient(180deg, #fff 0%, #f2f2f2 60%, #a8eeff 100%);
+}
 
     /************************************************
      *               Base & Global Styles           *
