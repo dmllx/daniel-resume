@@ -350,6 +350,19 @@ body {
     --text-sub: #444;
     --text-light: #222;
 }
+<div class="toggle-container" id="theme-toggle">☀️ Light Mode</div>
+
+<script>
+    const toggle = document.getElementById("theme-toggle");
+    toggle.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        if (document.body.classList.contains("light-mode")) {
+            toggle.innerHTML = "🌙 Dark Mode";
+        } else {
+            toggle.innerHTML = "☀️ Light Mode";
+        }
+    });
+</script>
 
 body {
     background: var(--dark-bg);
