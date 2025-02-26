@@ -44,9 +44,10 @@
       Header / Splash Screen
     -----------------------------------------------*/
     .header {
-      position: sticky;
+      position: fixed;
       top: 0;
-      /* Remove fixed z-index so header stays in flow */
+      left: 0;
+      right: 0;
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -56,10 +57,24 @@
       color: #fff;
       text-align: center;
       padding: 60px 20px;
-      transition: height 0.3s ease-out, padding 0.3s ease-out;
+      transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 999;
+    }
+    .header.minimized {
+      height: 80px;
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.9);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     .header-content {
-      transition: transform 0.3s ease-out;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .header.minimized .header-content {
+      transform: scale(0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
     }
     .header h1 {
       margin: 0;
@@ -68,12 +83,20 @@
       letter-spacing: -1px;
       animation: fadeInUp 1s ease-out;
     }
+    .header.minimized h1 {
+      font-size: 1.6em;
+      margin: 0;
+    }
     .header h2 {
       margin: 10px 0 0;
       font-weight: 400;
       font-size: 1.6em;
       color: var(--text-sub);
       animation: fadeInUp 1.2s ease-out;
+    }
+    .header.minimized h2 {
+      font-size: 0.9em;
+      margin: 0;
     }
     .logo {
       width: 120px;
@@ -83,23 +106,47 @@
       margin-bottom: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       animation: fadeIn 1s ease-out;
-      transition: all 0.3s ease-out;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .header.minimized .logo {
+      width: 50px;
+      height: 50px;
+      margin: 0;
+    }
+
+    /* Particle Background */
+    #particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .header.minimized #particles {
+      display: none;
     }
 
     /*----------------------------------------------
       Content Sections
     -----------------------------------------------*/
     .sections {
-      /* No need for a top margin since header is in flow */
       padding: 60px 20px;
       background: var(--dark-bg);
       transition: background 0.6s ease;
+      margin-top: 100vh;
+    }
+    .sections.minimized {
+      margin-top: 80px;
+    }
+    .sections.gradient {
+      background: var(--header-grad);
     }
     .section {
       margin-bottom: 80px;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .section.visible {
       opacity: 1;
@@ -146,7 +193,7 @@
       background: var(--darker-bg);
       padding: 25px;
       border-radius: 12px;
-      transition: all 0.3s ease-out;
+      transition: all 0.4s ease;
     }
     .skill-category:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
@@ -159,13 +206,21 @@
       height: 6px;
       border-radius: 3px;
       margin: 15px 0;
+      overflow: hidden;
     }
     .progress-fill {
-      width: 0;
       height: 100%;
       background: var(--secondary);
       border-radius: 3px;
-      transition: width 1.5s ease-out;
+      width: 0; /* Start at 0% */
+      transition: none; /* Disable default transition */
+    }
+    .progress-fill.animate {
+      animation: fillBar 1.5s ease-out forwards; /* Animate when triggered */
+    }
+    @keyframes fillBar {
+      from { width: 0; }
+      to { width: var(--progress-width); } /* Use custom property for target width */
     }
     .skill-details { font-size: 0.95em; color: var(--text-sub); margin-top: 10px; }
 
@@ -186,7 +241,7 @@
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      transition: all 0.3s ease-out;
+      transition: all 0.4s ease;
     }
     .job:hover {
       transform: translateY(-5px);
@@ -208,7 +263,7 @@
       background: var(--darker-bg);
       padding: 25px;
       border-radius: 12px;
-      transition: all 0.3s ease-out;
+      transition: all 0.4s ease;
     }
     .education-item:hover {
       transform: translateY(-5px);
@@ -232,7 +287,7 @@
       background: var(--darker-bg);
       padding: 20px;
       border-radius: 12px;
-      transition: all 0.3s ease-out;
+      transition: all 0.4s ease;
     }
     .certification-item:hover {
       transform: translateY(-5px);
@@ -248,8 +303,11 @@
       .header { padding: 40px 15px; }
       .header h1 { font-size: 2.5em; }
       .header h2 { font-size: 1.2em; }
-      .logo { width: 100px; height: 100px; }
+      .header.minimized h1 { font-size: 1.4em; }
+      .header.minimized h2 { font-size: 0.8em; }
+      .header.minimized .logo { width: 40px; height: 40px; }
       .sections { padding: 40px 15px; }
+      .sections.minimized { margin-top: 80px; }
       .contact { flex-direction: column; gap: 20px; }
       .skills-grid, .education-grid, .certifications-grid { grid-template-columns: 1fr; }
       .timeline { flex-direction: column; }
@@ -269,13 +327,13 @@
 </head>
 <body>
   <div class="wrapper">
-    <!-- Splash Screen / Banner -->
+    <!-- Splash Screen -->
     <div class="header" id="about">
       <canvas id="particles"></canvas>
       <div class="header-content">
         <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
         <h1>Daniel P. Mailloux</h1>
-        <h2>Financial Economist &amp; Strategist</h2>
+        <h2>Financial Economist & Strategist</h2>
       </div>
     </div>
 
@@ -307,29 +365,23 @@
           <div class="skill-category">
             <div class="skill-title">Professional (90%)</div>
             <div class="progress-bar">
-              <div class="progress-fill" data-target="90"></div>
+              <div class="progress-fill" style="--progress-width: 90%;"></div>
             </div>
-            <div class="skill-details">
-              Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.
-            </div>
+            <div class="skill-details">Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.</div>
           </div>
           <div class="skill-category">
             <div class="skill-title">Technical (85%)</div>
             <div class="progress-bar">
-              <div class="progress-fill" data-target="85"></div>
+              <div class="progress-fill" style="--progress-width: 85%;"></div>
             </div>
-            <div class="skill-details">
-              Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.
-            </div>
+            <div class="skill-details">Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.</div>
           </div>
           <div class="skill-category">
             <div class="skill-title">Financial (90%)</div>
             <div class="progress-bar">
-              <div class="progress-fill" data-target="90"></div>
+              <div class="progress-fill" style="--progress-width: 90%;"></div>
             </div>
-            <div class="skill-details">
-              Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.
-            </div>
+            <div class="skill-details">Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.</div>
           </div>
         </div>
       </div>
@@ -341,9 +393,7 @@
           <div class="timeline">
             <div class="job">
               <p class="job-title">Personal Financial Manager</p>
-              <p class="company">
-                SELF-EMPLOYED <span class="dates">March 2020 - Present</span>
-              </p>
+              <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
               <div class="job-details">
                 <ul>
                   <li>Manage personal investment portfolio with 40% annual growth.</li>
@@ -354,9 +404,7 @@
             </div>
             <div class="job">
               <p class="job-title">Universal Banker</p>
-              <p class="company">
-                FIDELITY BANK <span class="dates">April 2024 - January 2025</span>
-              </p>
+              <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
               <div class="job-details">
                 <ul>
                   <li>Processed 100+ daily transactions with 100% accuracy.</li>
@@ -367,9 +415,7 @@
             </div>
             <div class="job">
               <p class="job-title">Account Administrator</p>
-              <p class="company">
-                INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span>
-              </p>
+              <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
               <div class="job-details">
                 <ul>
                   <li>Managed 10+ retirement accounts totaling over $3B.</li>
@@ -380,9 +426,7 @@
             </div>
             <div class="job">
               <p class="job-title">Universal Banker I</p>
-              <p class="company">
-                EQUITY BANK <span class="dates">September 2021 - June 2022</span>
-              </p>
+              <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
               <div class="job-details">
                 <ul>
                   <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
@@ -427,7 +471,7 @@
 
       <!-- Certifications -->
       <div class="section certifications" id="certifications">
-        <h2>Certifications &amp; Compliance Expertise</h2>
+        <h2>Certifications & Compliance Expertise</h2>
         <div class="certifications-grid">
           <div class="certification-item">
             <div class="certification-acronym">HMDA</div>
@@ -451,7 +495,7 @@
           </div>
           <div class="certification-item">
             <div class="certification-acronym">UDAAP</div>
-            <div class="certification-details">Unfair, Deceptive, or Abusive Acts &amp; Practices</div>
+            <div class="certification-details">Unfair, Deceptive, or Abusive Acts & Practices</div>
           </div>
           <div class="certification-item">
             <div class="certification-acronym">Reg Z</div>
@@ -507,10 +551,10 @@
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesArray.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
       requestAnimationFrame(animateParticles);
     }
 
@@ -522,44 +566,48 @@
       canvas.height = window.innerHeight;
     });
 
-    // Smooth Header Animation: Shrink header as you scroll
-    const header = document.querySelector('.header');
-    const headerContent = document.querySelector('.header-content');
+    // Custom Smooth Scrolling
+    let scrollTarget = 0;
+    let currentScroll = window.scrollY;
 
+    function smoothScroll() {
+      currentScroll += (scrollTarget - currentScroll) * 0.1;
+      window.scrollTo(0, currentScroll);
+      if (Math.abs(scrollTarget - currentScroll) > 0.5) {
+        requestAnimationFrame(smoothScroll);
+      }
+    }
+
+    window.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      scrollTarget += e.deltaY;
+      scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
+      requestAnimationFrame(smoothScroll);
+    }, { passive: false });
+
+    window.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      scrollTarget = window.scrollY - e.touches[0].clientY * 2;
+      scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
+      requestAnimationFrame(smoothScroll);
+    }, { passive: false });
+
+    // Header Minimize and Sections Adjustment
+    const header = document.querySelector('.header');
+    const sections = document.querySelector('.sections');
     window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const threshold = 100; // pixels for full transformation
-      const factor = Math.min(scrollY / threshold, 1);
-      
-      const fullHeight = window.innerHeight;
-      const minHeight = 80;
-      const newHeight = fullHeight - (fullHeight - minHeight) * factor;
-      header.style.height = newHeight + 'px';
-      
-      const fullPadding = 60;
-      const minPadding = 15;
-      const newPadding = fullPadding - (fullPadding - minPadding) * factor;
-      header.style.padding = `${newPadding}px 20px`;
-      
-      const newScale = 1 - 0.3 * factor;
-      headerContent.style.transform = `scale(${newScale})`;
+      if (window.scrollY > 10) {
+        header.classList.add('minimized');
+        sections.classList.add('minimized');
+        sections.classList.add('gradient');
+      } else {
+        header.classList.remove('minimized');
+        sections.classList.remove('minimized');
+        sections.classList.remove('gradient');
+      }
     });
 
-    // Animate Progress Bars on scroll into view
-    const progressBars = document.querySelectorAll('.progress-fill');
-    const progressObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const target = entry.target;
-          const targetWidth = target.getAttribute('data-target');
-          target.style.width = targetWidth + '%';
-          progressObserver.unobserve(target);
-        }
-      });
-    }, { threshold: 0.5 });
-    progressBars.forEach(bar => progressObserver.observe(bar));
-
-    // Dynamic Gradient on Hover for Cards
+    // Dynamic Gradient on Hover
     document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
@@ -568,16 +616,22 @@
       });
     });
 
-    // Fade in Sections on scroll
+    // Scroll Animations for Sections and Progress Bars
     const sectionElements = document.querySelectorAll('.section');
-    const sectionObserver = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          if (entry.target.id === 'skills') {
+            const progressBars = entry.target.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+              bar.classList.add('animate');
+            });
+          }
         }
       });
     }, { threshold: 0.2 });
-    sectionElements.forEach(section => sectionObserver.observe(section));
+    sectionElements.forEach(section => observer.observe(section));
   </script>
 </body>
 </html>
