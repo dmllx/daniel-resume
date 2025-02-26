@@ -44,7 +44,7 @@
       Header / Splash Screen
     -----------------------------------------------*/
     .header {
-      position: fixed; /* Changed to fixed for consistent banner behavior */
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
@@ -60,6 +60,7 @@
       transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 999;
     }
+    /* Fallback minimized styles (not used in JS animation) */
     .header.minimized {
       height: 80px;
       padding: 15px 20px;
@@ -134,10 +135,10 @@
       padding: 60px 20px;
       background: var(--dark-bg);
       transition: background 0.6s ease;
-      margin-top: 100vh; /* Initial offset for splash screen */
+      margin-top: 100vh; /* Offset for splash screen */
     }
     .sections.minimized {
-      margin-top: 80px; /* Adjust to banner height when minimized */
+      margin-top: 80px;
     }
     .sections.gradient {
       background: var(--header-grad);
@@ -324,7 +325,7 @@
       <div class="header-content">
         <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
         <h1>Daniel P. Mailloux</h1>
-        <h2>Financial Economist & Strategist</h2>
+        <h2>Financial Economist &amp; Strategist</h2>
       </div>
     </div>
 
@@ -456,7 +457,7 @@
 
       <!-- Certifications -->
       <div class="section certifications" id="certifications">
-        <h2>Certifications & Compliance Expertise</h2>
+        <h2>Certifications &amp; Compliance Expertise</h2>
         <div class="certifications-grid">
           <div class="certification-item">
             <div class="certification-acronym">HMDA</div>
@@ -480,7 +481,7 @@
           </div>
           <div class="certification-item">
             <div class="certification-acronym">UDAAP</div>
-            <div class="certification-details">Unfair, Deceptive, or Abusive Acts & Practices</div>
+            <div class="certification-details">Unfair, Deceptive, or Abusive Acts &amp; Practices</div>
           </div>
           <div class="certification-item">
             <div class="certification-acronym">Reg Z</div>
@@ -536,10 +537,10 @@
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-      }
+      particlesArray.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
       requestAnimationFrame(animateParticles);
     }
 
@@ -577,19 +578,36 @@
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
 
-    // Header Minimize and Sections Adjustment
+    // Header Animation: Smoothly transform header into a banner
     const header = document.querySelector('.header');
+    const headerContent = document.querySelector('.header-content');
     const sections = document.querySelector('.sections');
+
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
-        header.classList.add('minimized');
-        sections.classList.add('minimized');
-        sections.classList.add('gradient');
-      } else {
-        header.classList.remove('minimized');
-        sections.classList.remove('minimized');
-        sections.classList.remove('gradient');
-      }
+      const scrollY = window.scrollY;
+      const threshold = 100; // scroll distance to fully minimize
+
+      // Clamp factor between 0 and 1
+      const factor = Math.min(scrollY / threshold, 1);
+      
+      // Interpolate header height: from full window height to 80px
+      const fullHeight = window.innerHeight;
+      const minHeight = 80;
+      const newHeight = fullHeight - (fullHeight - minHeight) * factor;
+      header.style.height = newHeight + 'px';
+
+      // Interpolate padding: from 60px down to 15px
+      const fullPadding = 60;
+      const minPadding = 15;
+      const newPadding = fullPadding - (fullPadding - minPadding) * factor;
+      header.style.padding = `${newPadding}px 20px`;
+
+      // Interpolate header content scale: from 1 to 0.7
+      const newScale = 1 - 0.3 * factor;
+      headerContent.style.transform = `scale(${newScale})`;
+
+      // Adjust sections margin-top to follow header
+      sections.style.marginTop = newHeight + 'px';
     });
 
     // Dynamic Gradient on Hover
@@ -603,12 +621,4 @@
 
     // Scroll Animations for Sections
     const sectionElements = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.2 });
-    sectionElements.forEach(section => observer.observe(section));
-  </script>
-</body>
-</html>
+    const observer = new Inters
