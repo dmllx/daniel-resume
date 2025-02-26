@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
   <style>
+    /* Prevent fixed header from blocking in-page anchors */
+    html {
+      scroll-padding-top: 80px;
+    }
+
     /*----------------------------------------------
       Base Colors & Variables
     -----------------------------------------------*/
@@ -60,7 +65,7 @@
       transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 999;
     }
-    /* Fallback minimized styles (not used in JS animation) */
+    /* Fallback minimized styles (not used in our JS animation) */
     .header.minimized {
       height: 80px;
       padding: 15px 20px;
@@ -135,7 +140,7 @@
       padding: 60px 20px;
       background: var(--dark-bg);
       transition: background 0.6s ease;
-      margin-top: 100vh; /* Offset for splash screen */
+      margin-top: 100vh; /* Initial offset for splash screen */
     }
     .sections.minimized {
       margin-top: 80px;
@@ -208,7 +213,9 @@
       border-radius: 3px;
       margin: 15px 0;
     }
+    /* Start progress bars at 0 width */
     .progress-fill {
+      width: 0;
       height: 100%;
       background: var(--secondary);
       border-radius: 3px;
@@ -356,17 +363,23 @@
         <div class="skills-grid">
           <div class="skill-category">
             <div class="skill-title">Professional (90%)</div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+            <div class="progress-bar">
+              <div class="progress-fill" data-target="90"></div>
+            </div>
             <div class="skill-details">Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.</div>
           </div>
           <div class="skill-category">
             <div class="skill-title">Technical (85%)</div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+            <div class="progress-bar">
+              <div class="progress-fill" data-target="85"></div>
+            </div>
             <div class="skill-details">Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.</div>
           </div>
           <div class="skill-category">
             <div class="skill-title">Financial (90%)</div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+            <div class="progress-bar">
+              <div class="progress-fill" data-target="90"></div>
+            </div>
             <div class="skill-details">Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.</div>
           </div>
         </div>
@@ -610,6 +623,21 @@
       sections.style.marginTop = newHeight + 'px';
     });
 
+    // Animate Progress Bars on scroll
+    const progressBars = document.querySelectorAll('.progress-fill');
+    const progressObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target;
+          const targetWidth = target.getAttribute('data-target');
+          target.style.width = targetWidth + '%';
+          progressObserver.unobserve(target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    progressBars.forEach(bar => progressObserver.observe(bar));
+
     // Dynamic Gradient on Hover
     document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
       el.addEventListener('mousemove', (e) => {
@@ -621,4 +649,11 @@
 
     // Scroll Animations for Sections
     const sectionElements = document.querySelectorAll('.section');
-    const observer = new Inters
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    sectionElements.forEach(section => observer.observe(section));
+  </script>
+</b
