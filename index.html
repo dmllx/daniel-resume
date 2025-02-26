@@ -1,31 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Neon Black Background</title>
+  <title>Daniel P. Mailloux - Resume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
-      color: #fff;
-      min-height: 100vh;
-      /* Optional: set a default font or other styling */
-      font-family: sans-serif;
+    :root {
+      --primary: #007aff;
+      --secondary: #00d4ff;
+      --dark-bg: #0d0d0d;
+      --darker-bg: #080808;
+      --text-main: #ffffff;
+      --text-sub: #a0a0a0;
+      --header-grad: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(0,0,0,0.9));
+      /* Neon-black gradient from #1c1c1e to #000 */
+      --dark-neon-bg: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
     }
-    h1 {
-      margin: 0;
-      padding: 2rem;
-      font-size: 2rem;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <h1>Dark Gradient Fading to Neon Black</h1>
-</body>
-</html>
-
 
     /*----------------------------------------------
       Global & Background
@@ -35,7 +26,8 @@
       padding: 0;
       font-family: 'Inter', sans-serif;
       line-height: 1.8;
-      background: var(--grok-grad);
+      /* Single gradient for entire page */
+      background: var(--dark-neon-bg);
       background-size: cover;
       color: var(--text-main);
       min-height: 100vh;
@@ -49,6 +41,9 @@
       flex-direction: column;
     }
 
+    /*----------------------------------------------
+      Header / Banner
+    -----------------------------------------------*/
     .header {
       position: fixed;
       top: 0;
@@ -117,9 +112,12 @@
       height: 16px;
     }
 
+    /*----------------------------------------------
+      Sections
+    -----------------------------------------------*/
     .sections {
       padding: 60px 20px;
-      /* Removed dark background so the gradient shows through */
+      /* Transparent so gradient shows through */
       background: transparent;
       margin-top: 80px;
     }
@@ -130,8 +128,9 @@
       margin-bottom: 80px;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                  transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition:
+        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .section.visible {
       opacity: 1;
@@ -145,6 +144,7 @@
       letter-spacing: -0.5px;
     }
 
+    /* Contact Section */
     .contact {
       display: flex;
       gap: 40px;
@@ -174,6 +174,7 @@
       fill: var(--secondary);
     }
 
+    /* Skills Section */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -221,7 +222,7 @@
       margin-top: 10px;
     }
 
-    /* Work Experience Timeline */
+    /* Experience Timeline */
     .timeline-container {
       position: relative;
       overflow-x: auto;
@@ -285,6 +286,7 @@
       padding: 0;
     }
 
+    /* Education Section */
     .education-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -318,6 +320,7 @@
       padding: 0;
     }
 
+    /* Certifications Section */
     .certifications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -346,6 +349,9 @@
       margin-top: 8px;
     }
 
+    /*----------------------------------------------
+      Mobile Responsiveness
+    -----------------------------------------------*/
     @media (max-width: 768px) {
       .header { padding: 15px; }
       .header h1 { font-size: 1.4em; }
@@ -353,28 +359,38 @@
       .header .logo { width: 40px; height: 40px; }
       .sections { padding: 40px 15px; margin-top: 80px; }
       .contact { flex-direction: column; gap: 20px; }
-      .skills-grid, .education-grid, .certifications-grid { grid-template-columns: 1fr; }
-      .timeline { flex-direction: column; width: 100%; }
-      .job { min-width: 100%; }
+      .skills-grid,
+      .education-grid,
+      .certifications-grid {
+        grid-template-columns: 1fr;
+      }
+      .timeline {
+        flex-direction: column;
+        width: 100%;
+      }
+      .job {
+        min-width: 100%;
+      }
     }
 
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeIn {
       from { opacity: 0; }
-      to { opacity: 1; }
+      to   { opacity: 1; }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
+    <!-- Header / Banner -->
     <div class="header" id="about">
       <div class="header-content">
         <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
         <h1>Daniel P. Mailloux</h1>
-        <h2>Financial Economist &amp; Strategist</h2>
+        <h2>Financial Economist & Strategist</h2>
       </div>
       <button class="download-btn" onclick="window.open('resume.pdf')">
         <svg viewBox="0 0 24 24">
@@ -384,7 +400,9 @@
       </button>
     </div>
 
+    <!-- Main Sections -->
     <div class="sections">
+      <!-- Contact Section -->
       <div class="section contact" id="contact">
         <h2>Contact</h2>
         <div class="contact">
@@ -409,6 +427,7 @@
         </div>
       </div>
 
+      <!-- Skills Section -->
       <div class="section skills" id="skills">
         <h2>Skills</h2>
         <div class="skills-grid">
@@ -442,13 +461,16 @@
         </div>
       </div>
 
+      <!-- Experience Section -->
       <div class="section experience" id="experience">
         <h2>Experience</h2>
         <div class="timeline-container">
           <div class="timeline">
             <div class="job">
               <p class="job-title">Personal Financial Manager</p>
-              <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
+              <p class="company">
+                SELF-EMPLOYED <span class="dates">March 2020 - Present</span>
+              </p>
               <div class="job-details">
                 <ul>
                   <li>Manage personal investment portfolio with 40% annual growth.</li>
@@ -459,7 +481,9 @@
             </div>
             <div class="job">
               <p class="job-title">Universal Banker</p>
-              <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
+              <p class="company">
+                FIDELITY BANK <span class="dates">April 2024 - January 2025</span>
+              </p>
               <div class="job-details">
                 <ul>
                   <li>Processed 100+ daily transactions with 100% accuracy.</li>
@@ -470,7 +494,9 @@
             </div>
             <div class="job">
               <p class="job-title">Account Administrator</p>
-              <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
+              <p class="company">
+                INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span>
+              </p>
               <div class="job-details">
                 <ul>
                   <li>Managed 10+ retirement accounts totaling over $3B.</li>
@@ -481,7 +507,9 @@
             </div>
             <div class="job">
               <p class="job-title">Universal Banker I</p>
-              <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
+              <p class="company">
+                EQUITY BANK <span class="dates">September 2021 - June 2022</span>
+              </p>
               <div class="job-details">
                 <ul>
                   <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
@@ -495,6 +523,7 @@
         </div>
       </div>
 
+      <!-- Education Section -->
       <div class="section education" id="education">
         <h2>Education</h2>
         <div class="education-grid">
@@ -523,6 +552,7 @@
         </div>
       </div>
 
+      <!-- Certifications Section -->
       <div class="section certifications" id="certifications">
         <h2>Certifications &amp; Compliance Expertise</h2>
         <div class="certifications-grid">
@@ -563,7 +593,9 @@
     </div>
   </div>
 
+  <!-- Scripts -->
   <script>
+    // Smooth Scrolling
     let scrollTarget = 0;
     let currentScroll = window.scrollY;
     function smoothScroll() {
@@ -585,6 +617,8 @@
       scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
+
+    // Gradient Hover Effects
     document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
@@ -592,11 +626,14 @@
         el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
     });
+
+    // Section Fade-In + Progress Bar Animations
     const sectionElements = document.querySelectorAll('.section');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          // Animate progress bars
           if (entry.target.id === 'skills') {
             const progressBars = entry.target.querySelectorAll('.progress-fill');
             progressBars.forEach(bar => {
@@ -607,6 +644,8 @@
       });
     }, { threshold: 0.2 });
     sectionElements.forEach(section => observer.observe(section));
+
+    // Horizontal Timeline Drag
     const timelineContainer = document.querySelector('.timeline-container');
     let isDragging = false;
     let startX;
@@ -646,7 +685,7 @@
       const walk = (x - startX) * 2;
       timelineContainer.scrollLeft = scrollLeft - walk;
     });
-    // Allow timeline to handle its own wheel events
+    // Let the timeline handle its own wheel events
     timelineContainer.addEventListener('wheel', function(e) {
       e.stopPropagation();
     });
