@@ -25,7 +25,8 @@
       padding: 0;
       font-family: 'Inter', sans-serif;
       line-height: 1.8;
-      background: linear-gradient(135deg, #1a1a40 0%, #2a1a60 50%, #00d4ff 100%);
+      /* Restore background image with gradient overlay */
+      background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072') no-repeat center center fixed, var(--body-grad);
       background-size: cover;
       color: var(--text-main);
       min-height: 100vh;
@@ -191,6 +192,7 @@
     }
     .skill-details { font-size: 0.95em; color: var(--text-sub); margin-top: 10px; }
 
+    /* Work Experience Timeline */
     .timeline-container {
       position: relative;
       overflow-x: auto;
@@ -199,6 +201,8 @@
       scrollbar-width: thin;
       scrollbar-color: var(--secondary) var(--darker-bg);
       cursor: grab;
+      /* Enable snapping */
+      scroll-snap-type: x mandatory;
     }
     .timeline-container::-webkit-scrollbar {
       height: 8px;
@@ -224,6 +228,8 @@
       border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
       transition: all 0.4s ease;
+      /* Snap alignment for smoother horizontal scroll */
+      scroll-snap-align: start;
     }
     .job:hover {
       transform: translateY(-5px);
@@ -304,10 +310,12 @@
       <div class="header-content">
         <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
         <h1>Daniel P. Mailloux</h1>
-        <h2>Financial Economist & Strategist</h2>
+        <h2>Financial Economist &amp; Strategist</h2>
       </div>
       <button class="download-btn" onclick="window.open('resume.pdf')">
-        <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/>
+        </svg>
         Download PDF
       </button>
     </div>
@@ -317,15 +325,21 @@
         <h2>Contact</h2>
         <div class="contact">
           <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+            </svg>
             Wichita, KS
           </a>
           <a href="mailto:mailloux.daniel@gmail.com">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
             mailloux.daniel@gmail.com
           </a>
           <a href="tel:6204740124">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/></svg>
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/>
+            </svg>
             (620) 474-0124
           </a>
         </div>
@@ -339,21 +353,27 @@
             <div class="progress-bar">
               <div class="progress-fill" style="--progress-width: 90%;"></div>
             </div>
-            <div class="skill-details">Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.</div>
+            <div class="skill-details">
+              Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.
+            </div>
           </div>
           <div class="skill-category">
             <div class="skill-title">Technical (85%)</div>
             <div class="progress-bar">
               <div class="progress-fill" style="--progress-width: 85%;"></div>
             </div>
-            <div class="skill-details">Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.</div>
+            <div class="skill-details">
+              Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.
+            </div>
           </div>
           <div class="skill-category">
             <div class="skill-title">Financial (90%)</div>
             <div class="progress-bar">
               <div class="progress-fill" style="--progress-width: 90%;"></div>
             </div>
-            <div class="skill-details">Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.</div>
+            <div class="skill-details">
+              Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.
+            </div>
           </div>
         </div>
       </div>
@@ -440,7 +460,7 @@
       </div>
 
       <div class="section certifications" id="certifications">
-        <h2>Certifications & Compliance Expertise</h2>
+        <h2>Certifications &amp; Compliance Expertise</h2>
         <div class="certifications-grid">
           <div class="certification-item">
             <div class="certification-acronym">HMDA</div>
@@ -464,7 +484,7 @@
           </div>
           <div class="certification-item">
             <div class="certification-acronym">UDAAP</div>
-            <div class="certification-details">Unfair, Deceptive, or Abusive Acts & Practices</div>
+            <div class="certification-details">Unfair, Deceptive, or Abusive Acts &amp; Practices</div>
           </div>
           <div class="certification-item">
             <div class="certification-acronym">Reg Z</div>
@@ -575,7 +595,8 @@
       const walk = (x - startX) * 2;
       timelineContainer.scrollLeft = scrollLeft - walk;
     });
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   </script>
+  <!-- Include html2pdf.js if you plan to use PDF functionality -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </body>
 </html>
