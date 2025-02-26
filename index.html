@@ -14,7 +14,7 @@
       --text-main: #ffffff;
       --text-sub: #a0a0a0;
       --header-grad: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(0,0,0,0.9));
-      /* Grok-like gradient background */
+      /* Grok-style gradient */
       --grok-grad: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     }
 
@@ -26,7 +26,6 @@
       padding: 0;
       font-family: 'Inter', sans-serif;
       line-height: 1.8;
-      /* Updated background: Grok mobile app style gradient */
       background: var(--grok-grad);
       background-size: cover;
       color: var(--text-main);
@@ -34,7 +33,7 @@
       overflow-x: hidden;
     }
 
-    /* Wrapper to ensure full scrollable height */
+    /* Wrapper for full scrollable height */
     .wrapper {
       min-height: 100vh;
       display: flex;
@@ -103,11 +102,16 @@
       border-color: var(--secondary);
       transform: translateY(-2px);
     }
-    .download-btn svg { fill: var(--text-main); width: 16px; height: 16px; }
+    .download-btn svg {
+      fill: var(--text-main);
+      width: 16px;
+      height: 16px;
+    }
 
     .sections {
       padding: 60px 20px;
-      background: var(--dark-bg);
+      /* Removed dark background so the gradient shows through */
+      background: transparent;
       margin-top: 80px;
     }
     .sections.gradient {
@@ -117,7 +121,8 @@
       margin-bottom: 80px;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .section.visible {
       opacity: 1;
@@ -150,8 +155,15 @@
       color: var(--secondary);
       transform: translateX(5px);
     }
-    .icon { fill: var(--text-sub); width: 22px; height: 22px; transition: fill 0.3s ease; }
-    .contact a:hover .icon { fill: var(--secondary); }
+    .icon {
+      fill: var(--text-sub);
+      width: 22px;
+      height: 22px;
+      transition: fill 0.3s ease;
+    }
+    .contact a:hover .icon {
+      fill: var(--secondary);
+    }
 
     .skills-grid {
       display: grid;
@@ -169,7 +181,10 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     }
-    .skill-title { font-size: 1.3em; font-weight: 600; }
+    .skill-title {
+      font-size: 1.3em;
+      font-weight: 600;
+    }
     .progress-bar {
       background: #333;
       height: 6px;
@@ -191,7 +206,11 @@
       from { width: 0; }
       to { width: var(--progress-width); }
     }
-    .skill-details { font-size: 0.95em; color: var(--text-sub); margin-top: 10px; }
+    .skill-details {
+      font-size: 0.95em;
+      color: var(--text-sub);
+      margin-top: 10px;
+    }
 
     /* Work Experience Timeline */
     .timeline-container {
@@ -235,11 +254,27 @@
       transform: translateY(-5px);
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
     }
-    .job-title { font-size: 1.3em; font-weight: 600; }
-    .company { font-size: 1em; color: var(--text-sub); }
-    .dates { font-size: 0.9em; color: var(--text-sub); }
-    .job-details { margin-top: 15px; color: var(--text-sub); }
-    .job-details ul { list-style: disc; margin: 10px 0 0 20px; padding: 0; }
+    .job-title {
+      font-size: 1.3em;
+      font-weight: 600;
+    }
+    .company {
+      font-size: 1em;
+      color: var(--text-sub);
+    }
+    .dates {
+      font-size: 0.9em;
+      color: var(--text-sub);
+    }
+    .job-details {
+      margin-top: 15px;
+      color: var(--text-sub);
+    }
+    .job-details ul {
+      list-style: disc;
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
 
     .education-grid {
       display: grid;
@@ -256,10 +291,23 @@
       transform: translateY(-5px);
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
     }
-    .education-title { font-size: 1.3em; font-weight: 600; }
-    .education-institution { font-size: 1em; color: var(--text-sub); }
-    .education-details { margin-top: 15px; color: var(--text-sub); }
-    .education-details ul { list-style: disc; margin: 10px 0 0 20px; padding: 0; }
+    .education-title {
+      font-size: 1.3em;
+      font-weight: 600;
+    }
+    .education-institution {
+      font-size: 1em;
+      color: var(--text-sub);
+    }
+    .education-details {
+      margin-top: 15px;
+      color: var(--text-sub);
+    }
+    .education-details ul {
+      list-style: disc;
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
 
     .certifications-grid {
       display: grid;
@@ -279,8 +327,15 @@
       transform: translateY(-5px);
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
     }
-    .certification-acronym { font-size: 1.1em; font-weight: 600; }
-    .certification-details { font-size: 0.9em; color: var(--text-sub); margin-top: 8px; }
+    .certification-acronym {
+      font-size: 1.1em;
+      font-weight: 600;
+    }
+    .certification-details {
+      font-size: 0.9em;
+      color: var(--text-sub);
+      margin-top: 8px;
+    }
 
     @media (max-width: 768px) {
       .header { padding: 15px; }
@@ -502,7 +557,6 @@
   <script>
     let scrollTarget = 0;
     let currentScroll = window.scrollY;
-
     function smoothScroll() {
       currentScroll += (scrollTarget - currentScroll) * 0.1;
       window.scrollTo(0, currentScroll);
@@ -510,21 +564,18 @@
         requestAnimationFrame(smoothScroll);
       }
     }
-
     window.addEventListener('wheel', (e) => {
       e.preventDefault();
       scrollTarget += e.deltaY;
       scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
-
     window.addEventListener('touchmove', (e) => {
       e.preventDefault();
       scrollTarget = window.scrollY - e.touches[0].clientY * 2;
       scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
-
     document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
@@ -532,7 +583,6 @@
         el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
     });
-
     const sectionElements = document.querySelectorAll('.section');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -548,29 +598,24 @@
       });
     }, { threshold: 0.2 });
     sectionElements.forEach(section => observer.observe(section));
-
     const timelineContainer = document.querySelector('.timeline-container');
     let isDragging = false;
     let startX;
     let scrollLeft;
-
     timelineContainer.addEventListener('mousedown', (e) => {
       isDragging = true;
       startX = e.pageX - timelineContainer.offsetLeft;
       scrollLeft = timelineContainer.scrollLeft;
       timelineContainer.style.cursor = 'grabbing';
     });
-
     timelineContainer.addEventListener('mouseleave', () => {
       isDragging = false;
       timelineContainer.style.cursor = 'grab';
     });
-
     timelineContainer.addEventListener('mouseup', () => {
       isDragging = false;
       timelineContainer.style.cursor = 'grab';
     });
-
     timelineContainer.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
       e.preventDefault();
@@ -578,25 +623,21 @@
       const walk = (x - startX) * 2;
       timelineContainer.scrollLeft = scrollLeft - walk;
     });
-
     timelineContainer.addEventListener('touchstart', (e) => {
       isDragging = true;
       startX = e.touches[0].pageX - timelineContainer.offsetLeft;
       scrollLeft = timelineContainer.scrollLeft;
     });
-
     timelineContainer.addEventListener('touchend', () => {
       isDragging = false;
     });
-
     timelineContainer.addEventListener('touchmove', (e) => {
       if (!isDragging) return;
       const x = e.touches[0].pageX - timelineContainer.offsetLeft;
       const walk = (x - startX) * 2;
       timelineContainer.scrollLeft = scrollLeft - walk;
     });
-
-    // Allow timeline container to handle its own wheel events (prevent global smooth scroll interference)
+    // Allow timeline to handle its own wheel events
     timelineContainer.addEventListener('wheel', function(e) {
       e.stopPropagation();
     });
