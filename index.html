@@ -57,17 +57,17 @@
       color: #fff;
       text-align: center;
       padding: 60px 20px;
-      transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1); /* Apple/xAI-like easing */
       z-index: 999;
     }
     .header.minimized {
       height: 80px;
       padding: 15px 20px;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     .header-content {
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
     .header.minimized .header-content {
       transform: scale(0.7);
@@ -106,13 +106,39 @@
       margin-bottom: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       animation: fadeIn 1s ease-out;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
     .header.minimized .logo {
       width: 50px;
       height: 50px;
       margin: 0;
     }
+    .download-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    .header.minimized .download-btn {
+      opacity: 1;
+    }
+    .download-btn:hover {
+      background: var(--secondary);
+      border-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+    .download-btn svg { fill: var(--text-main); width: 16px; height: 16px; }
 
     /* Particle Background */
     #particles {
@@ -212,15 +238,15 @@
       height: 100%;
       background: var(--secondary);
       border-radius: 3px;
-      width: 0; /* Start at 0% */
-      transition: none; /* Disable default transition */
+      width: 0;
+      transition: none;
     }
     .progress-fill.animate {
-      animation: fillBar 1.5s ease-out forwards; /* Animate when triggered */
+      animation: fillBar 1.5s ease-out forwards;
     }
     @keyframes fillBar {
       from { width: 0; }
-      to { width: var(--progress-width); } /* Use custom property for target width */
+      to { width: var(--progress-width); }
     }
     .skill-details { font-size: 0.95em; color: var(--text-sub); margin-top: 10px; }
 
@@ -229,11 +255,25 @@
       position: relative;
       overflow-x: auto;
       padding: 20px 0;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+      scrollbar-width: thin; /* Sleek scrollbar for Firefox */
+      scrollbar-color: var(--secondary) var(--darker-bg); /* Custom scrollbar */
+    }
+    .timeline-container::-webkit-scrollbar {
+      height: 8px; /* Sleek scrollbar for Chrome/Safari */
+    }
+    .timeline-container::-webkit-scrollbar-thumb {
+      background: var(--secondary);
+      border-radius: 4px;
+    }
+    .timeline-container::-webkit-scrollbar-track {
+      background: var(--darker-bg);
     }
     .timeline {
       display: flex;
       gap: 30px;
       padding: 0 20px;
+      width: max-content; /* Allow horizontal scrolling */
     }
     .job {
       background: var(--darker-bg);
@@ -310,7 +350,7 @@
       .sections.minimized { margin-top: 80px; }
       .contact { flex-direction: column; gap: 20px; }
       .skills-grid, .education-grid, .certifications-grid { grid-template-columns: 1fr; }
-      .timeline { flex-direction: column; }
+      .timeline { flex-direction: column; width: 100%; }
       .job { min-width: 100%; }
     }
 
@@ -335,6 +375,10 @@
         <h1>Daniel P. Mailloux</h1>
         <h2>Financial Economist & Strategist</h2>
       </div>
+      <button class="download-btn" onclick="window.open('resume.pdf')">
+        <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/></svg>
+        Download PDF
+      </button>
     </div>
 
     <!-- Sections -->
@@ -632,6 +676,55 @@
       });
     }, { threshold: 0.2 });
     sectionElements.forEach(section => observer.observe(section));
+
+    // Horizontal Scroll for Timeline
+    const timelineContainer = document.querySelector('.timeline-container');
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+
+    timelineContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.pageX - timelineContainer.offsetLeft;
+      scrollLeft = timelineContainer.scrollLeft;
+      timelineContainer.style.cursor = 'grabbing';
+    });
+
+    timelineContainer.addEventListener('mouseleave', () => {
+      isDragging = false;
+      timelineContainer.style.cursor = 'grab';
+    });
+
+    timelineContainer.addEventListener('mouseup', () => {
+      isDragging = false;
+      timelineContainer.style.cursor = 'grab';
+    });
+
+    timelineContainer.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - timelineContainer.offsetLeft;
+      const walk = (x - startX) * 2; // Scroll speed
+      timelineContainer.scrollLeft = scrollLeft - walk;
+    });
+
+    // Touch support for mobile
+    timelineContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].pageX - timelineContainer.offsetLeft;
+      scrollLeft = timelineContainer.scrollLeft;
+    });
+
+    timelineContainer.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    timelineContainer.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const x = e.touches[0].pageX - timelineContainer.offsetLeft;
+      const walk = (x - startX) * 2;
+      timelineContainer.scrollLeft = scrollLeft - walk;
+    });
   </script>
 </body>
 </html>
