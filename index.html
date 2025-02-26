@@ -22,18 +22,19 @@
       Global & Background
     -----------------------------------------------*/
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.8;
-      /* Single gradient for entire page */
-      background: var(--dark-neon-bg);
-      background-size: cover;
-      color: var(--text-main);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.8;
 
+  /* Slightly lighter top color, then fade to black */
+  background: linear-gradient(180deg, #2c2c2e 0%, #000000 100%) !important;
+  background-size: cover !important;
+  background-attachment: fixed; /* If you want the gradient fixed */
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
     /* Wrapper for full scrollable height */
     .wrapper {
       min-height: 100vh;
