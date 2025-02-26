@@ -39,9 +39,9 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 80px; /* Smaller, fixed size */
+      height: 80px;
       display: flex;
-      flex-direction: row; /* Changed to row for static layout */
+      flex-direction: row;
       align-items: center;
       justify-content: center;
       background: rgba(0, 0, 0, 0.95);
@@ -56,7 +56,7 @@
       align-items: center;
       justify-content: center;
       gap: 15px;
-      transform: scale(0.7); /* Matches previous minimized scale */
+      transform: scale(0.7);
     }
     .header h1 {
       margin: 0;
@@ -101,7 +101,7 @@
     .sections {
       padding: 60px 20px;
       background: var(--dark-bg);
-      margin-top: 80px; /* Static offset for smaller header */
+      margin-top: 80px;
     }
     .sections.gradient {
       background: var(--header-grad);
@@ -475,7 +475,6 @@
   </div>
 
   <script>
-    // Removed Particle Background (No animation, no need for canvas)
     let scrollTarget = 0;
     let currentScroll = window.scrollY;
 
@@ -501,7 +500,6 @@
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
 
-    // Removed Header Animation Logic
     document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
