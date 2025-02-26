@@ -31,8 +31,15 @@
       background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072') no-repeat center center fixed, var(--body-grad);
       background-size: cover;
       color: var(--text-main);
-      min-height: 200vh;
+      min-height: 100vh; /* Ensure body takes up full viewport height initially */
       overflow-x: hidden;
+    }
+
+    /* Wrapper to ensure full scrollable height */
+    .wrapper {
+      min-height: 100vh; /* Ensure wrapper takes up at least full viewport */
+      display: flex;
+      flex-direction: column;
     }
 
     /*----------------------------------------------
@@ -127,11 +134,11 @@
       Content Sections
     -----------------------------------------------*/
     .sections {
-      position: relative;
       margin-top: 100vh; /* Push content below splash screen */
       padding: 60px 20px;
       background: var(--dark-bg);
       transition: background 0.6s ease;
+      flex-grow: 1; /* Ensure sections expand to fill available space */
     }
     .sections.gradient {
       background: var(--header-grad);
@@ -310,177 +317,179 @@
   </style>
 </head>
 <body>
-  <!-- Splash Screen -->
-  <div class="header" id="about">
-    <canvas id="particles"></canvas>
-    <div class="header-content">
-      <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
-      <h1>Daniel P. Mailloux</h1>
-      <h2>Financial Economist & Strategist</h2>
-    </div>
-  </div>
-
-  <!-- Sections -->
-  <div class="sections">
-    <!-- Contact -->
-    <div class="section contact" id="contact">
-      <h2>Contact</h2>
-      <div class="contact">
-        <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
-          Wichita, KS
-        </a>
-        <a href="mailto:mailloux.daniel@gmail.com">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          mailloux.daniel@gmail.com
-        </a>
-        <a href="tel:6204740124">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/></svg>
-          (620) 474-0124
-        </a>
+  <div class="wrapper">
+    <!-- Splash Screen -->
+    <div class="header" id="about">
+      <canvas id="particles"></canvas>
+      <div class="header-content">
+        <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
+        <h1>Daniel P. Mailloux</h1>
+        <h2>Financial Economist & Strategist</h2>
       </div>
     </div>
 
-    <!-- Skills -->
-    <div class="section skills" id="skills">
-      <h2>Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <div class="skill-title">Professional (90%)</div>
-          <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-          <div class="skill-details">Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.</div>
-        </div>
-        <div class="skill-category">
-          <div class="skill-title">Technical (85%)</div>
-          <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
-          <div class="skill-details">Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.</div>
-        </div>
-        <div class="skill-category">
-          <div class="skill-title">Financial (90%)</div>
-          <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-          <div class="skill-details">Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.</div>
+    <!-- Sections -->
+    <div class="sections">
+      <!-- Contact -->
+      <div class="section contact" id="contact">
+        <h2>Contact</h2>
+        <div class="contact">
+          <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+            Wichita, KS
+          </a>
+          <a href="mailto:mailloux.daniel@gmail.com">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            mailloux.daniel@gmail.com
+          </a>
+          <a href="tel:6204740124">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/></svg>
+            (620) 474-0124
+          </a>
         </div>
       </div>
-    </div>
 
-    <!-- Experience -->
-    <div class="section experience" id="experience">
-      <h2>Experience</h2>
-      <div class="timeline-container">
-        <div class="timeline">
-          <div class="job">
-            <p class="job-title">Personal Financial Manager</p>
-            <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
-            <div class="job-details">
-              <ul>
-                <li>Manage personal investment portfolio with 40% annual growth.</li>
-                <li>Develop comprehensive financial planning strategies using economic forecasts.</li>
-                <li>Maintain accurate financial records for payables and receivables.</li>
-              </ul>
-            </div>
+      <!-- Skills -->
+      <div class="section skills" id="skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <div class="skill-title">Professional (90%)</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+            <div class="skill-details">Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.</div>
           </div>
-          <div class="job">
-            <p class="job-title">Universal Banker</p>
-            <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
-            <div class="job-details">
-              <ul>
-                <li>Processed 100+ daily transactions with 100% accuracy.</li>
-                <li>Resolved discrepancies to improve account accuracy by 40%.</li>
-                <li>Streamlined financial processes for consistent, accurate processing.</li>
-              </ul>
-            </div>
+          <div class="skill-category">
+            <div class="skill-title">Technical (85%)</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+            <div class="skill-details">Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.</div>
           </div>
-          <div class="job">
-            <p class="job-title">Account Administrator</p>
-            <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
-            <div class="job-details">
-              <ul>
-                <li>Managed 10+ retirement accounts totaling over $3B.</li>
-                <li>Verified 5,000+ participant accounts for compliance.</li>
-                <li>Oversaw receivable operations and ensured regulatory compliance.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="job">
-            <p class="job-title">Universal Banker I</p>
-            <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
-            <div class="job-details">
-              <ul>
-                <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
-                <li>Enhanced customer relations with strategic support initiatives.</li>
-                <li>Handled financial transactions efficiently.</li>
-                <li>Promoted quickly by turning challenges into wins.</li>
-              </ul>
-            </div>
+          <div class="skill-category">
+            <div class="skill-title">Financial (90%)</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+            <div class="skill-details">Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Education -->
-    <div class="section education" id="education">
-      <h2>Education</h2>
-      <div class="education-grid">
-        <div class="education-item">
-          <p class="education-title">Wichita State University</p>
-          <p class="education-institution">Bachelor of Business Administration in Economics</p>
-          <div class="education-details">
-            <p>Wichita, KS – Graduation Date: 2023</p>
-            <ul>
-              <li>Business Senator – Student Government Association</li>
-              <li>Dean’s List</li>
-            </ul>
-          </div>
-        </div>
-        <div class="education-item">
-          <p class="education-title">Hutchinson Community College</p>
-          <p class="education-institution">Associate of Science in Economics</p>
-          <div class="education-details">
-            <p>Hutchinson, KS – Graduation Date: 2020</p>
-            <ul>
-              <li>Dean’s List</li>
-              <li>Dean’s Honor Roll</li>
-            </ul>
+      <!-- Experience -->
+      <div class="section experience" id="experience">
+        <h2>Experience</h2>
+        <div class="timeline-container">
+          <div class="timeline">
+            <div class="job">
+              <p class="job-title">Personal Financial Manager</p>
+              <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
+              <div class="job-details">
+                <ul>
+                  <li>Manage personal investment portfolio with 40% annual growth.</li>
+                  <li>Develop comprehensive financial planning strategies using economic forecasts.</li>
+                  <li>Maintain accurate financial records for payables and receivables.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="job">
+              <p class="job-title">Universal Banker</p>
+              <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
+              <div class="job-details">
+                <ul>
+                  <li>Processed 100+ daily transactions with 100% accuracy.</li>
+                  <li>Resolved discrepancies to improve account accuracy by 40%.</li>
+                  <li>Streamlined financial processes for consistent, accurate processing.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="job">
+              <p class="job-title">Account Administrator</p>
+              <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
+              <div class="job-details">
+                <ul>
+                  <li>Managed 10+ retirement accounts totaling over $3B.</li>
+                  <li>Verified 5,000+ participant accounts for compliance.</li>
+                  <li>Oversaw receivable operations and ensured regulatory compliance.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="job">
+              <p class="job-title">Universal Banker I</p>
+              <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
+              <div class="job-details">
+                <ul>
+                  <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
+                  <li>Enhanced customer relations with strategic support initiatives.</li>
+                  <li>Handled financial transactions efficiently.</li>
+                  <li>Promoted quickly by turning challenges into wins.</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Certifications -->
-    <div class="section certifications" id="certifications">
-      <h2>Certifications & Compliance Expertise</h2>
-      <div class="certifications-grid">
-        <div class="certification-item">
-          <div class="certification-acronym">HMDA</div>
-          <div class="certification-details">Home Mortgage Disclosure Act</div>
+      <!-- Education -->
+      <div class="section education" id="education">
+        <h2>Education</h2>
+        <div class="education-grid">
+          <div class="education-item">
+            <p class="education-title">Wichita State University</p>
+            <p class="education-institution">Bachelor of Business Administration in Economics</p>
+            <div class="education-details">
+              <p>Wichita, KS – Graduation Date: 2023</p>
+              <ul>
+                <li>Business Senator – Student Government Association</li>
+                <li>Dean’s List</li>
+              </ul>
+            </div>
+          </div>
+          <div class="education-item">
+            <p class="education-title">Hutchinson Community College</p>
+            <p class="education-institution">Associate of Science in Economics</p>
+            <div class="education-details">
+              <p>Hutchinson, KS – Graduation Date: 2020</p>
+              <ul>
+                <li>Dean’s List</li>
+                <li>Dean’s Honor Roll</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="certification-item">
-          <div class="certification-acronym">ERISA</div>
-          <div class="certification-details">Employee Retirement Income Security Act</div>
-        </div>
-        <div class="certification-item">
-          <div class="certification-acronym">IRS</div>
-          <div class="certification-details">Internal Revenue Service</div>
-        </div>
-        <div class="certification-item">
-          <div class="certification-acronym">BSA</div>
-          <div class="certification-details">Bank Secrecy Act</div>
-        </div>
-        <div class="certification-item">
-          <div class="certification-acronym">CIP</div>
-          <div class="certification-details">Customer Identification Program</div>
-        </div>
-        <div class="certification-item">
-          <div class="certification-acronym">UDAAP</div>
-          <div class="certification-details">Unfair, Deceptive, or Abusive Acts & Practices</div>
-        </div>
-        <div class="certification-item">
-          <div class="certification-acronym">Reg Z</div>
-          <div class="certification-details">Truth in Lending</div>
-        </div>
-        <div class="certification-item">
-          <div class="certification-acronym">Reg DD</div>
-          <div class="certification-details">Truth in Savings</div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="section certifications" id="certifications">
+        <h2>Certifications & Compliance Expertise</h2>
+        <div class="certifications-grid">
+          <div class="certification-item">
+            <div class="certification-acronym">HMDA</div>
+            <div class="certification-details">Home Mortgage Disclosure Act</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">ERISA</div>
+            <div class="certification-details">Employee Retirement Income Security Act</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">IRS</div>
+            <div class="certification-details">Internal Revenue Service</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">BSA</div>
+            <div class="certification-details">Bank Secrecy Act</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">CIP</div>
+            <div class="certification-details">Customer Identification Program</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">UDAAP</div>
+            <div class="certification-details">Unfair, Deceptive, or Abusive Acts & Practices</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">Reg Z</div>
+            <div class="certification-details">Truth in Lending</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">Reg DD</div>
+            <div class="certification-details">Truth in Savings</div>
+          </div>
         </div>
       </div>
     </div>
@@ -557,14 +566,14 @@
     window.addEventListener('wheel', (e) => {
       e.preventDefault();
       scrollTarget += e.deltaY;
-      scrollTarget = Math.max(0, Math.min(scrollTarget, document.body.scrollHeight - window.innerHeight));
+      scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
 
     window.addEventListener('touchmove', (e) => {
       e.preventDefault();
       scrollTarget = window.scrollY - e.touches[0].clientY * 2;
-      scrollTarget = Math.max(0, Math.min(scrollTarget, document.body.scrollHeight - window.innerHeight));
+      scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
 
