@@ -39,72 +39,41 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 100vh;
+      height: 80px; /* Smaller, fixed size */
       display: flex;
-      flex-direction: column;
+      flex-direction: row; /* Changed to row for static layout */
       align-items: center;
       justify-content: center;
-      background: var(--header-grad);
+      background: rgba(0, 0, 0, 0.95);
       color: #fff;
       text-align: center;
-      padding: 60px 20px;
-      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-      will-change: height, padding;
+      padding: 15px 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
       z-index: 999;
     }
-    .header.minimized {
-      height: 80px;
-      padding: 15px 20px;
-      background: rgba(0, 0, 0, 0.95);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    }
     .header-content {
-      transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-      will-change: transform;
-    }
-    .header.minimized .header-content {
-      transform: scale(0.7);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 15px;
+      transform: scale(0.7); /* Matches previous minimized scale */
     }
     .header h1 {
       margin: 0;
       font-weight: 800;
-      font-size: 3em;
-      letter-spacing: -1px;
-      animation: fadeInUp 1s ease-out;
-    }
-    .header.minimized h1 {
       font-size: 1.6em;
-      margin: 0;
     }
     .header h2 {
-      margin: 10px 0 0;
-      font-weight: 400;
-      font-size: 1.6em;
-      color: var(--text-sub);
-      animation: fadeInUp 1.2s ease-out;
-    }
-    .header.minimized h2 {
-      font-size: 0.9em;
       margin: 0;
+      font-weight: 400;
+      font-size: 0.9em;
+      color: var(--text-sub);
     }
     .logo {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      animation: fadeIn 1s ease-out;
-      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-    .header.minimized .logo {
       width: 50px;
       height: 50px;
-      margin: 0;
+      object-fit: cover;
+      border-radius: 50%;
     }
     .download-btn {
       position: absolute;
@@ -120,11 +89,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      opacity: 0;
-      transition: opacity 0.3s ease, background 0.3s ease, transform 0.3s ease;
-    }
-    .header.minimized .download-btn {
-      opacity: 1;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
     .download-btn:hover {
       background: var(--secondary);
@@ -133,26 +98,10 @@
     }
     .download-btn svg { fill: var(--text-main); width: 16px; height: 16px; }
 
-    #particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-    .header.minimized #particles {
-      display: none;
-    }
-
     .sections {
       padding: 60px 20px;
       background: var(--dark-bg);
-      transition: background 0.6s ease, margin-top 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-      margin-top: 100vh;
-    }
-    .sections.minimized {
-      margin-top: 80px; /* Matches minimized header height */
+      margin-top: 80px; /* Static offset for smaller header */
     }
     .sections.gradient {
       background: var(--header-grad);
@@ -261,7 +210,7 @@
       gap: 30px;
       padding: 0 20px;
       width: max-content;
-      user-select: none; /* Prevent text selection during drag */
+      user-select: none;
     }
     .job {
       background: var(--darker-bg);
@@ -323,14 +272,11 @@
     .certification-details { font-size: 0.9em; color: var(--text-sub); margin-top: 8px; }
 
     @media (max-width: 768px) {
-      .header { padding: 40px 15px; }
-      .header h1 { font-size: 2.5em; }
-      .header h2 { font-size: 1.2em; }
-      .header.minimized h1 { font-size: 1.4em; }
-      .header.minimized h2 { font-size: 0.8em; }
-      .header.minimized .logo { width: 40px; height: 40px; }
-      .sections { padding: 40px 15px; }
-      .sections.minimized { margin-top: 80px; }
+      .header { padding: 15px; }
+      .header h1 { font-size: 1.4em; }
+      .header h2 { font-size: 0.8em; }
+      .header .logo { width: 40px; height: 40px; }
+      .sections { padding: 40px 15px; margin-top: 80px; }
       .contact { flex-direction: column; gap: 20px; }
       .skills-grid, .education-grid, .certifications-grid { grid-template-columns: 1fr; }
       .timeline { flex-direction: column; width: 100%; }
@@ -350,7 +296,6 @@
 <body>
   <div class="wrapper">
     <div class="header" id="about">
-      <canvas id="particles"></canvas>
       <div class="header-content">
         <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
         <h1>Daniel P. Mailloux</h1>
@@ -530,61 +475,7 @@
   </div>
 
   <script>
-    // Particle Background
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray = [];
-    const numberOfParticles = 100;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
-        if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
-      }
-      draw() {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-      }
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-
-    // Custom Smooth Scrolling
+    // Removed Particle Background (No animation, no need for canvas)
     let scrollTarget = 0;
     let currentScroll = window.scrollY;
 
@@ -610,22 +501,7 @@
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
 
-    // Header Minimize and Sections Adjustment
-    const header = document.querySelector('.header');
-    const sections = document.querySelector('.sections');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
-        header.classList.add('minimized');
-        sections.classList.add('minimized');
-        sections.classList.add('gradient');
-      } else {
-        header.classList.remove('minimized');
-        sections.classList.remove('minimized');
-        sections.classList.remove('gradient');
-      }
-    });
-
-    // Hover Effects
+    // Removed Header Animation Logic
     document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
@@ -634,7 +510,6 @@
       });
     });
 
-    // Scroll Animations for Sections and Progress Bars
     const sectionElements = document.querySelectorAll('.section');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -651,7 +526,6 @@
     }, { threshold: 0.2 });
     sectionElements.forEach(section => observer.observe(section));
 
-    // Horizontal Scroll for Timeline
     const timelineContainer = document.querySelector('.timeline-container');
     let isDragging = false;
     let startX;
