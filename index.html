@@ -6,11 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
   <style>
-    /* Prevent fixed header from blocking in-page anchors */
-    html {
-      scroll-padding-top: 80px;
-    }
-
     /*----------------------------------------------
       Base Colors & Variables
     -----------------------------------------------*/
@@ -49,10 +44,9 @@
       Header / Splash Screen
     -----------------------------------------------*/
     .header {
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
+      /* Remove fixed z-index so header stays in flow */
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -62,25 +56,10 @@
       color: #fff;
       text-align: center;
       padding: 60px 20px;
-      transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 999;
-    }
-    /* Fallback minimized styles (not used in our JS animation) */
-    .header.minimized {
-      height: 80px;
-      padding: 15px 20px;
-      background: rgba(0, 0, 0, 0.9);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: height 0.3s ease-out, padding 0.3s ease-out;
     }
     .header-content {
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .header.minimized .header-content {
-      transform: scale(0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
+      transition: transform 0.3s ease-out;
     }
     .header h1 {
       margin: 0;
@@ -89,20 +68,12 @@
       letter-spacing: -1px;
       animation: fadeInUp 1s ease-out;
     }
-    .header.minimized h1 {
-      font-size: 1.6em;
-      margin: 0;
-    }
     .header h2 {
       margin: 10px 0 0;
       font-weight: 400;
       font-size: 1.6em;
       color: var(--text-sub);
       animation: fadeInUp 1.2s ease-out;
-    }
-    .header.minimized h2 {
-      font-size: 0.9em;
-      margin: 0;
     }
     .logo {
       width: 120px;
@@ -112,47 +83,23 @@
       margin-bottom: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       animation: fadeIn 1s ease-out;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .header.minimized .logo {
-      width: 50px;
-      height: 50px;
-      margin: 0;
-    }
-
-    /* Particle Background */
-    #particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-    .header.minimized #particles {
-      display: none;
+      transition: all 0.3s ease-out;
     }
 
     /*----------------------------------------------
       Content Sections
     -----------------------------------------------*/
     .sections {
+      /* No need for a top margin since header is in flow */
       padding: 60px 20px;
       background: var(--dark-bg);
       transition: background 0.6s ease;
-      margin-top: 100vh; /* Initial offset for splash screen */
-    }
-    .sections.minimized {
-      margin-top: 80px;
-    }
-    .sections.gradient {
-      background: var(--header-grad);
     }
     .section {
       margin-bottom: 80px;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
     .section.visible {
       opacity: 1;
@@ -199,7 +146,7 @@
       background: var(--darker-bg);
       padding: 25px;
       border-radius: 12px;
-      transition: all 0.4s ease;
+      transition: all 0.3s ease-out;
     }
     .skill-category:hover {
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
@@ -213,13 +160,12 @@
       border-radius: 3px;
       margin: 15px 0;
     }
-    /* Start progress bars at 0 width */
     .progress-fill {
       width: 0;
       height: 100%;
       background: var(--secondary);
       border-radius: 3px;
-      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: width 1.5s ease-out;
     }
     .skill-details { font-size: 0.95em; color: var(--text-sub); margin-top: 10px; }
 
@@ -240,7 +186,7 @@
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      transition: all 0.4s ease;
+      transition: all 0.3s ease-out;
     }
     .job:hover {
       transform: translateY(-5px);
@@ -262,7 +208,7 @@
       background: var(--darker-bg);
       padding: 25px;
       border-radius: 12px;
-      transition: all 0.4s ease;
+      transition: all 0.3s ease-out;
     }
     .education-item:hover {
       transform: translateY(-5px);
@@ -286,7 +232,7 @@
       background: var(--darker-bg);
       padding: 20px;
       border-radius: 12px;
-      transition: all 0.4s ease;
+      transition: all 0.3s ease-out;
     }
     .certification-item:hover {
       transform: translateY(-5px);
@@ -302,11 +248,8 @@
       .header { padding: 40px 15px; }
       .header h1 { font-size: 2.5em; }
       .header h2 { font-size: 1.2em; }
-      .header.minimized h1 { font-size: 1.4em; }
-      .header.minimized h2 { font-size: 0.8em; }
-      .header.minimized .logo { width: 40px; height: 40px; }
+      .logo { width: 100px; height: 100px; }
       .sections { padding: 40px 15px; }
-      .sections.minimized { margin-top: 80px; }
       .contact { flex-direction: column; gap: 20px; }
       .skills-grid, .education-grid, .certifications-grid { grid-template-columns: 1fr; }
       .timeline { flex-direction: column; }
@@ -326,7 +269,7 @@
 </head>
 <body>
   <div class="wrapper">
-    <!-- Splash Screen -->
+    <!-- Splash Screen / Banner -->
     <div class="header" id="about">
       <canvas id="particles"></canvas>
       <div class="header-content">
@@ -366,21 +309,27 @@
             <div class="progress-bar">
               <div class="progress-fill" data-target="90"></div>
             </div>
-            <div class="skill-details">Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.</div>
+            <div class="skill-details">
+              Experienced in strategic planning, team leadership, process optimization, and stakeholder engagement.
+            </div>
           </div>
           <div class="skill-category">
             <div class="skill-title">Technical (85%)</div>
             <div class="progress-bar">
               <div class="progress-fill" data-target="85"></div>
             </div>
-            <div class="skill-details">Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.</div>
+            <div class="skill-details">
+              Proficient in Microsoft Office, CRM systems, and various financial software for data analysis and process optimization.
+            </div>
           </div>
           <div class="skill-category">
             <div class="skill-title">Financial (90%)</div>
             <div class="progress-bar">
               <div class="progress-fill" data-target="90"></div>
             </div>
-            <div class="skill-details">Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.</div>
+            <div class="skill-details">
+              Skilled in accounts payable/receivable, ledger reconciliation, and ensuring ERISA/IRS compliance for client portfolios.
+            </div>
           </div>
         </div>
       </div>
@@ -392,7 +341,9 @@
           <div class="timeline">
             <div class="job">
               <p class="job-title">Personal Financial Manager</p>
-              <p class="company">SELF-EMPLOYED <span class="dates">March 2020 - Present</span></p>
+              <p class="company">
+                SELF-EMPLOYED <span class="dates">March 2020 - Present</span>
+              </p>
               <div class="job-details">
                 <ul>
                   <li>Manage personal investment portfolio with 40% annual growth.</li>
@@ -403,7 +354,9 @@
             </div>
             <div class="job">
               <p class="job-title">Universal Banker</p>
-              <p class="company">FIDELITY BANK <span class="dates">April 2024 - January 2025</span></p>
+              <p class="company">
+                FIDELITY BANK <span class="dates">April 2024 - January 2025</span>
+              </p>
               <div class="job-details">
                 <ul>
                   <li>Processed 100+ daily transactions with 100% accuracy.</li>
@@ -414,7 +367,9 @@
             </div>
             <div class="job">
               <p class="job-title">Account Administrator</p>
-              <p class="company">INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span></p>
+              <p class="company">
+                INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span>
+              </p>
               <div class="job-details">
                 <ul>
                   <li>Managed 10+ retirement accounts totaling over $3B.</li>
@@ -425,7 +380,9 @@
             </div>
             <div class="job">
               <p class="job-title">Universal Banker I</p>
-              <p class="company">EQUITY BANK <span class="dates">September 2021 - June 2022</span></p>
+              <p class="company">
+                EQUITY BANK <span class="dates">September 2021 - June 2022</span>
+              </p>
               <div class="job-details">
                 <ul>
                   <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
@@ -565,65 +522,30 @@
       canvas.height = window.innerHeight;
     });
 
-    // Custom Smooth Scrolling
-    let scrollTarget = 0;
-    let currentScroll = window.scrollY;
-
-    function smoothScroll() {
-      currentScroll += (scrollTarget - currentScroll) * 0.1;
-      window.scrollTo(0, currentScroll);
-      if (Math.abs(scrollTarget - currentScroll) > 0.5) {
-        requestAnimationFrame(smoothScroll);
-      }
-    }
-
-    window.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      scrollTarget += e.deltaY;
-      scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
-      requestAnimationFrame(smoothScroll);
-    }, { passive: false });
-
-    window.addEventListener('touchmove', (e) => {
-      e.preventDefault();
-      scrollTarget = window.scrollY - e.touches[0].clientY * 2;
-      scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
-      requestAnimationFrame(smoothScroll);
-    }, { passive: false });
-
-    // Header Animation: Smoothly transform header into a banner
+    // Smooth Header Animation: Shrink header as you scroll
     const header = document.querySelector('.header');
     const headerContent = document.querySelector('.header-content');
-    const sections = document.querySelector('.sections');
 
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
-      const threshold = 100; // scroll distance to fully minimize
-
-      // Clamp factor between 0 and 1
+      const threshold = 100; // pixels for full transformation
       const factor = Math.min(scrollY / threshold, 1);
       
-      // Interpolate header height: from full window height to 80px
       const fullHeight = window.innerHeight;
       const minHeight = 80;
       const newHeight = fullHeight - (fullHeight - minHeight) * factor;
       header.style.height = newHeight + 'px';
-
-      // Interpolate padding: from 60px down to 15px
+      
       const fullPadding = 60;
       const minPadding = 15;
       const newPadding = fullPadding - (fullPadding - minPadding) * factor;
       header.style.padding = `${newPadding}px 20px`;
-
-      // Interpolate header content scale: from 1 to 0.7
+      
       const newScale = 1 - 0.3 * factor;
       headerContent.style.transform = `scale(${newScale})`;
-
-      // Adjust sections margin-top to follow header
-      sections.style.marginTop = newHeight + 'px';
     });
 
-    // Animate Progress Bars on scroll
+    // Animate Progress Bars on scroll into view
     const progressBars = document.querySelectorAll('.progress-fill');
     const progressObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -635,10 +557,9 @@
         }
       });
     }, { threshold: 0.5 });
-
     progressBars.forEach(bar => progressObserver.observe(bar));
 
-    // Dynamic Gradient on Hover
+    // Dynamic Gradient on Hover for Cards
     document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
@@ -647,14 +568,16 @@
       });
     });
 
-    // Scroll Animations for Sections
+    // Fade in Sections on scroll
     const sectionElements = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver(entries => {
+    const sectionObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
     }, { threshold: 0.2 });
-    sectionElements.forEach(section => observer.observe(section));
+    sectionElements.forEach(section => sectionObserver.observe(section));
   </script>
 </body>
 </html>
