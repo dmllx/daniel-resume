@@ -31,22 +31,20 @@
       background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072') no-repeat center center fixed, var(--body-grad);
       background-size: cover;
       color: var(--text-main);
-      min-height: 100vh; /* Ensure body takes up full viewport height initially */
       overflow-x: hidden;
     }
 
-    /* Wrapper to ensure full scrollable height */
     .wrapper {
-      min-height: 100vh; /* Ensure wrapper takes up at least full viewport */
       display: flex;
       flex-direction: column;
+      min-height: 100vh;
     }
 
     /*----------------------------------------------
       Header / Splash Screen
     -----------------------------------------------*/
     .header {
-      position: absolute;
+      position: fixed; /* Changed to fixed for consistent banner behavior */
       top: 0;
       left: 0;
       right: 0;
@@ -59,11 +57,10 @@
       color: #fff;
       text-align: center;
       padding: 60px 20px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 999;
     }
     .header.minimized {
-      position: fixed;
       height: 80px;
       padding: 15px 20px;
       background: rgba(0, 0, 0, 0.9);
@@ -134,11 +131,13 @@
       Content Sections
     -----------------------------------------------*/
     .sections {
-      margin-top: 100vh; /* Push content below splash screen */
       padding: 60px 20px;
       background: var(--dark-bg);
       transition: background 0.6s ease;
-      flex-grow: 1; /* Ensure sections expand to fill available space */
+      margin-top: 100vh; /* Initial offset for splash screen */
+    }
+    .sections.minimized {
+      margin-top: 80px; /* Adjust to banner height when minimized */
     }
     .sections.gradient {
       background: var(--header-grad);
@@ -298,7 +297,8 @@
       .header.minimized h1 { font-size: 1.4em; }
       .header.minimized h2 { font-size: 0.8em; }
       .header.minimized .logo { width: 40px; height: 40px; }
-      .sections { padding: 40px 15px; margin-top: 100vh; }
+      .sections { padding: 40px 15px; }
+      .sections.minimized { margin-top: 80px; }
       .contact { flex-direction: column; gap: 20px; }
       .skills-grid, .education-grid, .certifications-grid { grid-template-columns: 1fr; }
       .timeline { flex-direction: column; }
@@ -577,15 +577,17 @@
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
 
-    // Header Minimize and Gradient Toggle
+    // Header Minimize and Sections Adjustment
     const header = document.querySelector('.header');
     const sections = document.querySelector('.sections');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 10) {
         header.classList.add('minimized');
+        sections.classList.add('minimized');
         sections.classList.add('gradient');
       } else {
         header.classList.remove('minimized');
+        sections.classList.remove('minimized');
         sections.classList.remove('gradient');
       }
     });
