@@ -148,11 +148,11 @@
     .sections {
       padding: 60px 20px;
       background: var(--dark-bg);
-      transition: background 0.6s ease;
+      transition: background 0.6s ease, margin-top 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
       margin-top: 100vh;
     }
     .sections.minimized {
-      margin-top: 80px;
+      margin-top: 80px; /* Matches minimized header height */
     }
     .sections.gradient {
       background: var(--header-grad);
@@ -244,6 +244,7 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
       scrollbar-color: var(--secondary) var(--darker-bg);
+      cursor: grab;
     }
     .timeline-container::-webkit-scrollbar {
       height: 8px;
@@ -260,6 +261,7 @@
       gap: 30px;
       padding: 0 20px;
       width: max-content;
+      user-select: none; /* Prevent text selection during drag */
     }
     .job {
       background: var(--darker-bg);
@@ -361,7 +363,6 @@
     </div>
 
     <div class="sections">
-      <!-- Contact (Moved Up) -->
       <div class="section contact" id="contact">
         <h2>Contact</h2>
         <div class="contact">
@@ -380,7 +381,6 @@
         </div>
       </div>
 
-      <!-- Skills (Moved Down) -->
       <div class="section skills" id="skills">
         <h2>Skills</h2>
         <div class="skills-grid">
@@ -530,6 +530,7 @@
   </div>
 
   <script>
+    // Particle Background
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -583,6 +584,7 @@
       canvas.height = window.innerHeight;
     });
 
+    // Custom Smooth Scrolling
     let scrollTarget = 0;
     let currentScroll = window.scrollY;
 
@@ -608,6 +610,7 @@
       requestAnimationFrame(smoothScroll);
     }, { passive: false });
 
+    // Header Minimize and Sections Adjustment
     const header = document.querySelector('.header');
     const sections = document.querySelector('.sections');
     window.addEventListener('scroll', () => {
@@ -622,6 +625,7 @@
       }
     });
 
+    // Hover Effects
     document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
@@ -630,6 +634,7 @@
       });
     });
 
+    // Scroll Animations for Sections and Progress Bars
     const sectionElements = document.querySelectorAll('.section');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -646,6 +651,7 @@
     }, { threshold: 0.2 });
     sectionElements.forEach(section => observer.observe(section));
 
+    // Horizontal Scroll for Timeline
     const timelineContainer = document.querySelector('.timeline-container');
     let isDragging = false;
     let startX;
