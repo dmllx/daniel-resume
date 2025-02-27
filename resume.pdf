@@ -578,19 +578,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script>
       function generatePDF() {
-        console.log("Starting PDF generation...");
-        const element = document.querySelector('.wrapper');
-        const opt = {
-          margin: 0.5,
-          filename: 'Daniel_P_Mailloux_Resume.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: {
-            scale: 2,
-            useCORS: true,
-            allowTaint: false,
-            taintTest: false,
-            logging: true
-          },
+  const element = document.querySelector('.sections');
+  html2pdf().from(element).save();
+}
           jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
         html2pdf()
