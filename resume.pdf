@@ -16,7 +16,7 @@
         --darker-bg: #080808;
         --text-main: #ffffff;
         --text-sub: #a0a0a0;
-        --header-grad: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(0, 0, 0, 0.9));
+        --header-grad: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(0,0,0,0.9));
         --dark-neon-bg: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
       }
       body {
@@ -61,7 +61,7 @@
         font-size: 14pt;
         color: var(--text-sub);
       }
-      /* Note: Added crossOrigin attribute in the HTML below for CORS */
+      /* Note: Added crossOrigin="anonymous" to image for CORS */
       .profile-image {
         width: 80px;
         height: 80px;
@@ -321,7 +321,7 @@
       <!-- Header -->
       <div class="header" id="about">
         <div class="header-content">
-          <!-- Added crossOrigin="anonymous" for CORS -->
+          <!-- Note: crossOrigin="anonymous" added for proper CORS -->
           <img
             class="profile-image"
             crossOrigin="anonymous"
@@ -569,6 +569,12 @@
         </div>
       </div>
     </div>
+    <!-- Download PDF Button -->
+    <div style="text-align: center; margin: 20px;">
+      <button id="download-pdf" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+        Download PDF
+      </button>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script>
       function generatePDF() {
@@ -578,25 +584,30 @@
           margin: 0.5,
           filename: 'Daniel_P_Mailloux_Resume.pdf',
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, logging: true },
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            allowTaint: false,
+            taintTest: false,
+            logging: true
+          },
           jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
-        html2pdf().set(opt).from(element).save().catch(err => {
-          console.error("PDF generation failed:", err);
-        });
+        html2pdf()
+          .set(opt)
+          .from(element)
+          .save()
+          .then(() => {
+            console.log("PDF generated successfully.");
+          })
+          .catch(err => {
+            console.error("PDF generation failed:", err);
+          });
       }
       
-      window.addEventListener('load', () => {
-        const profileImage = document.querySelector('.profile-image');
-        if (profileImage.complete) {
-          console.log("Profile image already loaded");
-          setTimeout(generatePDF, 3500);
-        } else {
-          profileImage.addEventListener('load', () => {
-            console.log("Profile image loaded");
-            setTimeout(generatePDF, 3500);
-          });
-        }
+      document.getElementById("download-pdf").addEventListener("click", function() {
+        // Delay to ensure all assets load (adjust as needed)
+        setTimeout(generatePDF, 3000);
       });
     </script>
   </body>
