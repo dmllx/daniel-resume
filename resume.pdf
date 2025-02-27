@@ -54,13 +54,21 @@
         font-weight: 800;
         font-size: 24pt;
         color: var(--text-main);
-        letter-spacing: 1px;
       }
       .header h2 {
-        margin: 5px 0 0;
+        margin: 0;
         font-weight: 400;
         font-size: 14pt;
         color: var(--text-sub);
+      }
+      /* Profile Image */
+      .profile-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        border: 2px solid var(--secondary);
       }
       /* Sections */
       .sections {
@@ -77,7 +85,6 @@
         margin-bottom: 10px;
         border-bottom: 1px solid var(--secondary);
         padding-bottom: 5px;
-        text-transform: uppercase;
       }
       /* Contact Section */
       .contact {
@@ -149,7 +156,6 @@
       .company {
         font-size: 11pt;
         color: var(--text-sub);
-        font-style: italic;
       }
       .dates {
         font-size: 10pt;
@@ -185,7 +191,6 @@
       .education-institution {
         font-size: 11pt;
         color: var(--text-sub);
-        font-style: italic;
       }
       .education-details {
         margin-top: 8px;
@@ -233,12 +238,7 @@
           background: #ffffff;
         }
         .header {
-          border-bottom: 1px solid #000000;
-          margin-bottom: 0.25in;
-          padding-bottom: 0.15in;
-        }
-        .header h1, .header h2 {
-          color: #000000;
+          display: none;
         }
         .sections {
           padding: 0;
@@ -289,8 +289,13 @@
         .header h2 {
           font-size: 0.8em;
         }
+        .header .profile-image {
+          width: 40px;
+          height: 40px;
+        }
         .sections {
           padding: 40px 15px;
+          margin-top: 80px;
         }
         .contact {
           flex-direction: column;
@@ -316,8 +321,15 @@
       <!-- Header -->
       <div class="header" id="about">
         <div class="header-content">
+          <!-- Use your desired filename/path for the attached image -->
+          <img
+            class="profile-image"
+            crossOrigin="anonymous"
+            src="Daniel.jpeg"
+            alt="Daniel P. Mailloux"
+          />
           <h1>Daniel P. Mailloux</h1>
-          <h2>Financial Economist & Strategist</h2>
+          <h2>Financial Economist &amp; Strategist</h2>
         </div>
       </div>
       <!-- Main Sections -->
@@ -363,7 +375,7 @@
               <div class="skill-title">Interpersonal</div>
               <div class="skill-details">
                 <ul>
-                  <li>Client Relations & Support</li>
+                  <li>Client Relations &amp; Support</li>
                   <li>Effective Communication</li>
                   <li>Active Listening</li>
                 </ul>
@@ -377,8 +389,8 @@
                   <li>Team Leadership</li>
                   <li>Process Optimization</li>
                   <li>Stakeholder Engagement</li>
-                  <li>Reliability & Responsibility</li>
-                  <li>Confidentiality & Integrity</li>
+                  <li>Reliability &amp; Responsibility</li>
+                  <li>Confidentiality &amp; Integrity</li>
                 </ul>
               </div>
             </div>
@@ -389,7 +401,7 @@
                   <li>Microsoft Office Suite</li>
                   <li>CRM Systems</li>
                   <li>Financial Software Applications</li>
-                  <li>Basic & Advanced Computer Proficiency</li>
+                  <li>Basic &amp; Advanced Computer Proficiency</li>
                 </ul>
               </div>
             </div>
@@ -400,7 +412,7 @@
                   <li>Accounts Payable/Receivable</li>
                   <li>Ledger Reconciliation</li>
                   <li>ERISA/IRS Compliance</li>
-                  <li>Accuracy & Attention to Detail</li>
+                  <li>Accuracy &amp; Attention to Detail</li>
                 </ul>
               </div>
             </div>
@@ -503,7 +515,7 @@
         </div>
         <!-- Certifications Section -->
         <div class="section certifications" id="certifications">
-          <h2>Certifications & Compliance Expertise</h2>
+          <h2>Certifications &amp; Compliance Expertise</h2>
           <div class="certifications-grid">
             <div class="certification-item">
               <div class="certification-acronym">HMDA</div>
@@ -538,7 +550,7 @@
             <div class="certification-item">
               <div class="certification-acronym">UDAAP</div>
               <div class="certification-details">
-                Unfair, Deceptive, or Abusive Acts & Practices
+                Unfair, Deceptive, or Abusive Acts &amp; Practices
               </div>
             </div>
             <div class="certification-item">
@@ -557,33 +569,6 @@
         </div>
       </div>
     </div>
-    <!-- No Download PDF Button -->
-    <!-- Optionally keep html2pdf.js for manual PDF generation if needed -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-    <script>
-      // Optional: Manual trigger for PDF generation (e.g., via console or keyboard shortcut)
-      function generatePDF() {
-        const element = document.querySelector('.wrapper'); // Include header in PDF
-        const opt = {
-          margin: 0.5,
-          filename: 'Daniel_P_Mailloux_Resume.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        html2pdf()
-          .set(opt)
-          .from(element)
-          .save()
-          .then(() => {
-            console.log("PDF generated successfully.");
-          })
-          .catch(err => {
-            console.error("PDF generation failed:", err);
-          });
-      }
-      // Uncomment the line below to auto-generate PDF on page load for testing
-      // window.onload = generatePDF;
-    </script>
+    <!-- The 'Download PDF' button and script have been removed -->
   </body>
 </html>
