@@ -14,7 +14,7 @@
       --text-main: #ffffff;
       --text-sub: #a0a0a0;
       --header-grad: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(0,0,0,0.9));
-      /* Dark-to-black gradient background */
+      /* Neon-black gradient from #1c1c1e to #000 */
       --dark-neon-bg: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
     }
 
@@ -118,6 +118,9 @@
       padding: 60px 20px;
       background: transparent;
       margin-top: 80px;
+    }
+    .sections.gradient {
+      background: var(--header-grad);
     }
     .section {
       margin-bottom: 80px;
@@ -341,30 +344,6 @@
     }
 
     /*----------------------------------------------
-      Print Styles (for PDF conversion)
-    -----------------------------------------------*/
-    @media print {
-      /* Hide interactive elements */
-      .download-btn, .header {
-        display: none;
-      }
-      /* Reset any animations/transitions */
-      * {
-        transition: none !important;
-        animation: none !important;
-      }
-      /* Adjust sections for print-friendly margins */
-      .sections {
-        padding: 20px;
-      }
-      .section {
-        margin-bottom: 40px;
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    /*----------------------------------------------
       Mobile Responsiveness
     -----------------------------------------------*/
     @media (max-width: 768px) {
@@ -445,7 +424,7 @@
         <h2>Skills</h2>
         <div class="skills-grid">
           <div class="skill-category">
-            <div class="skill-title">Interpersonal &amp; Communication Skills (90%)</div>
+            <div class="skill-title">Interpersonal</div>
             <div class="skill-details">
               <ul>
                 <li>Client Relations &amp; Support</li>
@@ -455,7 +434,7 @@
             </div>
           </div>
           <div class="skill-category">
-            <div class="skill-title">Professional Skills (90%)</div>
+            <div class="skill-title">Professional</div>
             <div class="skill-details">
               <ul>
                 <li>Strategic Planning</li>
@@ -468,7 +447,7 @@
             </div>
           </div>
           <div class="skill-category">
-            <div class="skill-title">Technical Skills (85%)</div>
+            <div class="skill-title">Technical</div>
             <div class="skill-details">
               <ul>
                 <li>Microsoft Office Suite</li>
@@ -479,7 +458,7 @@
             </div>
           </div>
           <div class="skill-category">
-            <div class="skill-title">Financial Skills (90%)</div>
+            <div class="skill-title">Financial</div>
             <div class="skill-details">
               <ul>
                 <li>Accounts Payable/Receivable</li>
