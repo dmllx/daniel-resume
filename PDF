@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daniel P. Mailloux - Resume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #007aff;
+      --secondary: #00d4ff;
+      --dark-bg: #0d0d0d;
+      --darker-bg: #080808;
+      --text-main: #ffffff;
+      --text-sub: #a0a0a0;
+      --header-grad: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(0,0,0,0.9));
+      /* Dark-to-black gradient background */
+      --dark-neon-bg: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
+    }
+
+    /*----------------------------------------------
+      Global & Background
+    -----------------------------------------------*/
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.8;
+      background: var(--dark-neon-bg);
+      background-size: cover;
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Wrapper for full scrollable height */
+    .wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /*----------------------------------------------
+      Header / Banner
+    -----------------------------------------------*/
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.95);
+      color: #fff;
+      text-align: center;
+      padding: 15px 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      transform: scale(0.7);
+    }
+    .header h1 {
+      margin: 0;
+      font-weight: 800;
+      font-size: 1.6em;
+    }
+    .header h2 {
+      margin: 0;
+      font-weight: 400;
+      font-size: 0.9em;
+      color: var(--text-sub);
+    }
+    .logo {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .download-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .download-btn:hover {
+      background: var(--secondary);
+      border-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+    .download-btn svg {
+      fill: var(--text-main);
+      width: 16px;
+      height: 16px;
+    }
+
+    /*----------------------------------------------
+      Sections
+    -----------------------------------------------*/
+    .sections {
+      padding: 60px 20px;
+      background: transparent;
+      margin-top: 80px;
+    }
+    .section {
+      margin-bottom: 80px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section h2 {
+      color: var(--secondary);
+      font-size: 2em;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    /* Contact Section */
+    .contact {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .contact a {
+      color: var(--text-sub);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+    }
+    .contact a:hover {
+      color: var(--secondary);
+      transform: translateX(5px);
+    }
+    .icon {
+      fill: var(--text-sub);
+      width: 22px;
+      height: 22px;
+      transition: fill 0.3s ease;
+    }
+    .contact a:hover .icon {
+      fill: var(--secondary);
+    }
+
+    /*----------------------------------------------
+      Skills Section (Updated)
+    -----------------------------------------------*/
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .skill-category {
+      background: var(--darker-bg);
+      padding: 25px;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+    }
+    .skill-category:hover {
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    .skill-title {
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .skill-details {
+      font-size: 0.95em;
+      color: var(--text-sub);
+      margin-top: 10px;
+    }
+    .skill-details ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+    .skill-details li {
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+
+    /*----------------------------------------------
+      Experience Timeline
+    -----------------------------------------------*/
+    .timeline-container {
+      position: relative;
+      overflow-x: auto;
+      padding: 20px 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--secondary) var(--darker-bg);
+      cursor: grab;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+    .timeline-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .timeline-container::-webkit-scrollbar-thumb {
+      background: var(--secondary);
+      border-radius: 4px;
+    }
+    .timeline-container::-webkit-scrollbar-track {
+      background: var(--darker-bg);
+    }
+    .timeline {
+      display: flex;
+      gap: 30px;
+      padding: 0 20px;
+      width: max-content;
+      user-select: none;
+    }
+    .job {
+      background: var(--darker-bg);
+      min-width: 300px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      transition: all 0.4s ease;
+      scroll-snap-align: start;
+    }
+    .job:hover {
+      transform: translateY(-5px);
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
+    }
+    .job-title {
+      font-size: 1.3em;
+      font-weight: 600;
+    }
+    .company {
+      font-size: 1em;
+      color: var(--text-sub);
+    }
+    .dates {
+      font-size: 0.9em;
+      color: var(--text-sub);
+    }
+    .job-details {
+      margin-top: 15px;
+      color: var(--text-sub);
+    }
+    .job-details ul {
+      list-style: disc;
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+
+    /*----------------------------------------------
+      Education Section
+    -----------------------------------------------*/
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .education-item {
+      background: var(--darker-bg);
+      padding: 25px;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+    }
+    .education-item:hover {
+      transform: translateY(-5px);
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
+    }
+    .education-title {
+      font-size: 1.3em;
+      font-weight: 600;
+    }
+    .education-institution {
+      font-size: 1em;
+      color: var(--text-sub);
+    }
+    .education-details {
+      margin-top: 15px;
+      color: var(--text-sub);
+    }
+    .education-details ul {
+      list-style: disc;
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+
+    /*----------------------------------------------
+      Certifications Section
+    -----------------------------------------------*/
+    .certifications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .certification-item {
+      background: var(--darker-bg);
+      padding: 20px;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+    }
+    .certification-item:hover {
+      transform: translateY(-5px);
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--secondary), var(--darker-bg));
+    }
+    .certification-acronym {
+      font-size: 1.1em;
+      font-weight: 600;
+    }
+    .certification-details {
+      font-size: 0.9em;
+      color: var(--text-sub);
+      margin-top: 8px;
+    }
+
+    /*----------------------------------------------
+      Print Styles (for PDF conversion)
+    -----------------------------------------------*/
+    @media print {
+      /* Hide interactive elements */
+      .download-btn, .header {
+        display: none;
+      }
+      /* Reset any animations/transitions */
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+      /* Adjust sections for print-friendly margins */
+      .sections {
+        padding: 20px;
+      }
+      .section {
+        margin-bottom: 40px;
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /*----------------------------------------------
+      Mobile Responsiveness
+    -----------------------------------------------*/
+    @media (max-width: 768px) {
+      .header { padding: 15px; }
+      .header h1 { font-size: 1.4em; }
+      .header h2 { font-size: 0.8em; }
+      .header .logo { width: 40px; height: 40px; }
+      .sections { padding: 40px 15px; margin-top: 80px; }
+      .contact { flex-direction: column; gap: 20px; }
+      .skills-grid,
+      .education-grid,
+      .certifications-grid {
+        grid-template-columns: 1fr;
+      }
+      .timeline {
+        flex-direction: column;
+        width: 100%;
+      }
+      .job { min-width: 100%; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Header / Banner -->
+    <div class="header" id="about">
+      <div class="header-content">
+        <img class="logo" src="daniel.jpeg" alt="Daniel P. Mailloux" loading="lazy" />
+        <h1>Daniel P. Mailloux</h1>
+        <h2>Financial Economist &amp; Strategist</h2>
+      </div>
+      <button class="download-btn" onclick="window.open('resume.pdf')">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z"/>
+        </svg>
+        Download PDF
+      </button>
+    </div>
+
+    <!-- Main Sections -->
+    <div class="sections">
+      <!-- Contact Section -->
+      <div class="section contact" id="contact">
+        <h2>Contact</h2>
+        <div class="contact">
+          <a href="https://www.google.com/maps/search/?api=1&query=Wichita,+KS" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+            </svg>
+            Wichita, KS
+          </a>
+          <a href="mailto:mailloux.daniel@gmail.com">
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            mailloux.daniel@gmail.com
+          </a>
+          <a href="tel:6204740124">
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/>
+            </svg>
+            (620) 474-0124
+          </a>
+        </div>
+      </div>
+
+      <!-- Updated Skills Section -->
+      <div class="section skills" id="skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <div class="skill-title">Interpersonal &amp; Communication Skills (90%)</div>
+            <div class="skill-details">
+              <ul>
+                <li>Client Relations &amp; Support</li>
+                <li>Effective Communication</li>
+                <li>Active Listening</li>
+              </ul>
+            </div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-title">Professional Skills (90%)</div>
+            <div class="skill-details">
+              <ul>
+                <li>Strategic Planning</li>
+                <li>Team Leadership</li>
+                <li>Process Optimization</li>
+                <li>Stakeholder Engagement</li>
+                <li>Reliability &amp; Responsibility</li>
+                <li>Confidentiality &amp; Integrity</li>
+              </ul>
+            </div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-title">Technical Skills (85%)</div>
+            <div class="skill-details">
+              <ul>
+                <li>Microsoft Office Suite</li>
+                <li>CRM Systems</li>
+                <li>Financial Software Applications</li>
+                <li>Basic &amp; Advanced Computer Proficiency</li>
+              </ul>
+            </div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-title">Financial Skills (90%)</div>
+            <div class="skill-details">
+              <ul>
+                <li>Accounts Payable/Receivable</li>
+                <li>Ledger Reconciliation</li>
+                <li>ERISA/IRS Compliance</li>
+                <li>Accuracy &amp; Attention to Detail</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience Section -->
+      <div class="section experience" id="experience">
+        <h2>Experience</h2>
+        <div class="timeline-container">
+          <div class="timeline">
+            <div class="job">
+              <p class="job-title">Personal Financial Manager</p>
+              <p class="company">
+                SELF-EMPLOYED <span class="dates">March 2020 - Present</span>
+              </p>
+              <div class="job-details">
+                <ul>
+                  <li>Manage personal investment portfolio with 40% annual growth.</li>
+                  <li>Develop comprehensive financial planning strategies using economic forecasts.</li>
+                  <li>Maintain accurate financial records for payables and receivables.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="job">
+              <p class="job-title">Universal Banker</p>
+              <p class="company">
+                FIDELITY BANK <span class="dates">April 2024 - January 2025</span>
+              </p>
+              <div class="job-details">
+                <ul>
+                  <li>Processed 100+ daily transactions with 100% accuracy.</li>
+                  <li>Resolved discrepancies to improve account accuracy by 40%.</li>
+                  <li>Streamlined financial processes for consistent, accurate processing.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="job">
+              <p class="job-title">Account Administrator</p>
+              <p class="company">
+                INTRUST BANK - NESTEGGU <span class="dates">June 2022 - February 2024</span>
+              </p>
+              <div class="job-details">
+                <ul>
+                  <li>Managed 10+ retirement accounts totaling over $3B.</li>
+                  <li>Verified 5,000+ participant accounts for compliance.</li>
+                  <li>Oversaw receivable operations and ensured regulatory compliance.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="job">
+              <p class="job-title">Universal Banker I</p>
+              <p class="company">
+                EQUITY BANK <span class="dates">September 2021 - June 2022</span>
+              </p>
+              <div class="job-details">
+                <ul>
+                  <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
+                  <li>Enhanced customer relations with strategic support initiatives.</li>
+                  <li>Handled financial transactions efficiently.</li>
+                  <li>Promoted quickly by turning challenges into wins.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Section -->
+      <div class="section education" id="education">
+        <h2>Education</h2>
+        <div class="education-grid">
+          <div class="education-item">
+            <p class="education-title">Wichita State University</p>
+            <p class="education-institution">Bachelor of Business Administration in Economics</p>
+            <div class="education-details">
+              <p>Wichita, KS – Graduation Date: 2023</p>
+              <ul>
+                <li>Business Senator – Student Government Association</li>
+                <li>Dean’s List</li>
+              </ul>
+            </div>
+          </div>
+          <div class="education-item">
+            <p class="education-title">Hutchinson Community College</p>
+            <p class="education-institution">Associate of Science in Economics</p>
+            <div class="education-details">
+              <p>Hutchinson, KS – Graduation Date: 2020</p>
+              <ul>
+                <li>Dean’s List</li>
+                <li>Dean’s Honor Roll</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications Section -->
+      <div class="section certifications" id="certifications">
+        <h2>Certifications &amp; Compliance Expertise</h2>
+        <div class="certifications-grid">
+          <div class="certification-item">
+            <div class="certification-acronym">HMDA</div>
+            <div class="certification-details">Home Mortgage Disclosure Act</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">ERISA</div>
+            <div class="certification-details">Employee Retirement Income Security Act</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">IRS</div>
+            <div class="certification-details">Internal Revenue Service</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">BSA</div>
+            <div class="certification-details">Bank Secrecy Act</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">CIP</div>
+            <div class="certification-details">Customer Identification Program</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">UDAAP</div>
+            <div class="certification-details">Unfair, Deceptive, or Abusive Acts &amp; Practices</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">Reg Z</div>
+            <div class="certification-details">Truth in Lending</div>
+          </div>
+          <div class="certification-item">
+            <div class="certification-acronym">Reg DD</div>
+            <div class="certification-details">Truth in Savings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Smooth Scrolling
+    let scrollTarget = 0;
+    let currentScroll = window.scrollY;
+    function smoothScroll() {
+      currentScroll += (scrollTarget - currentScroll) * 0.1;
+      window.scrollTo(0, currentScroll);
+      if (Math.abs(scrollTarget - currentScroll) > 0.5) {
+        requestAnimationFrame(smoothScroll);
+      }
+    }
+    window.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      scrollTarget += e.deltaY;
+      scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
+      requestAnimationFrame(smoothScroll);
+    }, { passive: false });
+    window.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      scrollTarget = window.scrollY - e.touches[0].clientY * 2;
+      scrollTarget = Math.max(0, Math.min(scrollTarget, document.documentElement.scrollHeight - window.innerHeight));
+      requestAnimationFrame(smoothScroll);
+    }, { passive: false });
+
+    // Gradient Hover Effects for skill cards
+    document.querySelectorAll('.skill-category, .job, .education-item, .certification-item').forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    // Section Fade-In + Progress Bar Animations
+    const sectionElements = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.id === 'skills') {
+            const progressBars = entry.target.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+              bar.classList.add('animate');
+            });
+          }
+        }
+      });
+    }, { threshold: 0.2 });
+    sectionElements.forEach(section => observer.observe(section));
+
+    // Horizontal Timeline Drag
+    const timelineContainer = document.querySelector('.timeline-container');
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+    timelineContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.pageX - timelineContainer.offsetLeft;
+      scrollLeft = timelineContainer.scrollLeft;
+      timelineContainer.style.cursor = 'grabbing';
+    });
+    timelineContainer.addEventListener('mouseleave', () => {
+      isDragging = false;
+      timelineContainer.style.cursor = 'grab';
+    });
+    timelineContainer.addEventListener('mouseup', () => {
+      isDragging = false;
+      timelineContainer.style.cursor = 'grab';
+    });
+    timelineContainer.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - timelineContainer.offsetLeft;
+      const walk = (x - startX) * 2;
+      timelineContainer.scrollLeft = scrollLeft - walk;
+    });
+    timelineContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].pageX - timelineContainer.offsetLeft;
+      scrollLeft = timelineContainer.scrollLeft;
+    });
+    timelineContainer.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+    timelineContainer.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const x = e.touches[0].pageX - timelineContainer.offsetLeft;
+      const walk = (x - startX) * 2;
+      timelineContainer.scrollLeft = scrollLeft - walk;
+    });
+    // Let the timeline handle its own wheel events
+    timelineContainer.addEventListener('wheel', function(e) {
+      e.stopPropagation();
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+</body>
+</html>
