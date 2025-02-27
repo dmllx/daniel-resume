@@ -22,7 +22,7 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
         line-height: 1.6;
         background: var(--dark-neon-bg);
         color: var(--text-main);
@@ -569,24 +569,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script>
       function generatePDF() {
+        console.log("Starting PDF generation...");
         const element = document.querySelector('.wrapper');
         const opt = {
           margin: 0.5,
           filename: 'Daniel_P_Mailloux_Resume.pdf',
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true },
+          html2canvas: { scale: 2, useCORS: true, logging: true },
           jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
-        html2pdf().set(opt).from(element).save();
+        html2pdf().set(opt).from(element).save().catch(err => {
+          console.error("PDF generation failed:", err);
+        });
       }
       
       window.addEventListener('load', () => {
         const profileImage = document.querySelector('.profile-image');
         if (profileImage.complete) {
-          setTimeout(generatePDF, 1500);
+          console.log("Profile image already loaded");
+          setTimeout(generatePDF, 2500);
         } else {
           profileImage.addEventListener('load', () => {
-            setTimeout(generatePDF, 1500);
+            console.log("Profile image loaded");
+            setTimeout(generatePDF, 2500);
           });
         }
       });
