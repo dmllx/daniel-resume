@@ -61,6 +61,7 @@
         font-size: 14pt;
         color: var(--text-sub);
       }
+      /* Note: Added crossOrigin attribute in the HTML below for CORS */
       .profile-image {
         width: 80px;
         height: 80px;
@@ -320,8 +321,10 @@
       <!-- Header -->
       <div class="header" id="about">
         <div class="header-content">
+          <!-- Added crossOrigin="anonymous" for CORS -->
           <img
             class="profile-image"
+            crossOrigin="anonymous"
             src="daniel.jpeg"
             alt="Daniel P. Mailloux"
           />
@@ -587,11 +590,11 @@
         const profileImage = document.querySelector('.profile-image');
         if (profileImage.complete) {
           console.log("Profile image already loaded");
-          setTimeout(generatePDF, 2500);
+          setTimeout(generatePDF, 3500);
         } else {
           profileImage.addEventListener('load', () => {
             console.log("Profile image loaded");
-            setTimeout(generatePDF, 2500);
+            setTimeout(generatePDF, 3500);
           });
         }
       });
