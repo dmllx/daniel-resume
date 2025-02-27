@@ -16,13 +16,13 @@
         --darker-bg: #080808;
         --text-main: #ffffff;
         --text-sub: #a0a0a0;
-        --header-grad: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(0,0,0,0.9));
+        --header-grad: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(0, 0, 0, 0.9));
         --dark-neon-bg: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
       }
       body {
         margin: 0;
         padding: 0;
-        font-family: "Inter", sans-serif;
+        font-family: 'Inter', sans-serif;
         line-height: 1.6;
         background: var(--dark-neon-bg);
         color: var(--text-main);
@@ -75,7 +75,7 @@
       }
       .section {
         margin-bottom: 0.5in;
-        break-inside: avoid; /* Prevent section breaks in print */
+        break-inside: avoid;
       }
       .section h2 {
         color: var(--secondary);
@@ -329,7 +329,6 @@
           <h2>Financial Economist &amp; Strategist</h2>
         </div>
       </div>
-
       <!-- Main Sections -->
       <div class="sections">
         <!-- Contact Section -->
@@ -365,7 +364,6 @@
             </a>
           </div>
         </div>
-
         <!-- Skills Section -->
         <div class="section skills" id="skills">
           <h2>Skills</h2>
@@ -417,7 +415,6 @@
             </div>
           </div>
         </div>
-
         <!-- Experience Section -->
         <div class="section experience" id="experience">
           <h2>Experience</h2>
@@ -430,16 +427,9 @@
               </p>
               <div class="job-details">
                 <ul>
-                  <li>
-                    Manage personal investment portfolio with 40% annual growth.
-                  </li>
-                  <li>
-                    Develop comprehensive financial planning strategies using
-                    economic forecasts.
-                  </li>
-                  <li>
-                    Maintain accurate financial records for payables and receivables.
-                  </li>
+                  <li>Manage personal investment portfolio with 40% annual growth.</li>
+                  <li>Develop comprehensive financial planning strategies using economic forecasts.</li>
+                  <li>Maintain accurate financial records for payables and receivables.</li>
                 </ul>
               </div>
             </div>
@@ -451,15 +441,9 @@
               </p>
               <div class="job-details">
                 <ul>
-                  <li>
-                    Processed 100+ daily transactions with 100% accuracy.
-                  </li>
-                  <li>
-                    Resolved discrepancies to improve account accuracy by 40%.
-                  </li>
-                  <li>
-                    Streamlined financial processes for consistent, accurate processing.
-                  </li>
+                  <li>Processed 100+ daily transactions with 100% accuracy.</li>
+                  <li>Resolved discrepancies to improve account accuracy by 40%.</li>
+                  <li>Streamlined financial processes for consistent, accurate processing.</li>
                 </ul>
               </div>
             </div>
@@ -471,15 +455,9 @@
               </p>
               <div class="job-details">
                 <ul>
-                  <li>
-                    Managed 10+ retirement accounts totaling over $3B.
-                  </li>
-                  <li>
-                    Verified 5,000+ participant accounts for compliance.
-                  </li>
-                  <li>
-                    Oversaw receivable operations and ensured regulatory compliance.
-                  </li>
+                  <li>Managed 10+ retirement accounts totaling over $3B.</li>
+                  <li>Verified 5,000+ participant accounts for compliance.</li>
+                  <li>Oversaw receivable operations and ensured regulatory compliance.</li>
                 </ul>
               </div>
             </div>
@@ -491,24 +469,15 @@
               </p>
               <div class="job-details">
                 <ul>
-                  <li>
-                    Increased managed assets by $5M via 15+ new checking accounts.
-                  </li>
-                  <li>
-                    Enhanced customer relations with strategic support initiatives.
-                  </li>
-                  <li>
-                    Handled financial transactions efficiently.
-                  </li>
-                  <li>
-                    Promoted quickly by turning challenges into wins.
-                  </li>
+                  <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
+                  <li>Enhanced customer relations with strategic support initiatives.</li>
+                  <li>Handled financial transactions efficiently.</li>
+                  <li>Promoted quickly by turning challenges into wins.</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-
         <!-- Education Section -->
         <div class="section education" id="education">
           <h2>Education</h2>
@@ -521,9 +490,7 @@
               <div class="education-details">
                 <p>Wichita, KS – Graduation Date: 2023</p>
                 <ul>
-                  <li>
-                    Business Senator – Student Government Association
-                  </li>
+                  <li>Business Senator – Student Government Association</li>
                   <li>Dean’s List</li>
                 </ul>
               </div>
@@ -543,7 +510,6 @@
             </div>
           </div>
         </div>
-
         <!-- Certifications Section -->
         <div class="section certifications" id="certifications">
           <h2>Certifications &amp; Compliance Expertise</h2>
@@ -600,7 +566,6 @@
         </div>
       </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script>
       function generatePDF() {
@@ -615,15 +580,16 @@
         html2pdf().set(opt).from(element).save();
       }
       
-      // Make sure all sections are visible for PDF generation
-      document.querySelectorAll('.section').forEach(section => {
-        section.classList.add('visible');
-      });
-      
-      // Auto-generate PDF when page loads
       window.addEventListener('load', () => {
-  setTimeout(generatePDF, 1500);
-});
+        const profileImage = document.querySelector('.profile-image');
+        if (profileImage.complete) {
+          setTimeout(generatePDF, 1500);
+        } else {
+          profileImage.addEventListener('load', () => {
+            setTimeout(generatePDF, 1500);
+          });
+        }
+      });
     </script>
   </body>
 </html>
