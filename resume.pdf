@@ -476,5 +476,37 @@
         © 2023 – Daniel P. Mailloux. All rights reserved.
       </div>
     </div>
-  </body>
+    <!-- Add a button that generates and opens the PDF in a new tab -->
+  <div style="text-align: center; margin-top: 20px;">
+    <button id="view-pdf-button" style="padding: 10px 20px; background: var(--accent); color: #000; font-weight: 600; border: none; border-radius: 4px; cursor: pointer;">View PDF in New Tab</button>
+  </div>
+
+  <!-- Include html2pdf.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+  <script>
+    function openPdfInNewTab() {
+      // Select the content to turn into PDF
+      const element = document.querySelector('.page');
+      // Configure html2pdf
+      const opt = {
+        margin:       0.3,
+        filename:     'Daniel_P_Mailloux_Resume.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      // Instead of .save(), use .toPdf() + .get('pdf') to open in new tab
+      html2pdf().set(opt).from(element).toPdf().get('pdf').then(function (pdfObj) {
+        // Convert the PDF object to a Blob URL
+        const pdfData = pdfObj.output('bloburl');
+        // Open it in a new tab
+        window.open(pdfData, '_blank');
+      });
+    }
+
+    // Attach event to button
+    document.getElementById('view-pdf-button').addEventListener('click', openPdfInNewTab);
+  </script>
+</body>
 </html>
