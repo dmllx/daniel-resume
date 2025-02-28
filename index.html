@@ -19,17 +19,10 @@
         --darker-bg: #080808;
         --text-main: #ffffff;
         --text-sub: #a0a0a0;
-        --header-grad: linear-gradient(
-          135deg,
-          rgba(30, 30, 30, 0.9),
-          rgba(0, 0, 0, 0.9)
-        );
+        --header-grad: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(0, 0, 0, 0.9));
         --dark-neon-bg: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
       }
 
-      /*----------------------------------------------
-      Global & Background
-      -----------------------------------------------*/
       body {
         margin: 0;
         padding: 0;
@@ -42,16 +35,12 @@
         overflow-x: hidden;
       }
 
-      /* Wrapper for full scrollable height */
       .wrapper {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
       }
 
-      /*----------------------------------------------
-      Header / Banner
-      -----------------------------------------------*/
       .header {
         position: fixed;
         top: 0;
@@ -119,24 +108,15 @@
         height: 16px;
       }
 
-      /*----------------------------------------------
-      Sections
-      -----------------------------------------------*/
       .sections {
         padding: 60px 20px;
         background: transparent;
         margin-top: 80px; /* Account for fixed header height */
       }
+
+      /* Sections are fully visible, no fade-in or transform. */
       .section {
         margin-bottom: 80px;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-          transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .section.visible {
-        opacity: 1;
-        transform: translateY(0);
       }
       .section h2 {
         color: var(--secondary);
@@ -176,9 +156,7 @@
         fill: var(--secondary);
       }
 
-      /*----------------------------------------------
-      Skills Section (Updated)
-      -----------------------------------------------*/
+      /* Skills Section */
       .skills-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -218,9 +196,7 @@
         line-height: 1.4;
       }
 
-      /*----------------------------------------------
-      Experience Timeline
-      -----------------------------------------------*/
+      /* Experience Timeline */
       .timeline-container {
         position: relative;
         overflow-x: auto;
@@ -288,9 +264,7 @@
         padding: 0;
       }
 
-      /*----------------------------------------------
-      Education Section
-      -----------------------------------------------*/
+      /* Education Section */
       .education-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -328,9 +302,7 @@
         padding: 0;
       }
 
-      /*----------------------------------------------
-      Certifications Section
-      -----------------------------------------------*/
+      /* Certifications Section */
       .certifications-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -363,34 +335,24 @@
         margin-top: 8px;
       }
 
-      /*----------------------------------------------
-      Print Styles (for PDF conversion)
-      -----------------------------------------------*/
       @media print {
         /* Hide interactive elements */
         .download-btn,
         .header {
           display: none;
         }
-        /* Reset any animations/transitions */
         * {
           transition: none !important;
           animation: none !important;
         }
-        /* Adjust sections for print-friendly margins */
         .sections {
           padding: 20px;
         }
         .section {
           margin-bottom: 40px;
-          transform: translateY(0);
-          opacity: 1;
         }
       }
 
-      /*----------------------------------------------
-      Mobile Responsiveness
-      -----------------------------------------------*/
       @media (max-width: 768px) {
         .header {
           padding: 15px;
@@ -426,25 +388,6 @@
           min-width: 100%;
         }
       }
-
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
     </style>
   </head>
   <body>
@@ -456,8 +399,8 @@
           <h1>Daniel P. Mailloux</h1>
           <h2>Financial Economist &amp; Strategist</h2>
         </div>
-        <!-- Button just opens existing PDF in new tab -->
-        <button class="download-btn" onclick="window.open('resume.pdf','_blank')">
+        <!-- Button opens resume.pdf in new tab -->
+        <button class="download-btn" onclick="window.open('./resume.pdf','_blank')">
           <svg viewBox="0 0 24 24">
             <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z" />
           </svg>
@@ -694,6 +637,6 @@
         </div>
       </div>
     </div>
-    <!-- Nothing needed below: just a normal link to open existing PDF -->
+    <!-- Nothing else needed below. -->
   </body>
 </html>
