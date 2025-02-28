@@ -2,481 +2,478 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Daniel P. Mailloux - Modern Resume</title>
+    <title>Daniel P. Mailloux - Futuristic, Minimal Resume</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Fonts: Montserrat (modern sans-serif) -->
+
+    <!-- Google Font: Inter -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
+
     <style>
       :root {
-        --primary: #1e3a8a; /* Bold navy blue for a modern edge */
-        --accent: #f59e0b; /* Vibrant amber for sleek highlights */
-        --text-main: #111827; /* Near-black for sharp contrast */
-        --text-secondary: #6b7280; /* Muted gray for subtlety */
-        --bg-page: #ffffff; /* Crisp white page */
-        --bg-body: #e5e7eb; /* Light gray background for depth */
-        --divider: #d1d5db; /* Subtle gray divider */
+        /* Minimal, futuristic color scheme */
+        --bg-body: #141517; /* Subtle dark background */
+        --bg-page: #1c1e21; /* Slightly lighter for the card background */
+        --text-main: #ffffff;
+        --text-secondary: #aaaaaa;
+        --accent: #00c2ff;   /* Crisp aqua accent */
+        --border-color: #2a2c2e;
       }
 
-      /* Base styles */
       body {
         margin: 0;
         padding: 0;
-        background: var(--bg-body);
+        background-color: var(--bg-body);
+        font-family: 'Inter', sans-serif;
         color: var(--text-main);
-        font-family: "Montserrat", sans-serif;
-        line-height: 1.4;
       }
 
-      .resume {
+      /* Container: Letter size with space for printing */
+      .page {
         width: 8.5in;
-        height: 11in; /* Fixed height for single page */
-        margin: 20px auto;
-        padding: 0.6in 0.5in; /* Reduced padding for more content */
+        min-height: 11in;
+        margin: 0 auto;
+        padding: 1in;
         box-sizing: border-box;
         background: var(--bg-page);
         position: relative;
-        overflow: hidden; /* Ensures no overflow */
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
       }
 
-      /* Print settings */
+      /* Print style: revert to white background/black text for clarity */
       @page {
         size: 8.5in 11in;
         margin: 0;
       }
       @media print {
         body {
-          background: none;
+          background: #ffffff !important;
+          color: #000000 !important;
         }
-        .resume {
-          margin: 0;
-          padding: 0.6in 0.5in;
+        .page {
+          background: #ffffff !important;
+          color: #000000 !important;
           box-shadow: none;
           border: none;
         }
+        .profile-pic {
+          border: 2px solid #000000 !important;
+        }
+        .section-heading,
+        .section-title {
+          color: #000000 !important;
+          border-color: #000000 !important;
+        }
+        .job-title {
+          color: #000000 !important;
+        }
+        .company {
+          color: #444444 !important;
+        }
+        .dates {
+          color: #666666 !important;
+        }
       }
 
-      /* Header */
+      /* Header w/ name & photo */
       .header {
-        margin-bottom: 0.3in;
-        padding-bottom: 0.2in;
-        border-bottom: 2px solid var(--accent);
-      }
-      .header h1 {
-        font-size: 24pt;
-        font-weight: 700;
-        color: var(--primary);
-        margin: 0;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      .header h2 {
-        font-size: 11pt;
-        font-weight: 600;
-        color: var(--text-secondary);
-        margin: 4px 0 0;
-      }
-
-      /* Two-column layout */
-      .two-column {
         display: flex;
-        gap: 0.4in;
-        margin-bottom: 0.3in;
-      }
-      .column-left {
-        width: 2in; /* Fixed width for sleek alignment */
-      }
-      .column-right {
-        flex: 1;
-      }
-
-      /* Contact */
-      .contact h3 {
-        font-size: 11pt;
-        font-weight: 600;
-        color: var(--primary);
-        margin: 0 0 6px;
-        padding-bottom: 2px;
-        border-bottom: 1px solid var(--accent);
-      }
-      .contact ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        font-size: 9pt;
-      }
-      .contact li {
-        margin-bottom: 4px;
-        display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 6px;
+        justify-content: center;
+        margin-bottom: 1in;
+        text-align: center;
       }
-      .contact a {
-        color: var(--text-main);
-        text-decoration: none;
+      .profile-pic {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        margin-bottom: 12px;
       }
-      .contact svg {
-        width: 12px;
-        height: 12px;
-        fill: var(--accent);
-      }
-
-      /* Skills */
-      .skills h3 {
-        font-size: 11pt;
-        font-weight: 600;
-        color: var(--primary);
-        margin: 0 0 6px;
-        padding-bottom: 2px;
-        border-bottom: 1px solid var(--accent);
-      }
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        font-size: 9pt;
-      }
-      .skill-category h4 {
-        font-size: 10pt;
-        font-weight: 600;
-        color: var(--text-main);
-        margin: 0 0 2px;
-      }
-      .skill-category ul {
-        list-style: none;
-        padding: 0;
+      .name {
         margin: 0;
+        font-weight: 600;
+        font-size: 26pt;
+      }
+      .title {
+        margin-top: 6px;
+        font-size: 11pt;
+        font-weight: 400;
         color: var(--text-secondary);
       }
-      .skill-category li {
-        margin-bottom: 2px;
+
+      /* Info columns for Contact & Skills */
+      .info-columns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-bottom: 1in;
+      }
+      .column {
+        flex: 1;
+        min-width: 220px;
       }
 
-      /* Section Styling */
-      .section {
-        margin-bottom: 0.3in;
-      }
-      .section h2 {
-        font-size: 12pt;
-        font-weight: 700;
-        color: var(--primary);
-        margin: 0 0 6px;
-        padding-bottom: 2px;
+      /* Section headings */
+      .section-heading {
+        font-size: 14pt;
+        font-weight: 600;
+        color: var(--accent);
         border-bottom: 1px solid var(--accent);
+        padding-bottom: 4px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .section {
+        margin-bottom: 1in;
+      }
+      .section-title {
+        font-size: 14pt;
+        font-weight: 600;
+        color: var(--accent);
+        border-bottom: 1px solid var(--accent);
+        padding-bottom: 4px;
+        margin-bottom: 10px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
       }
 
-      /* Experience */
-      .experience-list {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+      /* Contact */
+      .contact-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
       }
-      .job {
-        padding-left: 8px;
-        border-left: 1px solid var(--divider);
+      .contact-list li {
+        font-size: 10pt;
+        margin-bottom: 6px;
       }
-      .job-title {
-        font-size: 10.5pt;
+      .contact-list a {
+        text-decoration: none;
+        color: var(--text-main);
+      }
+
+      /* Skills */
+      .skill-category {
+        margin-bottom: 12px;
+      }
+      .skill-category h4 {
+        margin: 0;
+        font-size: 10pt;
         font-weight: 600;
         color: var(--text-main);
-        margin: 0;
       }
-      .company-dates {
-        font-size: 9pt;
-        color: var(--text-secondary);
-        margin: 1px 0 0;
-        display: flex;
-        justify-content: space-between;
-      }
-      .job-details ul {
-        list-style: disc;
-        padding-left: 16px;
-        margin: 2px 0 0;
-        font-size: 8.5pt;
+      .skill-category ul {
+        margin: 4px 0 0 16px;
+        padding: 0;
+        font-size: 9.5pt;
         color: var(--text-secondary);
       }
 
-      /* Education */
-      .education-list {
+      /* Common list style for job details, education details, etc. */
+      .list-items {
+        list-style: disc;
+        margin: 6px 0 0 18px;
+        padding: 0;
+        font-size: 9.5pt;
+        color: var(--text-secondary);
+      }
+
+      /* Experience */
+      .experience-group {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 16px;
       }
-      .education-item {
-        padding-left: 8px;
-        border-left: 1px solid var(--divider);
+      .job {
+        font-size: 10pt;
       }
-      .education-title {
-        font-size: 10.5pt;
-        font-weight: 600;
-        color: var(--text-main);
+      .job-title {
         margin: 0;
+        font-weight: 600;
+        font-size: 11pt;
       }
-      .education-institution {
-        font-size: 9pt;
-        color: var(--text-secondary);
-        margin: 1px 0 0;
-      }
-      .education-details {
-        font-size: 8.5pt;
+      .company {
         color: var(--text-secondary);
         margin-top: 2px;
       }
-      .education-details ul {
-        list-style: disc;
-        padding-left: 16px;
-        margin: 2px 0 0;
+      .dates {
+        font-size: 9pt;
+        color: #999;
+        margin-top: 2px;
+      }
+
+      /* Education */
+      .education-group {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .education-item {
+        font-size: 10pt;
+      }
+      .education-title {
+        margin: 0;
+        font-weight: 600;
+        font-size: 11pt;
+        color: var(--text-main);
+      }
+      .education-institution {
+        margin-top: 2px;
+        color: var(--text-secondary);
+      }
+      .education-details {
+        margin-top: 4px;
       }
 
       /* Certifications */
       .certifications-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 columns for compactness */
-        gap: 6px;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
       }
       .certification-item {
-        background: #fafafa;
-        border-radius: 3px;
-        padding: 6px;
+        background: #272a2e;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 8px;
         text-align: center;
       }
       .certification-acronym {
-        font-size: 9pt;
+        font-size: 9.5pt;
         font-weight: 600;
-        color: var(--text-main);
         margin: 0;
+        color: var(--text-main);
       }
       .certification-details {
-        font-size: 8pt;
+        font-size: 9pt;
         color: var(--text-secondary);
-        margin-top: 2px;
+        margin-top: 4px;
+      }
+
+      /* Footer */
+      .footer {
+        position: absolute;
+        bottom: 1in;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 8pt;
+        color: #888;
       }
     </style>
   </head>
   <body>
-    <div class="resume">
+    <div class="page">
       <!-- Header -->
       <div class="header">
-        <h1>Daniel P. Mailloux</h1>
-        <h2>Financial Economist & Strategist</h2>
+        <img class="profile-pic" src="daniel.jpeg" alt="Daniel P. Mailloux" />
+        <h1 class="name">Daniel P. Mailloux</h1>
+        <p class="title">Financial Economist &amp; Strategist</p>
       </div>
 
-      <!-- Two-column: Contact and Skills -->
-      <div class="two-column">
-        <!-- Contact -->
-        <div class="column-left">
-          <div class="contact">
-            <h3>Contact</h3>
+      <!-- Contact & Skills -->
+      <div class="info-columns">
+        <div class="column">
+          <h3 class="section-heading">Contact</h3>
+          <ul class="contact-list">
+            <li><strong>Location:</strong> Wichita, KS</li>
+            <li>
+              <strong>Email:</strong>
+              <a href="mailto:mailloux.daniel@gmail.com">mailloux.daniel@gmail.com</a>
+            </li>
+            <li>
+              <strong>Phone:</strong>
+              <a href="tel:6204740124">(620) 474-0124</a>
+            </li>
+          </ul>
+        </div>
+        <div class="column">
+          <h3 class="section-heading">Skills</h3>
+          <div class="skill-category">
+            <h4>Interpersonal</h4>
             <ul>
-              <li>
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"
-                  />
-                </svg>
-                Wichita, KS
-              </li>
-              <li>
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
-                  />
-                </svg>
-                <a href="mailto:mailloux.daniel@gmail.com">mailloux.daniel@gmail.com</a>
-              </li>
-              <li>
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"
-                  />
-                </svg>
-                <a href="tel:6204740124">(620) 474-0124</a>
-              </li>
+              <li>Client Relations &amp; Support</li>
+              <li>Effective Communication</li>
+              <li>Active Listening</li>
             </ul>
           </div>
-        </div>
-        <!-- Skills -->
-        <div class="column-right">
-          <div class="skills">
-            <h3>Skills</h3>
-            <div class="skills-grid">
-              <div class="skill-category">
-                <h4>Interpersonal</h4>
-                <ul>
-                  <li>Client Relations</li>
-                  <li>Communication</li>
-                  <li>Active Listening</li>
-                </ul>
-              </div>
-              <div class="skill-category">
-                <h4>Professional</h4>
-                <ul>
-                  <li>Strategic Planning</li>
-                  <li>Team Leadership</li>
-                  <li>Process Optimization</li>
-                  <li>Stakeholder Engagement</li>
-                  <li>Reliability</li>
-                  <li>Integrity</li>
-                </ul>
-              </div>
-              <div class="skill-category">
-                <h4>Technical</h4>
-                <ul>
-                  <li>Microsoft Office</li>
-                  <li>CRM Systems</li>
-                  <li>Financial Software</li>
-                  <li>Computer Proficiency</li>
-                </ul>
-              </div>
-              <div class="skill-category">
-                <h4>Financial</h4>
-                <ul>
-                  <li>Accounts Management</li>
-                  <li>Ledger Reconciliation</li>
-                  <li>ERISA/IRS Compliance</li>
-                  <li>Attention to Detail</li>
-                </ul>
-              </div>
-            </div>
+          <div class="skill-category">
+            <h4>Professional</h4>
+            <ul>
+              <li>Strategic Planning</li>
+              <li>Team Leadership</li>
+              <li>Process Optimization</li>
+              <li>Stakeholder Engagement</li>
+              <li>Reliability &amp; Responsibility</li>
+              <li>Confidentiality &amp; Integrity</li>
+            </ul>
+          </div>
+          <div class="skill-category">
+            <h4>Technical</h4>
+            <ul>
+              <li>Microsoft Office Suite</li>
+              <li>CRM Systems</li>
+              <li>Financial Software Apps</li>
+              <li>Basic &amp; Advanced Computer Proficiency</li>
+            </ul>
+          </div>
+          <div class="skill-category">
+            <h4>Financial</h4>
+            <ul>
+              <li>Accounts Payable/Receivable</li>
+              <li>Ledger Reconciliation</li>
+              <li>ERISA/IRS Compliance</li>
+              <li>Accuracy &amp; Attention to Detail</li>
+            </ul>
           </div>
         </div>
       </div>
 
       <!-- Experience -->
       <div class="section">
-        <h2>Experience</h2>
-        <div class="experience-list">
+        <h2 class="section-title">Experience</h2>
+        <div class="experience-group">
           <div class="job">
             <p class="job-title">Personal Financial Manager</p>
-            <div class="company-dates">
-              <span>Self-Employed</span>
-              <span>March 2020 – Present</span>
-            </div>
+            <p class="company">SELF-EMPLOYED</p>
+            <p class="dates">March 2020 - Present</p>
             <div class="job-details">
-              <ul>
-                <li>Managed portfolio with 40% annual growth.</li>
-                <li>Developed financial strategies using economic forecasts.</li>
-                <li>Maintained accurate payables/receivables records.</li>
+              <ul class="list-items">
+                <li>Manage personal investment portfolio with 40% annual growth.</li>
+                <li>Develop comprehensive financial strategies using economic forecasts.</li>
+                <li>Maintain accurate financial records (payables &amp; receivables).</li>
               </ul>
             </div>
           </div>
           <div class="job">
             <p class="job-title">Universal Banker</p>
-            <div class="company-dates">
-              <span>Fidelity Bank</span>
-              <span>April 2024 – January 2025</span>
-            </div>
+            <p class="company">FIDELITY BANK</p>
+            <p class="dates">April 2024 - January 2025</p>
             <div class="job-details">
-              <ul>
+              <ul class="list-items">
                 <li>Processed 100+ daily transactions with 100% accuracy.</li>
-                <li>Improved account accuracy by 40% via discrepancy resolution.</li>
-                <li>Streamlined financial processes.</li>
+                <li>Resolved discrepancies, boosting account accuracy by 40%.</li>
+                <li>Streamlined financial processes for consistent, efficient outcomes.</li>
               </ul>
             </div>
           </div>
           <div class="job">
             <p class="job-title">Account Administrator</p>
-            <div class="company-dates">
-              <span>INTRUST Bank – NestEggU</span>
-              <span>June 2022 – February 2024</span>
-            </div>
+            <p class="company">INTRUST BANK – NESTEGGU</p>
+            <p class="dates">June 2022 - February 2024</p>
             <div class="job-details">
-              <ul>
-                <li>Managed 10+ retirement accounts worth over $3B.</li>
-                <li>Verified 5,000+ accounts for compliance.</li>
-                <li>Ensured regulatory compliance in receivable operations.</li>
+              <ul class="list-items">
+                <li>Managed 10+ retirement accounts totaling over $3B in assets.</li>
+                <li>Verified 5,000+ participant accounts for compliance.</li>
+                <li>Oversaw receivable operations and ensured regulatory compliance.</li>
               </ul>
             </div>
           </div>
           <div class="job">
             <p class="job-title">Universal Banker I</p>
-            <div class="company-dates">
-              <span>Equity Bank</span>
-              <span>September 2021 – June 2022</span>
-            </div>
+            <p class="company">EQUITY BANK</p>
+            <p class="dates">September 2021 - June 2022</p>
             <div class="job-details">
-              <ul>
-                <li>Grew assets by $5M through 15+ new accounts.</li>
-                <li>Enhanced customer relations with strategic initiatives.</li>
-                <li>Efficiently handled transactions; promoted quickly.</li>
+              <ul class="list-items">
+                <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
+                <li>Enhanced customer relations with strategic support initiatives.</li>
+                <li>Handled financial transactions quickly and accurately.</li>
+                <li>Promoted rapidly by turning challenges into wins.</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Education & Certifications (combined for space) -->
-      <div class="two-column">
-        <div class="column-left">
-          <div class="section">
-            <h2>Education</h2>
-            <div class="education-list">
-              <div class="education-item">
-                <p class="education-title">Wichita State University</p>
-                <p class="education-institution">BBA in Economics, 2023</p>
-                <div class="education-details">
-                  <ul>
-                    <li>Business Senator, SGA</li>
-                    <li>Dean’s List</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="education-item">
-                <p class="education-title">Hutchinson Community College</p>
-                <p class="education-institution">AS in Economics, 2020</p>
-                <div class="education-details">
-                  <ul>
-                    <li>Dean’s List</li>
-                    <li>Dean’s Honor Roll</li>
-                  </ul>
-                </div>
-              </div>
+      <!-- Education -->
+      <div class="section">
+        <h2 class="section-title">Education</h2>
+        <div class="education-group">
+          <div class="education-item">
+            <p class="education-title">Wichita State University</p>
+            <p class="education-institution">
+              Bachelor of Business Administration in Economics
+            </p>
+            <div class="education-details">
+              <p style="margin: 4px 0; font-size:9.5pt; color:var(--text-secondary);">
+                Wichita, KS – Graduation Date: 2023
+              </p>
+              <ul class="list-items">
+                <li>Business Senator – Student Government Association</li>
+                <li>Dean’s List</li>
+              </ul>
+            </div>
+          </div>
+          <div class="education-item">
+            <p class="education-title">Hutchinson Community College</p>
+            <p class="education-institution">Associate of Science in Economics</p>
+            <div class="education-details">
+              <p style="margin: 4px 0; font-size:9.5pt; color:var(--text-secondary);">
+                Hutchinson, KS – Graduation Date: 2020
+              </p>
+              <ul class="list-items">
+                <li>Dean’s List</li>
+                <li>Dean’s Honor Roll</li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="column-right">
-          <div class="section">
-            <h2>Certifications</h2>
-            <div class="certifications-grid">
-              <div class="certification-item">
-                <p class="certification-acronym">HMDA</p>
-                <p class="certification-details">Mortgage Disclosure</p>
-              </div>
-              <div class="certification-item">
-                <p class="certification-acronym">ERISA</p>
-                <p class="certification-details">Retirement Security</p>
-              </div>
-              <div class="certification-item">
-                <p class="certification-acronym">IRS</p>
-                <p class="certification-details">Revenue Service</p>
-              </div>
-              <div class="certification-item">
-                <p class="certification-acronym">BSA</p>
-                <p class="certification-details">Bank Secrecy</p>
-              </div>
-              <div class="certification-item">
-                <p class="certification-acronym">CIP</p>
-                <p class="certification-details">Customer ID</p>
-              </div>
-              <div class="certification-item">
-                <p class="certification-acronym">UDAAP</p>
-                <p class="certification-details">Fair Practices</p>
-              </div>
-              <div class="certification-item">
-                <p class="certification-acronym">Reg Z</p>
-                <p class="certification-details">Truth in Lending</p>
-              </div>
-              <div class="certification-item">
-                <p class="certification-acronym">Reg DD</p>
-                <p class="certification-details">Truth in Savings</p>
-              </div>
-            </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="section">
+        <h2 class="section-title">Certifications &amp; Compliance</h2>
+        <div class="certifications-grid">
+          <div class="certification-item">
+            <p class="certification-acronym">HMDA</p>
+            <p class="certification-details">Home Mortgage Disclosure Act</p>
+          </div>
+          <div class="certification-item">
+            <p class="certification-acronym">ERISA</p>
+            <p class="certification-details">
+              Employee Retirement Income Security Act
+            </p>
+          </div>
+          <div class="certification-item">
+            <p class="certification-acronym">IRS</p>
+            <p class="certification-details">Internal Revenue Service</p>
+          </div>
+          <div class="certification-item">
+            <p class="certification-acronym">BSA</p>
+            <p class="certification-details">Bank Secrecy Act</p>
+          </div>
+          <div class="certification-item">
+            <p class="certification-acronym">CIP</p>
+            <p class="certification-details">Customer Identification Program</p>
+          </div>
+          <div class="certification-item">
+            <p class="certification-acronym">UDAAP</p>
+            <p class="certification-details">
+              Unfair, Deceptive, or Abusive Acts &amp; Practices
+            </p>
+          </div>
+          <div class="certification-item">
+            <p class="certification-acronym">Reg Z</p>
+            <p class="certification-details">Truth in Lending</p>
+          </div>
+          <div class="certification-item">
+            <p class="certification-acronym">Reg DD</p>
+            <p class="certification-details">Truth in Savings</p>
           </div>
         </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        © 2023 – Daniel P. Mailloux. All rights reserved.
       </div>
     </div>
   </body>
