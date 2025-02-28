@@ -491,7 +491,7 @@
       // Configure html2pdf
       const opt = {
         margin:       0.3,
-        filename:     'Daniel_P_Mailloux_Resume.pdf',
+        filename:     'Daniel_P_Mailloux_Resume.page',
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2 },
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
