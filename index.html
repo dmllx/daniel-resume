@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <title>Daniel P. Mailloux - Resume</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
+
     <style>
       :root {
         --primary: #007aff;
@@ -122,7 +125,7 @@
       .sections {
         padding: 60px 20px;
         background: transparent;
-        margin-top: 80px;
+        margin-top: 80px; /* Account for fixed header height */
       }
       .section {
         margin-bottom: 80px;
@@ -453,7 +456,8 @@
           <h1>Daniel P. Mailloux</h1>
           <h2>Financial Economist &amp; Strategist</h2>
         </div>
-        <button class="download-btn" onclick="window.open('resume.pdf')">
+        <!-- Button calls generatePDF() -->
+        <button class="download-btn" onclick="generatePDF()">
           <svg viewBox="0 0 24 24">
             <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z" />
           </svg>
@@ -497,7 +501,7 @@
           </div>
         </div>
 
-        <!-- Updated Skills Section -->
+        <!-- Skills Section -->
         <div class="section skills" id="skills">
           <h2>Skills</h2>
           <div class="skills-grid">
@@ -562,16 +566,9 @@
                 </p>
                 <div class="job-details">
                   <ul>
-                    <li>
-                      Manage personal investment portfolio with 40% annual growth.
-                    </li>
-                    <li>
-                      Develop comprehensive financial planning strategies using economic
-                      forecasts.
-                    </li>
-                    <li>
-                      Maintain accurate financial records for payables and receivables.
-                    </li>
+                    <li>Manage personal investment portfolio with 40% annual growth.</li>
+                    <li>Develop comprehensive financial planning strategies using economic forecasts.</li>
+                    <li>Maintain accurate financial records for payables and receivables.</li>
                   </ul>
                 </div>
               </div>
@@ -583,15 +580,9 @@
                 </p>
                 <div class="job-details">
                   <ul>
-                    <li>
-                      Processed 100+ daily transactions with 100% accuracy.
-                    </li>
-                    <li>
-                      Resolved discrepancies to improve account accuracy by 40%.
-                    </li>
-                    <li>
-                      Streamlined financial processes for consistent, accurate processing.
-                    </li>
+                    <li>Processed 100+ daily transactions with 100% accuracy.</li>
+                    <li>Resolved discrepancies to improve account accuracy by 40%.</li>
+                    <li>Streamlined financial processes for consistent, accurate processing.</li>
                   </ul>
                 </div>
               </div>
@@ -603,15 +594,9 @@
                 </p>
                 <div class="job-details">
                   <ul>
-                    <li>
-                      Managed 10+ retirement accounts totaling over $3B.
-                    </li>
-                    <li>
-                      Verified 5,000+ participant accounts for compliance.
-                    </li>
-                    <li>
-                      Oversaw receivable operations and ensured regulatory compliance.
-                    </li>
+                    <li>Managed 10+ retirement accounts totaling over $3B.</li>
+                    <li>Verified 5,000+ participant accounts for compliance.</li>
+                    <li>Oversaw receivable operations and ensured regulatory compliance.</li>
                   </ul>
                 </div>
               </div>
@@ -623,18 +608,10 @@
                 </p>
                 <div class="job-details">
                   <ul>
-                    <li>
-                      Increased managed assets by $5M via 15+ new checking accounts.
-                    </li>
-                    <li>
-                      Enhanced customer relations with strategic support initiatives.
-                    </li>
-                    <li>
-                      Handled financial transactions efficiently.
-                    </li>
-                    <li>
-                      Promoted quickly by turning challenges into wins.
-                    </li>
+                    <li>Increased managed assets by $5M via 15+ new checking accounts.</li>
+                    <li>Enhanced customer relations with strategic support initiatives.</li>
+                    <li>Handled financial transactions efficiently.</li>
+                    <li>Promoted quickly by turning challenges into wins.</li>
                   </ul>
                 </div>
               </div>
@@ -681,21 +658,15 @@
           <div class="certifications-grid">
             <div class="certification-item">
               <div class="certification-acronym">HMDA</div>
-              <div class="certification-details">
-                Home Mortgage Disclosure Act
-              </div>
+              <div class="certification-details">Home Mortgage Disclosure Act</div>
             </div>
             <div class="certification-item">
               <div class="certification-acronym">ERISA</div>
-              <div class="certification-details">
-                Employee Retirement Income Security Act
-              </div>
+              <div class="certification-details">Employee Retirement Income Security Act</div>
             </div>
             <div class="certification-item">
               <div class="certification-acronym">IRS</div>
-              <div class="certification-details">
-                Internal Revenue Service
-              </div>
+              <div class="certification-details">Internal Revenue Service</div>
             </div>
             <div class="certification-item">
               <div class="certification-acronym">BSA</div>
@@ -703,9 +674,7 @@
             </div>
             <div class="certification-item">
               <div class="certification-acronym">CIP</div>
-              <div class="certification-details">
-                Customer Identification Program
-              </div>
+              <div class="certification-details">Customer Identification Program</div>
             </div>
             <div class="certification-item">
               <div class="certification-acronym">UDAAP</div>
@@ -727,8 +696,26 @@
     </div>
 
     <!-- Scripts -->
+    <!-- html2pdf library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <!-- Your custom JS -->
     <script>
-      // Smooth Scrolling
+      // 1. Generate PDF function
+      function generatePDF() {
+        const element = document.querySelector('.wrapper');
+        html2pdf()
+          .set({
+            margin: 0.3,
+            filename: 'resume.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+          })
+          .from(element)
+          .save();
+      }
+
+      // 2. Smooth Scrolling (can conflict with normal scrolling)
       let scrollTarget = 0;
       let currentScroll = window.scrollY;
       function smoothScroll() {
@@ -739,7 +726,7 @@
         }
       }
       window.addEventListener(
-        "wheel",
+        'wheel',
         (e) => {
           e.preventDefault();
           scrollTarget += e.deltaY;
@@ -755,7 +742,7 @@
         { passive: false }
       );
       window.addEventListener(
-        "touchmove",
+        'touchmove',
         (e) => {
           e.preventDefault();
           scrollTarget = window.scrollY - e.touches[0].clientY * 2;
@@ -771,32 +758,26 @@
         { passive: false }
       );
 
-      // Gradient Hover Effects for skill cards
+      // 3. Gradient Hover Effects
       document
         .querySelectorAll(
-          ".skill-category, .job, .education-item, .certification-item"
+          '.skill-category, .job, .education-item, .certification-item'
         )
         .forEach((el) => {
-          el.addEventListener("mousemove", (e) => {
+          el.addEventListener('mousemove', (e) => {
             const rect = el.getBoundingClientRect();
-            el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-            el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+            el.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
           });
         });
 
-      // Section Fade-In + Progress Bar Animations
-      const sectionElements = document.querySelectorAll(".section");
+      // 4. Section Fade-In Observer
+      const sectionElements = document.querySelectorAll('.section');
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-              if (entry.target.id === "skills") {
-                const progressBars = entry.target.querySelectorAll(".progress-fill");
-                progressBars.forEach((bar) => {
-                  bar.classList.add("animate");
-                });
-              }
+              entry.target.classList.add('visible');
             }
           });
         },
@@ -804,51 +785,50 @@
       );
       sectionElements.forEach((section) => observer.observe(section));
 
-      // Horizontal Timeline Drag
-      const timelineContainer = document.querySelector(".timeline-container");
+      // 5. Horizontal Timeline Drag
+      const timelineContainer = document.querySelector('.timeline-container');
       let isDragging = false;
       let startX;
       let scrollLeft;
-      timelineContainer.addEventListener("mousedown", (e) => {
+      timelineContainer.addEventListener('mousedown', (e) => {
         isDragging = true;
         startX = e.pageX - timelineContainer.offsetLeft;
         scrollLeft = timelineContainer.scrollLeft;
-        timelineContainer.style.cursor = "grabbing";
+        timelineContainer.style.cursor = 'grabbing';
       });
-      timelineContainer.addEventListener("mouseleave", () => {
+      timelineContainer.addEventListener('mouseleave', () => {
         isDragging = false;
-        timelineContainer.style.cursor = "grab";
+        timelineContainer.style.cursor = 'grab';
       });
-      timelineContainer.addEventListener("mouseup", () => {
+      timelineContainer.addEventListener('mouseup', () => {
         isDragging = false;
-        timelineContainer.style.cursor = "grab";
+        timelineContainer.style.cursor = 'grab';
       });
-      timelineContainer.addEventListener("mousemove", (e) => {
+      timelineContainer.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
         e.preventDefault();
         const x = e.pageX - timelineContainer.offsetLeft;
         const walk = (x - startX) * 2;
         timelineContainer.scrollLeft = scrollLeft - walk;
       });
-      timelineContainer.addEventListener("touchstart", (e) => {
+      timelineContainer.addEventListener('touchstart', (e) => {
         isDragging = true;
         startX = e.touches[0].pageX - timelineContainer.offsetLeft;
         scrollLeft = timelineContainer.scrollLeft;
       });
-      timelineContainer.addEventListener("touchend", () => {
+      timelineContainer.addEventListener('touchend', () => {
         isDragging = false;
       });
-      timelineContainer.addEventListener("touchmove", (e) => {
+      timelineContainer.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
         const x = e.touches[0].pageX - timelineContainer.offsetLeft;
         const walk = (x - startX) * 2;
         timelineContainer.scrollLeft = scrollLeft - walk;
       });
       // Let the timeline handle its own wheel events
-      timelineContainer.addEventListener("wheel", function (e) {
+      timelineContainer.addEventListener('wheel', function (e) {
         e.stopPropagation();
       });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   </body>
 </html>
