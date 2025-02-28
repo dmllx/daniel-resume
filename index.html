@@ -23,7 +23,7 @@
           135deg,
           rgba(30, 30, 30, 0.9),
           rgba(0, 0, 0, 0.9)
-        ); /* Dark-to-black gradient background */
+        );
         --dark-neon-bg: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
       }
 
@@ -456,8 +456,8 @@
           <h1>Daniel P. Mailloux</h1>
           <h2>Financial Economist &amp; Strategist</h2>
         </div>
-        <!-- Button calls generatePDF() -->
-        <button class="download-btn" onclick="generatePDF()">
+        <!-- Button just opens existing PDF in new tab -->
+        <button class="download-btn" onclick="window.open('resume.pdf','_blank')">
           <svg viewBox="0 0 24 24">
             <path d="M5 20h14v-2H5v2zm7-18L5.33 11h4.17v6h4v-6h4.17L12 2z" />
           </svg>
@@ -694,141 +694,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Scripts -->
-    <!-- html2pdf library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-    <!-- Your custom JS -->
-    <script>
-      // 1. Generate PDF function
-      function generatePDF() {
-        const element = document.querySelector('.wrapper');
-        html2pdf()
-          .set({
-            margin: 0.3,
-            filename: 'resume.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-          })
-          .from(element)
-          .save();
-      }
-
-      // 2. Smooth Scrolling (can conflict with normal scrolling)
-      let scrollTarget = 0;
-      let currentScroll = window.scrollY;
-      function smoothScroll() {
-        currentScroll += (scrollTarget - currentScroll) * 0.1;
-        window.scrollTo(0, currentScroll);
-        if (Math.abs(scrollTarget - currentScroll) > 0.5) {
-          requestAnimationFrame(smoothScroll);
-        }
-      }
-      window.addEventListener(
-        'wheel',
-        (e) => {
-          e.preventDefault();
-          scrollTarget += e.deltaY;
-          scrollTarget = Math.max(
-            0,
-            Math.min(
-              scrollTarget,
-              document.documentElement.scrollHeight - window.innerHeight
-            )
-          );
-          requestAnimationFrame(smoothScroll);
-        },
-        { passive: false }
-      );
-      window.addEventListener(
-        'touchmove',
-        (e) => {
-          e.preventDefault();
-          scrollTarget = window.scrollY - e.touches[0].clientY * 2;
-          scrollTarget = Math.max(
-            0,
-            Math.min(
-              scrollTarget,
-              document.documentElement.scrollHeight - window.innerHeight
-            )
-          );
-          requestAnimationFrame(smoothScroll);
-        },
-        { passive: false }
-      );
-
-      // 3. Gradient Hover Effects
-      document
-        .querySelectorAll(
-          '.skill-category, .job, .education-item, .certification-item'
-        )
-        .forEach((el) => {
-          el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            el.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-            el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-          });
-        });
-
-      // 4. Section Fade-In Observer
-      const sectionElements = document.querySelectorAll('.section');
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-            }
-          });
-        },
-        { threshold: 0.2 }
-      );
-      sectionElements.forEach((section) => observer.observe(section));
-
-      // 5. Horizontal Timeline Drag
-      const timelineContainer = document.querySelector('.timeline-container');
-      let isDragging = false;
-      let startX;
-      let scrollLeft;
-      timelineContainer.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.pageX - timelineContainer.offsetLeft;
-        scrollLeft = timelineContainer.scrollLeft;
-        timelineContainer.style.cursor = 'grabbing';
-      });
-      timelineContainer.addEventListener('mouseleave', () => {
-        isDragging = false;
-        timelineContainer.style.cursor = 'grab';
-      });
-      timelineContainer.addEventListener('mouseup', () => {
-        isDragging = false;
-        timelineContainer.style.cursor = 'grab';
-      });
-      timelineContainer.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX - timelineContainer.offsetLeft;
-        const walk = (x - startX) * 2;
-        timelineContainer.scrollLeft = scrollLeft - walk;
-      });
-      timelineContainer.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        startX = e.touches[0].pageX - timelineContainer.offsetLeft;
-        scrollLeft = timelineContainer.scrollLeft;
-      });
-      timelineContainer.addEventListener('touchend', () => {
-        isDragging = false;
-      });
-      timelineContainer.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const x = e.touches[0].pageX - timelineContainer.offsetLeft;
-        const walk = (x - startX) * 2;
-        timelineContainer.scrollLeft = scrollLeft - walk;
-      });
-      // Let the timeline handle its own wheel events
-      timelineContainer.addEventListener('wheel', function (e) {
-        e.stopPropagation();
-      });
-    </script>
+    <!-- Nothing needed below: just a normal link to open existing PDF -->
   </body>
 </html>
